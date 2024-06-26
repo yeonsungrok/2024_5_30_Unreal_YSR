@@ -12,7 +12,8 @@ public:
 	bool End();
 
 private:
-	Creature* _boss;
-	vector<Creature*> _players;
+	//Creature* _boss;
+	shared_ptr<Creature> _boss;
+	vector<shared_ptr<Creature>> _players;
 };
 

@@ -2,29 +2,30 @@
 #include "HopGoblin.h"
 
 HopGoblin::HopGoblin()
-: Monster("Hop", 50000, 30)
+: Monster("Hop", 50000, 30),
+_aggroSystem(make_shared<AggroSystem>())
 {
-	_aggroSystem = new AggroSystem();
 }
 
 HopGoblin::~HopGoblin()
 {
-	delete _aggroSystem;
+	//delete _aggroSystem;
 }
 
 void HopGoblin::Attack_Hop()
 {
-	vector<Creature*> players_for_attack = _aggroSystem->Pop(_attackRange);
+	shared_ptr<vector<shared_ptr<Creature>>> players_for_attack = _aggroSystem->Pop(_attackRange);
 
-	for (auto player : players_for_attack)
+	for (auto player : *players_for_attack)
 	{
-		player->TakeDamage(_atk);
+		player->TakeDamage(_atk, shared_from_this());
 	}
 }
 
-void HopGoblin::TakeDamage(int amount, Creature* attacker)
+void HopGoblin::TakeDamage(int amount, shared_ptr<Creature> attacker)
 {
-	Creature::TakeDamage(amount, attacker);
+	//Creature::TakeDamage(amount, attacker);
+	Monster::TakeDamage(amount, attacker);
 
 	_aggroSystem->Push(attacker, amount);
 }

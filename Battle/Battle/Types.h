@@ -2,7 +2,7 @@
 
 struct AggroInfo
 {
-	Creature* player;
+	shared_ptr<Creature> player;
 	int damageAmount;
 
 	bool operator<(const AggroInfo& info) const // 함수 뒤에 오는 const

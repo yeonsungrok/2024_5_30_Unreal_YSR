@@ -1,5 +1,5 @@
 #pragma once
-class Creature
+class Creature : public enable_shared_from_this<Creature>
 {
 public:
 	Creature(string name, int hp, int atk);
@@ -8,12 +8,12 @@ public:
 	void Init();
 
 	void PrintInfo();
-	void PreAttack(Creature* other);
+	//void PreAttack(Creature* other);
 	void PreAttack(shared_ptr<Creature> other);
-	virtual void Attack(Creature* other) abstract;
+	//virtual void Attack(Creature* other) abstract;
 	virtual void Attack(shared_ptr<Creature> other) abstract;
 
-	virtual void TakeDamage(int amount, Creature* attacker = nullptr);
+	virtual void TakeDamage(int amount, shared_ptr<Creature> attacker = nullptr);
 
 	bool IsDead();
 

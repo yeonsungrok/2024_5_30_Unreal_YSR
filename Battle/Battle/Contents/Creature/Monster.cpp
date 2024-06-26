@@ -10,16 +10,17 @@ Monster::~Monster()
 {
 }
 
-void Monster::Attack(Creature* other)
-{
-	this->Creature::PreAttack(other);
-
-	other->TakeDamage(_atk, this);
-}
+//void Monster::Attack(Creature* other)
+//{
+//	this->Creature::PreAttack(other);
+//
+//	other->TakeDamage(_atk, this);
+//}
 
 void Monster::Attack(shared_ptr<Creature> other)
 {
 	this->Creature::PreAttack(other);
 
-	other->TakeDamage(_atk, this);
+	auto self_shared = shared_from_this();
+	other->TakeDamage(_atk, self_shared);
 }

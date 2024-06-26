@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "AggroSystem.h"
 
-void AggroSystem::Push(Creature* attacker, int damage)
+void AggroSystem::Push(shared_ptr<Creature> attacker, int damage)
 {
 	// 방금 날 때린 얘가 table에 이미 존재한다.
 	auto iter = std::find_if(_aggroTable.begin(), _aggroTable.end(), [attacker](const AggroInfo info) ->bool
@@ -26,9 +26,9 @@ void AggroSystem::Push(Creature* attacker, int damage)
 	}
 }
 
-vector<Creature*> AggroSystem::Pop(int count)
+shared_ptr<vector<shared_ptr<Creature>>> AggroSystem::Pop(int count)
 {
-	vector<Creature*> result;
+	auto result = make_shared<vector<shared_ptr<Creature>>>(); //result;
 
 	// 죽은 player _aggroTable에서 삭제
 	auto removeIter = std::remove_if(_aggroTable.begin(), _aggroTable.end(), [](const AggroInfo& info)-> bool 
@@ -55,8 +55,8 @@ vector<Creature*> AggroSystem::Pop(int count)
 	// 현재 _aggroTable.size() >= count
 	for (int i = 0; i < count; i++)
 	{
-		Creature* attacker = _aggroTable[i].player;
-		result.push_back(attacker);
+		shared_ptr<Creature> attacker = _aggroTable[i].player;
+		result->push_back(attacker);
 	}
 
 	return result;

@@ -10,20 +10,20 @@ Knight::~Knight()
 {
 }
 
-void Knight::Attack(Creature* other)
-{
-	this->Creature::PreAttack(other);
-	float ratio = (float)_curHp / (float)_maxHp;
-
-	if (ratio < 0.5f)
-	{
-		other->TakeDamage(_atk * 2, this);
-	}
-	else
-	{
-		other->TakeDamage(_atk, this);
-	}
-}
+//void Knight::Attack(Creature* other)
+//{
+//	this->Creature::PreAttack(other);
+//	float ratio = (float)_curHp / (float)_maxHp;
+//
+//	if (ratio < 0.5f)
+//	{
+//		other->TakeDamage(_atk * 2, this);
+//	}
+//	else
+//	{
+//		other->TakeDamage(_atk, this);
+//	}
+//}
 
 void Knight::Attack(shared_ptr<Creature> other)
 {
@@ -32,10 +32,10 @@ void Knight::Attack(shared_ptr<Creature> other)
 
 	if (ratio < 0.5f)
 	{
-		other->TakeDamage(_atk * 2, this);
+		other->TakeDamage(_atk * 2, shared_from_this());
 	}
 	else
 	{
-		other->TakeDamage(_atk, this);
+		other->TakeDamage(_atk, shared_from_this());
 	}
 }

@@ -12,12 +12,24 @@ Player::~Player()
 {
 }
 
-void Player::MultiAttack(vector<Creature*> arr)
+//void Player::MultiAttack(vector<Creature*> arr)
+//{
+//	for (int i = 0; i < arr.size(); i++)
+//	{
+//		this->Attack(arr[i]);
+//	}
+//}
+
+
+void Player::MultiAttack(shared_ptr<vector<shared_ptr<Creature>>> arr)
 {
-	for (int i = 0; i < arr.size(); i++)
+	for (int i = 0; i < arr->size(); i++)
 	{
-		this->Attack(arr[i]);
+		
+		this->Attack((*arr)[i]);
+
 	}
+
 }
 
 void Player::GainExp(int exp)

@@ -7,7 +7,7 @@
 
 int main()
 {
-	shared_ptr<World_1> world = make_shared<World_1>();
+	shared_ptr<World_3> world = make_shared<World_3>();
 
 	while (true)
 	{
