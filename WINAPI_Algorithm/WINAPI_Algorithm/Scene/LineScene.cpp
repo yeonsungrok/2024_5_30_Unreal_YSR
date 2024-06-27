@@ -19,7 +19,12 @@ void LineScene::Update()
 	_line2->_end = mousePos;
 
 	//내적 투영관련
-	/*_line3->_end = _line2->_end;*/
+	
+	// line2 방향과 크기구하기 = 끝점(x,y) - 시작점(x,y)
+	/*Vector2 line2Vector = _line2->_end - _line2->_start;
+
+	Vector2 line3Vector = _line3->_end - _line3->_start;
+	float line3Length = line3Vector.Length();*/
 
 
 

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Rect.h"
 
-#include "Vector2.h"
+
 
 #define GREEN_COLOR  0
 #define RED_COLOR  1
@@ -60,7 +60,6 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 
 bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
 {
-
 	if (this->Right() > other->Left() &&
 		this->Left() < other->Right() &&
 		this->Bottom() > other->Top() &&

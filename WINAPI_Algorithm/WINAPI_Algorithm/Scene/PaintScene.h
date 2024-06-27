@@ -1,16 +1,15 @@
 #pragma once
-class LineScene : public Scene
+class PaintScene : public Scene
 {
 public:
-	LineScene();
-	~LineScene();
-	// Scene을(를) 통해 상속됨
+	PaintScene();
+	~PaintScene();
+
 	void Update() override;
 	void Render(HDC hdc) override;
 
 private:
-	shared_ptr<Line> _line1;
-	shared_ptr<Line> _line2;
-	shared_ptr<Line> _line3;
+	shared_ptr<RectCollider> _rect;
+	shared_ptr<CircleCollider> _circle;
 };
 
