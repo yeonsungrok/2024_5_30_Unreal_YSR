@@ -11,7 +11,7 @@ HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
-
+Vector2 mousePos;
 shared_ptr <Program> program;
 
 
@@ -166,6 +166,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         program->Update();
         InvalidateRect(hWnd, nullptr, true); // WM_Paint 메시지와 관련된 애
     }
+        break;
+
+    case WM_MOUSEMOVE:
+    {
+        mousePos._x = static_cast<float>(LOWORD(lParam));
+        mousePos._y = static_cast<float>(HIWORD(lParam));
+
+    }
+        break;
 
     case WM_PAINT:
         {

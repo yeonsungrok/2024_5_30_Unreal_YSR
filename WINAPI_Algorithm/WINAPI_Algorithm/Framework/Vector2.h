@@ -89,6 +89,10 @@ public:
 
 
 	float Length() const;
+	float Distance(Vector2 other) const;
+
+	float Angle() const;
+	
 
 	void Nomalize();
 

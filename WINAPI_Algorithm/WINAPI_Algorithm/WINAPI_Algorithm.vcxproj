@@ -147,6 +147,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Line.h" />
+    <ClInclude Include="Scene\LineScene.h" />
+    <ClInclude Include="Scene\CollisionScene.h" />
     <ClInclude Include="Framework\Circle.h" />
     <ClInclude Include="Framework\Rect.h" />
     <ClInclude Include="Scene\PaintScene.h" />
@@ -156,9 +159,13 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Vector2.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="WINAPI_Algorithm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Line.cpp" />
+    <ClCompile Include="Scene\LineScene.cpp" />
+    <ClCompile Include="Scene\CollisionScene.cpp" />
     <ClCompile Include="Framework\Circle.cpp" />
     <ClCompile Include="Framework\Rect.cpp" />
     <ClCompile Include="Scene\PaintScene.cpp" />

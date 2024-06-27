@@ -3,18 +3,35 @@
 
 #include "Vector2.h"
 
-Rect::Rect(Vector2 center, Vector2 halfSize)
+#define GREEN_COLOR  0
+#define RED_COLOR  1
+using ColorNum = int;
+
+RectCollider::RectCollider(Vector2 center, Vector2 halfSize)
 : _center(center), _halfSize(halfSize)
 {
+	_pens.push_back(CreatePen(PS_SOLID, 3, GREEN));
+	_pens.push_back(CreatePen(PS_SOLID, 3, RED));
+
+	SetColor(GREEN_COLOR);
 }
 
-void Rect::Update()
+RectCollider::~RectCollider()
+{
+	for (auto pen : _pens)
+		DeleteObject(pen);
+
+}
+
+void RectCollider::Update()
 {
 
 }
 
-void Rect::Render(HDC hdc)
+void RectCollider::Render(HDC hdc)
 {
+	SelectObject(hdc, _curPen);
+
 	int left = _center._x - _halfSize._x;
 	int right = _center._x + _halfSize._x;
 	int top = _center._y - _halfSize._y;
@@ -22,4 +39,39 @@ void Rect::Render(HDC hdc)
 
 	Rectangle(hdc, left, top, right, bottom);
 
+}
+
+bool RectCollider::IsCollision(Vector2 point)
+{
+	
+	if (point._x < Right() && point._x > Left())
+	{
+		if(point._y < Bottom() && point._y > Top())
+			return true;
+	}
+
+	return false;
+}
+
+bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
+{
+	return other->IsCollision(shared_from_this());
+}
+
+bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
+{
+
+	if (this->Right() > other->Left() &&
+		this->Left() < other->Right() &&
+		this->Bottom() > other->Top() &&
+		this->Top() < other->Bottom())
+	{
+		return true;
+	}
+	return false;
+}
+
+void RectCollider::SetColor(ColorNum num)
+{
+	_curPen = _pens[num];
 }

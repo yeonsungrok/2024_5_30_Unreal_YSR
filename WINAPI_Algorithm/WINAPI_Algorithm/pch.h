@@ -9,7 +9,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-
+#include <cmath>
 
 #include <vector>
 #include <unordered_map>
@@ -17,13 +17,20 @@
 #include <memory>
 
 using namespace std;
+#include "Types.h"
+
+
 #include "Framework/Vector2.h"
+#include "Framework/Line.h"
 #include "Framework/Rect.h"
 #include "Framework/Circle.h"
 
-
 // Program
 #include "Program/Program.h"
+
+
 #include "Scene/Scene.h"
 #include "Scene/PaintScene.h"
+
+extern Vector2 mousePos;
 

@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "Program.h"
 
+#include "Scene/PaintScene.h"
+#include "Scene/CollisionScene.h"
+#include "Scene/LineScene.h"
+
 Program::Program()
 {
-    _scene = make_shared<PaintScene>();
+    //_scene = make_shared<CollisionScene>();
+    _scene = make_shared<LineScene>();
 }
 
 Program::~Program()
