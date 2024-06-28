@@ -74,19 +74,20 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 	else if (_center._x > rectRight)
 		nearX = rectRight; // 원중심 사각형 오른쪽 있을때
 	else
-		nearX = _center._x;
+		nearX = _center._x; // 원의 중심이 사각형의 경계 안에 있을 때
 	
 	float nearY;
-	if (_center._y < rectTop)
+	if (_center._y < rectTop) // 원의 중심이 사각형의 위쪽에 있을 때
 		nearY = rectTop;
-	else if (_center._y > rectBottom)
+	else if (_center._y > rectBottom) // 원의 중심이 사각형의 아래쪽에 있을 때
 		nearY = rectBottom;
 	else
-		nearY = _center._y;
+		nearY = _center._y; // 원의 중심이 사각형의 경계 안에 있을 때
 
-	float distanceX = _center._x - nearX;
-	float distanceY = _center._y - nearY;
+	float distanceX = _center._x - nearX; //원의 중심과 가장 가까운 점 사이의 x 거리 계산
+	float distanceY = _center._y - nearY; //원의 중심과 가장 가까운 점 사이의 y 거리 계산
 
+	//두 거리의 제곱을 합하여 거리 제곱 계산
 	float distance = (distanceX * distanceX) + (distanceY * distanceY);
 
 
@@ -102,6 +103,16 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 	//	return true;
 	//}
 	//return false;
+
+
+	/*
+	강사님이 사용한내용
+	
+	*/
+
+
+
+	// 거리 제곱이 원의 반지름의 제곱보다 작은지 비교하여 충돌 여부를 반환
 
 	return distance < (_radius * _radius);
 }

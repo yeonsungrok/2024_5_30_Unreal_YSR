@@ -18,13 +18,30 @@ void LineScene::Update()
 {
 	_line2->_end = mousePos;
 
-	//내적 투영관련
+	//내적 두가지방법 
+	/*
+	A, B... |a||b|
 	
-	// line2 방향과 크기구하기 = 끝점(x,y) - 시작점(x,y)
-	/*Vector2 line2Vector = _line2->_end - _line2->_start;
+	1.    A.Dot(b) = |a||b| cos@
+	2.    A.Dot(b) = (x1 * x2 + y1 * y2)
+	
+	*/
+	//단위벡터 투입
+	Vector2 a = (_line2->_end - _line2->_start);
+	Vector2 b = (_line1->_end - _line1->_start);
 
-	Vector2 line3Vector = _line3->_end - _line3->_start;
-	float line3Length = line3Vector.Length();*/
+	Vector2 bNormal = b.NormalVector2(); // b의단위백터
+
+	float line2Length = a.Dot(bNormal); // 그림자 길이.. 투영됬을때 길이(크기)
+
+	//b가 방향과 크기를 갖고있음 
+	Vector2 line3Delta = bNormal * line2Length;
+	_line3->_end = _line3->_start + line3Delta;
+
+
+	//OBB는 보통 외적으로 한다..(3D)
+
+
 
 
 

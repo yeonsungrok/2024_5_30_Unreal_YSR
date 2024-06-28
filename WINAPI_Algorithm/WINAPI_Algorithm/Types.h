@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Framework/Vector2.h"
 
 #define RED			 RGB(255, 0, 0)
 #define GREEN		 RGB(0, 255, 0)
@@ -10,3 +10,10 @@
 
 //선형 보관 (원형보관도 따로있음)
 #define LERP(s,e,t)		s + (e - s) * t
+
+
+struct HResult
+{
+	bool isCollision;
+	class Vector2 hitPoint;
+};

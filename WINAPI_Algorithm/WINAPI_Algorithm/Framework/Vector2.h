@@ -94,9 +94,13 @@ public:
 	float Angle() const;
 	
 
+
 	void Nomalize();
 
 	Vector2 NormalVector2();
+
+
+	bool IsBetween(Vector2 v1, Vector2 v2);
 
 	float _x;
 	float _y;
