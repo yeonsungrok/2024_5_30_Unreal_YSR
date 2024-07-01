@@ -3,6 +3,7 @@
 #include "Objects/Barrel.h"
 #include "Objects/Bullet.h"
 
+
 Cannon::Cannon()
 {
 	_body = make_shared<CircleCollider>(CENTER, 50.0f);
@@ -26,12 +27,13 @@ Cannon::~Cannon()
 
 void Cannon::Update()
 {
+	
 	if (isControlled)
 	{
 		Move();
 		Fire();
 	}
-
+	
 
 	_body->Update();
 	_barrel->Update();
@@ -52,6 +54,7 @@ void Cannon::Render(HDC hdc)
 
 void Cannon::Move()
 {
+	//TurnPattern();
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		_body->_center._x += 1.0f;
@@ -104,20 +107,52 @@ void Cannon::Fire()
 		if (iter != _bullets.end())
 		{
 			(*iter)->Fire(_barrel->GetEndPos(), _barrel->GetDirection());
-
+			isFireOne = true; // √—æÀ πﬂªÁ√È≤Ù!
 		}
 	
-		
+	}
 
+}
+
+void Cannon::TurnPattern(shared_ptr<Cannon> other)
+{
+	if (isFireOne)
+	{
+		isControlled = false;
+		other->isControlled = true;
+		isFireOne = false;
 	}
 }
 
-void Cannon::TurnPattern()
+void Cannon::CheckCollision(shared_ptr<Cannon> other)
 {
-	
+	for (auto& bullet : _bullets)
+	{
+		if (bullet->IsActive() && _body->IsCollision(other->GetCollider()))
+		{
+			other->Damage(1);
+			bullet->SetActive(false);
+			break;
+		}
+	}
+
 }
 
 void Cannon::Damage(int amount) 
 {
+
 	_hp -= amount;
+
+	/*if (_hp <= 0)
+	{
+		_body->Render(false);
+		_barrel->Render(false);
+	}*/
+
 }
+
+//void Cannon::HP_END()
+//{
+//	_body->Render(false);
+//	_barrel->Render(false);
+//}

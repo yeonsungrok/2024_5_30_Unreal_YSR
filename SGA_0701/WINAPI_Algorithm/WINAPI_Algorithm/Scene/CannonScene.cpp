@@ -15,25 +15,8 @@ CannonScene::CannonScene()
 	_cannon2 = make_shared<Cannon>();
 
 	_cannon1->isControlled = true;
-	/*
-	if (_cannon1->isControlled = true)
-	{
-		for (auto bullet : _cannon1->GetBullets())
-		{
-			bullet->SetTarget(_cannon2);
-			_cannon1->isControlled = false;
-		}
-		_cannon2->isControlled = true;
-	}
-	else
-	{
-		for (auto bullet : _cannon2->GetBullets())
-		{
-			bullet->SetTarget(_cannon1);
-			_cannon2->isControlled = false;
-		}
-		_cannon1->isControlled = true;
-	}*/
+	_cannon2->isControlled = false;
+
 
 	
 
@@ -41,11 +24,18 @@ CannonScene::CannonScene()
 	for (auto bullet : _cannon1->GetBullets())
 	{
 		bullet->SetTarget(_cannon2);
+		
 	}
 
 	for (auto bullet : _cannon2->GetBullets())
 	{
 		bullet->SetTarget(_cannon1);
+		
+		
+	/*	if (_cannon2->GetCollider())
+		{
+			_cannon1->Damage(1);
+		}*/
 	}
 
 }
@@ -56,8 +46,28 @@ CannonScene::~CannonScene()
 
 void CannonScene::Update()
 {
+
 	_cannon1->Update();
 	_cannon2->Update();
+
+	if (_cannon1->isControlled)
+	{
+		
+		_cannon1->TurnPattern(_cannon2);
+
+	}
+	else if (_cannon2->isControlled)
+	{
+		_cannon2->TurnPattern(_cannon1);
+	/*	if (_cannon2->GetCollider())
+		{
+			_cannon2->Damage(1);
+		}*/
+	}
+	_cannon1->CheckCollision(_cannon2);
+	
+	_cannon2->CheckCollision(_cannon1);
+
 
 	//╬Нец 1
 	//for (auto bullet : _cannon1->GetBullets())
@@ -70,4 +80,7 @@ void CannonScene::Render(HDC hdc)
 {
 	_cannon1->Render(hdc);
 	_cannon2->Render(hdc);
+
+	
+
 }

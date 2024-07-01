@@ -10,11 +10,16 @@ public:
 
 	void Move();
 	void Fire();
+	void Damage(int amount);
+	/*void HP_END();*/
 
-	void TurnPattern();  // 턴 교차?
+	void TurnPattern(shared_ptr<Cannon> other); // 지정패턴 변경
+	void CheckCollision(shared_ptr<Cannon> other);
+
+	bool isFireOne = false; // 총알 발사 체크! VK_SPACE) & 0x0001과 0000으론 힘듬..
 
 	bool isControlled = false;
-	void Damage(int amount);
+
 
 
 	shared_ptr<Collider> GetCollider() { return _body; } // 바디를 bullet에서 사용하기위해 꺼내놓은 함수.
