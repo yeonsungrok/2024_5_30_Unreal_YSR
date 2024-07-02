@@ -46,19 +46,25 @@ CannonScene::~CannonScene()
 
 void CannonScene::Update()
 {
-
-	_cannon1->Update();
-	_cannon2->Update();
-
-	if (_cannon1->isControlled)
+	if (_cannon1->isActive())
 	{
-		_cannon1->TurnPattern(_cannon2);
+		_cannon1->Update();
+		if (_cannon1->isControlled)
+		{
+			_cannon1->TurnPattern(_cannon2);
+		}
 	}
-	else if (_cannon2->isControlled)
+
+
+	if (_cannon2->isActive())
 	{
-		_cannon2->TurnPattern(_cannon1);
+		_cannon2->Update();
+
+		if (_cannon2->isControlled)
+		{
+			_cannon2->TurnPattern(_cannon1);
+		}
 	}
-		
 
 
 	
@@ -79,7 +85,7 @@ void CannonScene::Render(HDC hdc)
 {
 	_cannon1->Render(hdc);
 	_cannon2->Render(hdc);
-
+	
 	
 
 }

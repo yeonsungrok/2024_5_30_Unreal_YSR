@@ -44,11 +44,28 @@ void Cannon::Update()
 
 void Cannon::Render(HDC hdc)
 {
+	if (!_isActive) return;
+
 	_barrel->Render(hdc);
 	_body->Render(hdc);
 	
 	for (auto bullet : _bullets)
 		bullet->Render(hdc);
+	
+
+
+
+
+	wstring Life = to_wstring(_hp); // L"5";
+	
+	int textWidth = Life.size() * 10;
+	int textHeight = 20;
+	int textPosX = static_cast<int>(_body->_center._x) - textWidth / 2;
+	int textPosY = static_cast<int>(_body->_center._y) - textHeight / 2;
+
+	COLORREF oldColor = SetTextColor(hdc, RGB(200, 0, 0));
+
+	TextOut(hdc, textPosX, textPosY, Life.c_str(), Life.size());
 
 }
 
@@ -159,6 +176,11 @@ void Cannon::TurnPattern(shared_ptr<Cannon> other)
 //
 //}
 
+void Cannon::SetActive(bool isActive)
+{
+	_isActive = isActive;
+}
+
 void Cannon::TurnColor(shared_ptr<Collider> Collider)
 {
 	Collider->SetRed();
@@ -168,6 +190,17 @@ void Cannon::FinishColor(shared_ptr<Collider> Collider)
 {
 	Collider->SetBlack();
 }
+
+//void Cannon::TextLife(wstring life)
+//{
+//	wstring Life = to_wstring(_hp); // L"5";
+//	int textWidth = Life.size() * 10;
+//	int textHeight = 20;
+//	int textPosX = static_cast<int>(_body->_center._x) - textWidth / 2;
+//	int textPosY = static_cast<int>(_body->_center._y) - textHeight / 2;
+//
+//	TextOut(hdc, textPosX, textPosY, Life.c_str(), Life.size());
+//}
 
 
 
@@ -180,8 +213,8 @@ void Cannon::Damage(int amount)
 
 	if (_hp <= 0)
 	{
-		isControlled = false;
-		_body->SetBlack(); 
+		_isActive = false;
+		//_body->SetBlack(); 
 	}
 
 
@@ -201,18 +234,18 @@ bool Cannon::isDead()
 	return false;
 }
 
-wstring Cannon::TextLife()
-{
-	//캐논 씬 랜더에 해볼것.
-	wstring Life = L"Hello Maze!!!";
-	TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
-	//TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
-	//_maze->Render(hdc);*/
-
-	if (_hp == 5)
-		cout << L"5";
-	return wstring();
-}
+//wstring Cannon::TextLife()
+//{
+//	//캐논 씬 랜더에 해볼것.
+//	wstring Life = L"Hello Maze!!!";
+//	TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
+//	//TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
+//	//_maze->Render(hdc);*/
+//
+//	/*if (_hp == 5)
+//		cout << L"5";*/
+//	return Life;
+//}
 
 //void Cannon::HP_END()
 //{

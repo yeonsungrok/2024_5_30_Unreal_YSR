@@ -97,7 +97,7 @@ void Bullet::Attack_Cannon(shared_ptr<class Cannon> cannon)
 	if (cannon->GetCollider()->IsCollision(_col))
 	{
 		cannon->Damage(1);
-		cannon->TurnColor(cannon->GetCollider());
+		//cannon->TurnColor(cannon->GetCollider());
 		//return cannon->ReturnColor(cannon->GetCollider());
 
 		SetActive(false); // °ø »ç¶óÁü
@@ -116,7 +116,8 @@ void Bullet::Attack_Cannon()
 		if(targetCannonCol->IsCollision(_col))
 		{
 			targetCannon->Damage(1);
-			targetCannon->TurnColor(targetCannon->GetCollider());
+			
+			//targetCannon->TurnColor(targetCannon->GetCollider());
 			//return targetCannon->ReturnColor(targetCannon->GetCollider());
 			//if (targetCannon->isDead())
 			//{
