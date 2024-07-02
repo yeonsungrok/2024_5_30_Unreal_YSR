@@ -30,8 +30,8 @@ void Bullet::Update()
 	//TODO(과제) : 화면 밖으로 나갔을 시 사라지는 코드
 	//OutControll : 반사를 위한 함수
 	bool isOut = IsOut();
-	//OutControll();
-	//bool isOut = false;
+	/*OutControll();
+	bool isOut = false;*/
 	if (_lifeTime > _delayTime || isOut)
 	{
 		_lifeTime = 0.0f;
@@ -96,6 +96,10 @@ void Bullet::Attack_Cannon(shared_ptr<class Cannon> cannon)
 
 	if (cannon->GetCollider()->IsCollision(_col))
 	{
+		cannon->Damage(1);
+		cannon->TurnColor(cannon->GetCollider());
+		//return cannon->ReturnColor(cannon->GetCollider());
+
 		SetActive(false); // 공 사라짐
 
 	}
@@ -111,6 +115,16 @@ void Bullet::Attack_Cannon()
 		shared_ptr<Collider> targetCannonCol = targetCannon->GetCollider();
 		if(targetCannonCol->IsCollision(_col))
 		{
+			targetCannon->Damage(1);
+			targetCannon->TurnColor(targetCannon->GetCollider());
+			//return targetCannon->ReturnColor(targetCannon->GetCollider());
+			//if (targetCannon->isDead())
+			//{
+			//	//targetCannon->FinishColor(targetCannon->GetCollider());
+			//	//targetCannon->Render(false);
+			//
+			//}
+
 			SetActive(false);
 		}
 	}

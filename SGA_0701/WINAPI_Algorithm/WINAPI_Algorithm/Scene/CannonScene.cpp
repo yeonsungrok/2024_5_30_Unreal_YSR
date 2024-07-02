@@ -52,21 +52,20 @@ void CannonScene::Update()
 
 	if (_cannon1->isControlled)
 	{
-		
 		_cannon1->TurnPattern(_cannon2);
-
 	}
 	else if (_cannon2->isControlled)
 	{
 		_cannon2->TurnPattern(_cannon1);
-	/*	if (_cannon2->GetCollider())
-		{
-			_cannon2->Damage(1);
-		}*/
 	}
-	_cannon1->CheckCollision(_cannon2);
+		
+
+
 	
-	_cannon2->CheckCollision(_cannon1);
+	
+	/*_cannon1->CheckCollision(_cannon2);
+	
+	_cannon2->CheckCollision(_cannon1);*/
 
 
 	//╬Нец 1

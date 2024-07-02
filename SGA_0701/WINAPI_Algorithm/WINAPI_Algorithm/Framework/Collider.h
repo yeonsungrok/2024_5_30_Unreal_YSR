@@ -2,6 +2,7 @@
 
 #define GREEN_COLOR		0
 #define RED_COLOR		1
+#define BLACK_COLOR		9
 
 class RectCollider;
 class CircleCollider;
@@ -30,8 +31,9 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
 
-	void SetGreen() { SetColor(GREEN_COLOR); }
-	void SetRed() { SetColor(RED_COLOR); }
+	virtual void SetGreen() { SetColor(GREEN_COLOR); } // 블록 공유땜시 virtual
+	virtual void SetRed() { SetColor(RED_COLOR); } // 블록 공유땜시 virtual
+	virtual void SetBlack() { SetColor(BLACK_COLOR); }
 
 	Vector2 _center;
 

@@ -124,31 +124,94 @@ void Cannon::TurnPattern(shared_ptr<Cannon> other)
 	}
 }
 
-void Cannon::CheckCollision(shared_ptr<Cannon> other)
-{
-	for (auto& bullet : _bullets)
-	{
-		if (bullet->IsActive() && _body->IsCollision(other->GetCollider()))
-		{
-			other->Damage(1);
-			bullet->SetActive(false);
-			break;
-		}
-	}
+//void Cannon::CheckCollision(shared_ptr<Cannon> other)
+//{
+//	
+//	for (auto& bullet : _bullets)
+//	{
+//		//Collider::IsCollision()
+//		
+//		/*_body->IsCollision(other->GetCollider());*/
+//		//bullet->SetActive(true) && GetBullets->GetCollider()->IsCollider(other->GetCollider());
+//			//_body->IsCollision(other->_bullets)
+//			
+//		//bullet->SetActive(true);
+//		//_body->
+//
+//		if (bullet->IsActive() && _body->IsCollision(other->GetCollider()))
+//		{
+//			other->Damage(1);
+//			other->TurnColor(_body);
+//			bullet->SetActive(false);
+//			break;
+//		}
+//	/*	if (other->GetCollider()->IsCollision(_body))
+//		{
+//			
+//			other->Damage(1);
+//			other->TurnColor(_body);
+//			bullet->SetActive(false);
+//			
+//
+//			break;
+//		}*/
+//	}
+//
+//}
 
+void Cannon::TurnColor(shared_ptr<Collider> Collider)
+{
+	Collider->SetRed();
 }
+
+void Cannon::FinishColor(shared_ptr<Collider> Collider)
+{
+	Collider->SetBlack();
+}
+
+
+
+
 
 void Cannon::Damage(int amount) 
 {
 
 	_hp -= amount;
 
-	/*if (_hp <= 0)
+	if (_hp <= 0)
 	{
-		_body->Render(false);
-		_barrel->Render(false);
-	}*/
+		isControlled = false;
+		_body->SetBlack(); 
+	}
 
+
+
+	//if (_hp <= 0)
+	//{
+	//	_body->Render(false);
+	//	_barrel->Render(false);
+	//}
+
+}
+
+bool Cannon::isDead()
+{
+	if (_hp == 0)
+		return true;
+	return false;
+}
+
+wstring Cannon::TextLife()
+{
+	//캐논 씬 랜더에 해볼것.
+	wstring Life = L"Hello Maze!!!";
+	TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
+	//TextOut(hdc, CENTER._x - 100, 100, Life.c_str(), Life.size());
+	//_maze->Render(hdc);*/
+
+	if (_hp == 5)
+		cout << L"5";
+	return wstring();
 }
 
 //void Cannon::HP_END()

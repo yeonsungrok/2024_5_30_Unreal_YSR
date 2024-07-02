@@ -9,11 +9,13 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <time.h>
 
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
 #include <memory>
+#include <string>
 
 using namespace std;
 
@@ -34,3 +36,4 @@ using namespace std;
 #include "Scene/PaintScene.h"
 
 extern Vector2 mousePos;
+extern HWND hWnd;
