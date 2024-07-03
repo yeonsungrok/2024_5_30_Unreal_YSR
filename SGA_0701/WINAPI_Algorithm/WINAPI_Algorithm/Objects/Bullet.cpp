@@ -24,14 +24,14 @@ void Bullet::Update()
 	
 
 	//TODO(과제) : 중력
-	_col->_center += _downVector;
-	_downVector += Vector2(0, 1) * GRAVITY;
+	/*_col->_center += _downVector;
+	_downVector += Vector2(0, 1) * GRAVITY;*/
 	
 	//TODO(과제) : 화면 밖으로 나갔을 시 사라지는 코드
 	//OutControll : 반사를 위한 함수
-	bool isOut = IsOut();
-	/*OutControll();
-	bool isOut = false;*/
+	//bool isOut = IsOut();
+	OutControll();
+	bool isOut = false;
 	if (_lifeTime > _delayTime || isOut)
 	{
 		_lifeTime = 0.0f;

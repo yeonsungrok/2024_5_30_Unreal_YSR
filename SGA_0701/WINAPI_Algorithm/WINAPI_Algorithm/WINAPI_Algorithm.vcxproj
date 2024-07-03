@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Objects\Arkanoid\Ball.h" />
+    <ClInclude Include="Objects\Arkanoid\Player_Rectangle.h" />
     <ClInclude Include="Scene\ArkanoidScene.h" />
     <ClInclude Include="Objects\Maze\Maze.h" />
     <ClInclude Include="Objects\Maze\Block.h" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Objects\Arkanoid\Ball.cpp" />
+    <ClCompile Include="Objects\Arkanoid\Player_Rectangle.cpp" />
     <ClCompile Include="Scene\ArkanoidScene.cpp" />
     <ClCompile Include="Objects\Maze\Maze.cpp" />
     <ClCompile Include="Objects\Maze\Block.cpp" />

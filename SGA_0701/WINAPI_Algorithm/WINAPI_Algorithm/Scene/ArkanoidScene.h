@@ -1,4 +1,8 @@
 #pragma once
+
+class Player_Rectangle;
+class ball;
+
 class ArkanoidScene : public Scene
 {
 public:
@@ -7,11 +11,11 @@ public:
 	ArkanoidScene();
 	~ArkanoidScene();
 
-	// Scene을(를) 통해 상속됨
+	
 	void Update() override;
 	void Render(HDC hdc) override;
 
 private:
-
+	shared_ptr<Player_Rectangle> _playerRec;
 };
 
