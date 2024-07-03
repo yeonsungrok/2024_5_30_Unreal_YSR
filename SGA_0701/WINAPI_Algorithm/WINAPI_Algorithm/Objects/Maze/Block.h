@@ -5,7 +5,6 @@ class Block : public RectCollider
 public:
 	enum class BlockType
 	{
-		NONE,
 		ABLE,
 		DISABLE,
 		PLAYER_POS
@@ -25,7 +24,7 @@ public:
 
 	
 private:
-	BlockType _type = BlockType::NONE;
+	BlockType _type = BlockType::ABLE;
 
 	vector<HBRUSH> _brushes;
 	//int _curBrush = 0;

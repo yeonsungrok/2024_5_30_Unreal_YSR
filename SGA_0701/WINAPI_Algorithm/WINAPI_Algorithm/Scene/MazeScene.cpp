@@ -20,6 +20,7 @@ MazeScene::~MazeScene()
 void MazeScene::Update()
 {
 	_maze->Update();
+	_mazeRunner->Update();
 }
 
 void MazeScene::Render(HDC hdc)

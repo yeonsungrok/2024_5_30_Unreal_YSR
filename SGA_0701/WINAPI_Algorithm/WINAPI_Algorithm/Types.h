@@ -14,7 +14,7 @@
 #define BLACK			RGB(0, 0, 0)
 
 #define PANTON			RGB(255,103,32)
-#define SKYCOLOR		RGB(123,196,196)
+#define SKYCOLOR		RGB(123,150,230)
 
 #define LERP(s,e,t)		s + (e - s) * t
 

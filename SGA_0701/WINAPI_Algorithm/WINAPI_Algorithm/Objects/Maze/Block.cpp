@@ -4,10 +4,15 @@
 Block::Block()
 :RectCollider(Vector2(), Vector2(5,5))
 {
-	_brushes.push_back(CreateSolidBrush(RGB(0, 0, 0)));
 	_brushes.push_back(CreateSolidBrush(GREEN));
+//	_brushes.push_back(CreateSolidBrush(RGB(0, 0, 0)));
 	_brushes.push_back(CreateSolidBrush(RED));
 	_brushes.push_back(CreateSolidBrush(SKYCOLOR));
+
+	//_pens[0] .. green
+	//_pens[1] .. red
+	_pens.push_back(CreatePen(PS_SOLID, 3, SKYCOLOR));
+
 	SetGreen();
 }
 
@@ -26,6 +31,7 @@ void Block::Update()
 
 void Block::Render(HDC hdc)
 {
+	/*SelectObject(hdc, _pens[static_cast<int>(_type)]);*/
 	SelectObject(hdc, _brushes[static_cast<int>(_type)]);
 	RectCollider::Render(hdc);
 
@@ -41,30 +47,7 @@ void Block::SetBlockType(BlockType type)
 {
 	_type = type;
 
-	switch (type)
-	{
-	case Block::BlockType::NONE:
-	{
-		_type = type;
-	}
-	break;
-	case Block::BlockType::ABLE:
-	{
-		_type = type;
-		SetGreen();
-	}
-	break;
-	case Block::BlockType::DISABLE:
-	{
-		_type = type;
-		SetRed();
-	}
-	break;
-	
-	
-	default:
-		break;
-	}
+	_curPen = _pens[static_cast<int>(_type)];
 	
 }
 
