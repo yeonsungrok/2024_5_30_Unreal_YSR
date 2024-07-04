@@ -17,20 +17,20 @@ public:
 	void OutControll();
 
 	/*Vector2 GetEndPos() { return _line->_end; }*/
-	//Vector2 GetDirection() { return _direction; }
+	Vector2 GetDirection() { return _direction; }
 
-	/*void SetActive(bool isActive);*/
-	//bool IsActive() { return _isActive; }
+	void SetStart(bool isStart);
+	bool IsStart() { return _isStart; }
 
 	void SetPosition(Vector2 pos) { _ball->_center = pos; }
 
 private:
-	/*bool _isActive = false;*/
+	bool _isStart = false;
 	shared_ptr<CircleCollider> _ball;
 	
-	shared_ptr<class Player_Rectangle> _player;
+	//shared_ptr<class Player_Rectangle> _player;
 
-	
+
 
 	Vector2 _direction = Vector2(1, 0); // πÊ«‚
 	float _speed = 7.0f;

@@ -5,10 +5,9 @@
 
 Ball::Ball()
 {
-	_ball = make_shared<CircleCollider>(CENTER, 6.0f);
-	/*_ball->_center._y = _player->Top();*/
-	_ball->SetRed(); // SetColor(RGB(255, 0, 0), RGB(255, 255, 255));
-	/*_ball->_center._y + pos_ball;*/
+	_ball = make_shared<CircleCollider>(CENTER, 6.0f);   //CENTER
+	_ball->SetRed(); 
+	
 }
 
 Ball::~Ball()
@@ -17,37 +16,34 @@ Ball::~Ball()
 
 void Ball::Update()
 {
-
+	if (_isStart)
+	{
+		_ball->_center += _direction * _speed;
+		OutControll();
+	}
+	
 	_ball->Update();
-	//_ball->_center += _direction * _speed;
-
-	bool isOut = false;
+	
 
 	
 	//OutControll : 반사를 위한 함수
-	OutControll();
+	/*OutControll();
+	bool isOut = false;*/
 
 }
 
 void Ball::Render(HDC hdc)
 {
-	//if (_isActive == false) return;
-	_ball->Render(hdc);
+	
+	//if(_isStart==true)
+		_ball->Render(hdc);
 
 }
-
-
-
-//void Ball::SetPosition(Vector2 pos)
-//{
-//	
-//	_ball->_center = pos;
-//}
 
 void Ball::SetStartBall(Vector2 startPos, Vector2 direction)
 {
 
-	//_isActive = true;
+	_isStart = true;
 	_ball->_center = startPos; // 포즈의 시작점을 마우스 좌우와 같이 이동에따라 시작으로해볼것
 	_direction = direction;
 	_direction.Normalize();
@@ -80,6 +76,11 @@ void Ball::OutControll()
 		_direction._y *= -1.0f;
 	}
 
+}
+
+void Ball::SetStart(bool isStart)
+{
+	_isStart = isStart;
 }
 
 //void Ball::SetActive(bool isActive)
