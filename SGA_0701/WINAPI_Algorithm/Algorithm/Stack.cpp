@@ -17,7 +17,7 @@ class Stack
 {
 public:
 	
-	void Push(const int& value) { v.push_back(value); }
+	void Push(const T& value) { v.push_back(value); }
 	void Pop() { v.pop_back(); }
 	bool Empty() { return v.size() == 0; }
 	const T& Top() { return v.back(); }

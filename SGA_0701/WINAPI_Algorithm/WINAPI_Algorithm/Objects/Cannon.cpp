@@ -103,7 +103,7 @@ void Cannon::Fire()
 		// _bullets... 꺼진 애(isActive == false)가 있는지 확인하고
 		// -> 꺼진 애를 찾아서 Fire
 		
-		/*for (auto bullet : _bullets)
+	/*	for (auto bullet : _bullets)
 		{
 			if (bullet->IsActive() == false)
 			{

@@ -9,7 +9,7 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
-	void SetPosition(Vector2 pos);
+	
 
 	void SetStartBall(Vector2 startPos, Vector2 direction); // 발사세팅
 
@@ -17,15 +17,20 @@ public:
 	void OutControll();
 
 	/*Vector2 GetEndPos() { return _line->_end; }*/
-	Vector2 GetDirection() { return _direction; }
+	//Vector2 GetDirection() { return _direction; }
 
-	void SetActive(bool isActive);
-	bool IsActive() { return _isActive; }
+	/*void SetActive(bool isActive);*/
+	//bool IsActive() { return _isActive; }
 
+	void SetPosition(Vector2 pos) { _ball->_center = pos; }
 
 private:
-	bool _isActive = false;
-	shared_ptr<Collider> _ball;
+	/*bool _isActive = false;*/
+	shared_ptr<CircleCollider> _ball;
+	
+	shared_ptr<class Player_Rectangle> _player;
+
+	
 
 	Vector2 _direction = Vector2(1, 0); // 방향
 	float _speed = 7.0f;

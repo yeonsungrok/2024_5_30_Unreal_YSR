@@ -1,7 +1,7 @@
 #pragma once
 
 class Player_Rectangle;
-class ball;
+class Ball;
 
 class ArkanoidScene : public Scene
 {
@@ -17,5 +17,6 @@ public:
 
 private:
 	shared_ptr<Player_Rectangle> _playerRec;
+	shared_ptr<Ball> _ball;
 };
 
