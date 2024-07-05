@@ -1,40 +1,24 @@
 #pragma once
-class Ball;
-
-class Player_Rectangle
+class PlayerBar
 {
 public:
-	Player_Rectangle();
-	~Player_Rectangle();
+	PlayerBar();
+	~PlayerBar();
 
 	void Update();
 	void Render(HDC hdc);
 
-
-	void SetBallPosition(); // 시작 볼 위치
-	void Move(); // 사각 좌우 움직임
+	void Input();
 	
-	void StartPlay(); // 시작
-
-
-	vector<shared_ptr<Ball>>& GetBalls() { return _ballCircles; };
 	
-	void SetBall(shared_ptr<class Ball> ball) { _ballCircle = ball; }
+	shared_ptr<RectCollider>GetRectCollider() { return _rect; }
 
-	shared_ptr<Collider> GetCollider() { return _body; }
-
-	void SetStart(bool isStart);
-	bool IsStart() { return _isStart; }
+	void IsCollision(shared_ptr<class Ball> ball);
+	
 private:
+	float _speed = 5.0f;
+	shared_ptr<RectCollider> _rect;
 
-	bool _isStart = false;
-	shared_ptr<class Ball> _ballCircle;
-	vector<shared_ptr<class Ball>> _ballCircles;
-	//shared_ptr<CircleCollider> _circle;
-	//shared_ptr<RectCollider> 
-
-	shared_ptr<RectCollider> _body;
-	
 	
 };
 

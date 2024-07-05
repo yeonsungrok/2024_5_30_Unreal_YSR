@@ -1,22 +1,25 @@
 #pragma once
 
-class Player_Rectangle;
+class PlayerBar;
 class Ball;
 
 class ArkanoidScene : public Scene
 {
 public:
-
-
 	ArkanoidScene();
 	~ArkanoidScene();
 
+	void BeforeFireUpdate();
 	
+	void Fire();
+
 	void Update() override;
 	void Render(HDC hdc) override;
 
 private:
-	shared_ptr<Player_Rectangle> _playerRec;
+	bool _isFired = false;
+
+	shared_ptr<PlayerBar> _playerBar;
 	shared_ptr<Ball> _ball;
 };
 

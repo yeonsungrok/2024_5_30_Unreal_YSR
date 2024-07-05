@@ -148,25 +148,25 @@ void Cannon::TurnPattern(shared_ptr<Cannon> other)
 //	{
 //		//Collider::IsCollision()
 //		
-//		/*_body->IsCollision(other->GetCollider());*/
+//		/*_playerBar->IsCollision(other->GetCollider());*/
 //		//bullet->SetActive(true) && GetBullets->GetCollider()->IsCollider(other->GetCollider());
-//			//_body->IsCollision(other->_bullets)
+//			//_playerBar->IsCollision(other->_bullets)
 //			
 //		//bullet->SetActive(true);
-//		//_body->
+//		//_playerBar->
 //
-//		if (bullet->IsActive() && _body->IsCollision(other->GetCollider()))
+//		if (bullet->IsActive() && _playerBar->IsCollision(other->GetCollider()))
 //		{
 //			other->Damage(1);
-//			other->TurnColor(_body);
+//			other->TurnColor(_playerBar);
 //			bullet->SetActive(false);
 //			break;
 //		}
-//	/*	if (other->GetCollider()->IsCollision(_body))
+//	/*	if (other->GetCollider()->IsCollision(_playerBar))
 //		{
 //			
 //			other->Damage(1);
-//			other->TurnColor(_body);
+//			other->TurnColor(_playerBar);
 //			bullet->SetActive(false);
 //			
 //
@@ -181,23 +181,23 @@ void Cannon::SetActive(bool isActive)
 	_isActive = isActive;
 }
 
-void Cannon::TurnColor(shared_ptr<Collider> Collider)
-{
-	Collider->SetRed();
-}
-
-void Cannon::FinishColor(shared_ptr<Collider> Collider)
-{
-	Collider->SetBlack();
-}
+//void Cannon::TurnColor(shared_ptr<Collider> Collider)
+//{
+//	Collider->SetRed();
+//}
+//
+//void Cannon::FinishColor(shared_ptr<Collider> Collider)
+//{
+//	Collider->SetBlack();
+//}
 
 //void Cannon::TextLife(wstring life)
 //{
 //	wstring Life = to_wstring(_hp); // L"5";
 //	int textWidth = Life.size() * 10;
 //	int textHeight = 20;
-//	int textPosX = static_cast<int>(_body->_center._x) - textWidth / 2;
-//	int textPosY = static_cast<int>(_body->_center._y) - textHeight / 2;
+//	int textPosX = static_cast<int>(_playerBar->_center._x) - textWidth / 2;
+//	int textPosY = static_cast<int>(_playerBar->_center._y) - textHeight / 2;
 //
 //	TextOut(hdc, textPosX, textPosY, Life.c_str(), Life.size());
 //}
@@ -214,14 +214,14 @@ void Cannon::Damage(int amount)
 	if (_hp <= 0)
 	{
 		_isActive = false;
-		//_body->SetBlack(); 
+		//_playerBar->SetBlack(); 
 	}
 
 
 
 	//if (_hp <= 0)
 	//{
-	//	_body->Render(false);
+	//	_playerBar->Render(false);
 	//	_barrel->Render(false);
 	//}
 
@@ -249,6 +249,6 @@ bool Cannon::isDead()
 
 //void Cannon::HP_END()
 //{
-//	_body->Render(false);
+//	_playerBar->Render(false);
 //	_barrel->Render(false);
 //}

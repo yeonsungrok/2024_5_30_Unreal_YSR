@@ -28,8 +28,8 @@ public:
 	bool isActive() { return _isActive; }
 	void SetActive(bool isActive);
 
-	void TurnColor(shared_ptr<Collider> Collider);
-	void FinishColor(shared_ptr<Collider> Collider);
+	/*void TurnColor(shared_ptr<Collider> Collider);
+	void FinishColor(shared_ptr<Collider> Collider);*/
 	
 	shared_ptr<Collider> GetCollider() { return _body; } // 바디를 bullet에서 사용하기위해 꺼내놓은 함수.
 

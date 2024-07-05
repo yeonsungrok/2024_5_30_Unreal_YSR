@@ -9,31 +9,29 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
-	
+	void SetPosition(Vector2 pos) { _circle->_center = pos; }
+	void SetDir(Vector2 dir) { _dir = dir; }
+	Vector2 GetDir() { return _dir; }
 
-	void SetStartBall(Vector2 startPos, Vector2 direction); // 발사세팅
+	void Move();
+	shared_ptr<CircleCollider>GetCircleCollider() { return _circle; }
 
-	bool IsOut();
-	void OutControll();
-
-	/*Vector2 GetEndPos() { return _line->_end; }*/
-	Vector2 GetDirection() { return _direction; }
-
-	void SetStart(bool isStart);
-	bool IsStart() { return _isStart; }
-
-	void SetPosition(Vector2 pos) { _ball->_center = pos; }
 
 private:
-	bool _isStart = false;
-	shared_ptr<CircleCollider> _ball;
+	bool _isFired = false;
+	float _speed = 10.0f;
+
+	Vector2 leftTop = { 0,0 };
+	Vector2 rightBottom = { WIN_WIDTH, WIN_HEIGHT };
+	Vector2 _dir = Vector2(0, 0); // 방향
+
+	shared_ptr<CircleCollider> _circle;
 	
-	//shared_ptr<class Player_Rectangle> _player;
+	
+	
 
 
 
-	Vector2 _direction = Vector2(1, 0); // 방향
-	float _speed = 7.0f;
-
+	
 };
 

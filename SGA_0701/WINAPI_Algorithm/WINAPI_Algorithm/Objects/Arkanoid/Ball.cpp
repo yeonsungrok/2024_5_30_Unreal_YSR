@@ -5,8 +5,8 @@
 
 Ball::Ball()
 {
-	_ball = make_shared<CircleCollider>(CENTER, 6.0f);   //CENTER
-	_ball->SetRed(); 
+	_circle = make_shared<CircleCollider>(Vector2(-1000,0), 10.0f);   //CENTER
+	_circle->SetRed(); 
 	
 }
 
@@ -16,76 +16,33 @@ Ball::~Ball()
 
 void Ball::Update()
 {
-	if (_isStart)
+	Move();
+	
+	_circle->Update();
+
+	// 상하좌우 반사
+	if (_circle->_center._x < leftTop._x || _circle->_center._x > rightBottom._x)
 	{
-		_ball->_center += _direction * _speed;
-		OutControll();
+		_dir._x *= -1;
 	}
-	
-	_ball->Update();
-	
+	if (_circle->_center._y < leftTop._y || _circle->_center._y > rightBottom._y)
+	{
+		_dir._y *= -1;
+	}
+
 
 	
-	//OutControll : 반사를 위한 함수
-	/*OutControll();
-	bool isOut = false;*/
-
 }
 
 void Ball::Render(HDC hdc)
 {
 	
-	//if(_isStart==true)
-		_ball->Render(hdc);
+	_circle->Render(hdc);
 
 }
 
-void Ball::SetStartBall(Vector2 startPos, Vector2 direction)
+void Ball::Move()
 {
-
-	_isStart = true;
-	_ball->_center = startPos; // 포즈의 시작점을 마우스 좌우와 같이 이동에따라 시작으로해볼것
-	_direction = direction;
-	_direction.Normalize();
-	
-
+	_circle->_center += _dir * _speed;
 }
-
-bool Ball::IsOut()
-{
-
-	if (_ball->_center._x > WIN_WIDTH || _ball->_center._x < 0)
-	{
-		return true;
-	}
-	if (_ball->_center._y > WIN_HEIGHT || _ball->_center._y < 0)
-		return true;
-
-	return false;
-}
-
-void Ball::OutControll()
-{
-	Vector2 center = _ball->_center;
-	if (center._x > WIN_WIDTH || center._x < 0)
-	{
-		_direction._x *= -1.0f;
-	}
-	if (center._y > WIN_HEIGHT || center._y < 0)
-	{
-		_direction._y *= -1.0f;
-	}
-
-}
-
-void Ball::SetStart(bool isStart)
-{
-	_isStart = isStart;
-}
-
-//void Ball::SetActive(bool isActive)
-//{
-//	_isActive = isActive;
-//}
-
 
