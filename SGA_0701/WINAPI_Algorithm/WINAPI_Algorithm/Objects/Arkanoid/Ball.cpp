@@ -6,7 +6,7 @@
 Ball::Ball()
 {
 	_circle = make_shared<CircleCollider>(Vector2(-1000,0), 10.0f);   //CENTER
-	_circle->SetRed(); 
+	//_circle->SetBlack(); 
 	
 }
 
@@ -25,12 +25,12 @@ void Ball::Update()
 	{
 		_dir._x *= -1;
 	}
-	if (_circle->_center._y < leftTop._y || _circle->_center._y > rightBottom._y)
+	if (_circle->_center._y < leftTop._y /*|| _circle->_center._y > rightBottom._y*/)
 	{
 		_dir._y *= -1;
 	}
 
-
+	
 	
 }
 

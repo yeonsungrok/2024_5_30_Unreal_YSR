@@ -13,13 +13,16 @@ public:
 	void SetDir(Vector2 dir) { _dir = dir; }
 	Vector2 GetDir() { return _dir; }
 
+
 	void Move();
 	shared_ptr<CircleCollider>GetCircleCollider() { return _circle; }
-
+	
+	Vector2 SetRightBottom() { return rightBottom; }
 
 private:
 	bool _isFired = false;
 	float _speed = 10.0f;
+
 
 	Vector2 leftTop = { 0,0 };
 	Vector2 rightBottom = { WIN_WIDTH, WIN_HEIGHT };

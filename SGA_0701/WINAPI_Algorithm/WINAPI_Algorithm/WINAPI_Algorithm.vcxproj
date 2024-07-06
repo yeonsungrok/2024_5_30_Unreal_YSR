@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Arkanoid\Blocks.h" />
+    <ClInclude Include="Objects\Arkanoid\Block_Rectangle.h" />
     <ClInclude Include="Objects\Arkanoid\Ball.h" />
     <ClInclude Include="Objects\Arkanoid\Player_Rectangle.h" />
     <ClInclude Include="Scene\ArkanoidScene.h" />
@@ -176,6 +178,8 @@
     <ClInclude Include="WINAPI_Algorithm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Arkanoid\Blocks.cpp" />
+    <ClCompile Include="Objects\Arkanoid\Block_Rectangle.cpp" />
     <ClCompile Include="Objects\Arkanoid\Ball.cpp" />
     <ClCompile Include="Objects\Arkanoid\Player_Rectangle.cpp" />
     <ClCompile Include="Scene\ArkanoidScene.cpp" />

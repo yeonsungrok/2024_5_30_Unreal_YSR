@@ -5,8 +5,8 @@
 PlayerBar::PlayerBar()
 {
 	Vector2 temp = CENTER;
-	temp._y += 200; // 플래이어 위치 y
-	_rect = make_shared<RectCollider>(temp, Vector2(60, 10));
+	temp._y += 200; // 플래이어 Bar 위치 y
+	_rect = make_shared<RectCollider>(temp, Vector2(80, 18));
 }
 
 PlayerBar::~PlayerBar()
@@ -16,11 +16,11 @@ PlayerBar::~PlayerBar()
 void PlayerBar::Update()
 {
 	Input();
+	_rect->Update();
+}
 	
 
-	_rect->Update();
 	
-}
 
 
 void PlayerBar::Render(HDC hdc)
@@ -43,7 +43,9 @@ void PlayerBar::Input()
 
 }
 
-void PlayerBar::IsCollision(shared_ptr<class Ball> ball)
+
+//player Bar가 공과 맞았을때 반사
+void PlayerBar::IsCollision(shared_ptr<class Ball> ball) 
 {
 	if (ball->GetDir().Length() <= 0.001f)
 	{
