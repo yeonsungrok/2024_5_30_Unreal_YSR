@@ -16,14 +16,15 @@ public:
 
 	void SetPosition(Vector2 pos);
 
+	/*void IsCollision(shared_ptr<class Ball> ball);*/
 	/*void SetBlockType(BlockType type);
 	BlockType GetBlockType() { return _type; }*/
 
 
 private:
 	//BlockType _type = BlockType::BLOCKGREEN;
-	shared_ptr<RectCollider> _block;
 	//vector<HBRUSH> _brushes;
 
+	//shared_ptr<RectCollider> _block;   혹시나 구성한것임
 };
 

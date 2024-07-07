@@ -5,8 +5,8 @@
 PlayerBar::PlayerBar()
 {
 	Vector2 temp = CENTER;
-	temp._y += 200; // 플래이어 Bar 위치 y
-	_rect = make_shared<RectCollider>(temp, Vector2(80, 18));
+	temp._y += 250; // 플래이어 Bar 위치 y
+	_rect = make_shared<RectCollider>(temp, Vector2(65, 12));
 }
 
 PlayerBar::~PlayerBar()
@@ -18,8 +18,6 @@ void PlayerBar::Update()
 	Input();
 	_rect->Update();
 }
-	
-
 	
 
 
@@ -34,13 +32,21 @@ void PlayerBar::Input()
 {
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		_rect->_center._x += 1.0f * _speed;
+		_rect->_center._x += 2.0f * _speed;
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		_rect->_center._x -= 1.0f * _speed;
+		_rect->_center._x -= 2.0f * _speed;
 	}
 
+	if (_rect->Left() < 0)
+	{
+		_rect->_center._x = _rect->_halfSize._x;
+	}
+	if (_rect->Right() > WIN_WIDTH)
+	{
+		_rect->_center._x = WIN_WIDTH - _rect->_halfSize._x;
+	}
 }
 
 

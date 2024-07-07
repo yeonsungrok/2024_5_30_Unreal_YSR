@@ -1,37 +1,42 @@
 #include "pch.h"
 #include "Blocks.h"
 #include "Objects/Arkanoid/Blocks.h"
-#include "Objects/Arkanoid/Block_Rectangle.h"
+
+#include "Objects/Arkanoid/Ball.h"
+
 
 Blocks::Blocks()
 {
-	Vector2 offSet = Vector2(180, 50);
-	_blocks.reserve(MAXCOUNT_Y); //세로 4
+	Vector2 offSet = Vector2(180, 80);
+	_blocks.reserve(MAXCOUNT_Y); //세로 3
+	
 
-	for (int i = 0; i < MAXCOUNT_Y; i++) // 세로 4
+	for (int i = 0; i < MAXCOUNT_Y; i++) // 세로 3
 	{
-		vector<shared_ptr<Block_Rectangle>> blocks_X;
+		
+		vector<shared_ptr<RectCollider>> blocks_X;
 		blocks_X.reserve(MAXCOUNT_X);
 
 		for (int j = 0; j < MAXCOUNT_X; j++)
 		{
 			Vector2 blockOffset = offSet + Vector2(100.0f * j, 55.0f * i); //(x, y값)
 
-			shared_ptr<Block_Rectangle> block = make_shared<Block_Rectangle>();
+			_block = make_shared<RectCollider>(blockOffset, Vector2(35, 15));
 
-			//block->SetBlockType(Block_Rectangle::BlockType::BLOCKRED);
-			block->SetPosition(blockOffset);
-			blocks_X.push_back(block);
+			blocks_X.push_back(_block);
 
 		}
+		
 		_blocks.push_back(blocks_X);
+		
+		
 	}
 
-	//CreatePattern();
 }
 
 Blocks::~Blocks()
 {
+	
 }
 
 void Blocks::Update()
@@ -40,39 +45,76 @@ void Blocks::Update()
 	{
 		for (auto block : blocks_X)
 		{
+
 			block->Update();
+			
 		}
 	}
+	
 }
 
 void Blocks::Render(HDC hdc)
 {
+	
 	for (auto blocks_X : _blocks)
 	{
 		for (auto block : blocks_X)
 		{
 			block->Render(hdc);
+		
 		}
 	}
 }
 
-//void Blocks::CreatePattern()
-//{
-//	for (int y = 0; y < MAXCOUNT_Y; y++)
-//	{
-//		for (int x = 0; x < MAXCOUNT_X; x++)
-//		{
-//			_blocks[y][x];
-//			//if (x % 2 == 0 || y % 2 == 0)
-//			//{
-//			//	_blocks[y][x]; /*->SetBlockType(Block_Rectangle::BlockType::BLOCKRED);*/
-//			//}
-//			//else
-//			//{
-//			//	_blocks[y][x]; /*->SetBlockType(Block_Rectangle::BlockType::BLOCKGREEN);*/
-//			//}
-//		}
-//
-//	}
-//
-//}
+void Blocks::IsCollision(shared_ptr<class Ball> ball)
+{
+	for (auto& blocks_X : _blocks)
+	{
+		for (auto it = blocks_X.begin(); it != blocks_X.end();)
+		{
+			auto& block = *it;
+
+			if (block && block->IsCollision(ball->GetCircleCollider()))
+			{
+
+				Vector2 ballDir = ball->GetDir();
+
+
+				if (ball->GetCircleCollider()->_center._x > block->Left())
+				{
+					ballDir._x = abs(ballDir._x);
+				}
+				else {
+					ballDir._x = -abs(ballDir._x);
+				}
+
+				if (ball->GetCircleCollider()->_center._y > block->Top()) {
+					ballDir._y = abs(ballDir._y);
+				}
+				else {
+					ballDir._y = -abs(ballDir._y);
+				}
+
+				ball->SetDir(ballDir);
+
+				it = blocks_X.erase(it);
+				//block.reset();
+				//return;
+			}
+			else
+			{
+				++it;
+			}
+
+		}
+	}
+
+}
+
+
+
+
+
+
+
+

@@ -1,10 +1,10 @@
 #pragma once
-class Block_Rectangle;
+
 
 #define MAXCOUNT_X 10
 #define MAXCOUNT_Y 3
 
-class Blocks
+class Blocks 
 {
 public:
 	Blocks();
@@ -13,11 +13,17 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
-	//void CreatePattern();
+	
+	
+	
+	void IsCollision(shared_ptr<class Ball> ball);
 
+	
 
 private:
-
-	vector<vector<shared_ptr<Block_Rectangle>>> _blocks;
+	
+	shared_ptr<RectCollider> _block;
+	vector<vector<shared_ptr<RectCollider>>> _blocks;
+	
 };
 

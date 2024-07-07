@@ -1,5 +1,6 @@
 #pragma once
 
+class Blocks;
 class PlayerBar;
 class Ball;
 

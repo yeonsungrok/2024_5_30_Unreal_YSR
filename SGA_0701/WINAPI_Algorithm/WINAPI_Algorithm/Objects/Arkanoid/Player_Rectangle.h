@@ -10,8 +10,9 @@ public:
 
 	void Input();
 	
-	
 	shared_ptr<RectCollider>GetRectCollider() { return _rect; }
+	
+	
 
 	void IsCollision(shared_ptr<class Ball> ball);
 	

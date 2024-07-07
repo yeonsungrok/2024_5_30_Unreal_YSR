@@ -3,7 +3,7 @@
 #include "Objects/Arkanoid/Ball.h"
 #include "Objects/Arkanoid/Player_Rectangle.h"
 #include "Objects/Arkanoid/Blocks.h"
-#include "Objects/Arkanoid/Block_Rectangle.h"
+//#include "Objects/Arkanoid/Block_Rectangle.h"
 
 ArkanoidScene::ArkanoidScene()
 {
@@ -53,7 +53,8 @@ void ArkanoidScene::Update()
 	
 
 	_playerBar->IsCollision(_ball);
-
+	_blocks->IsCollision(_ball);
+	
 	_playerBar->Update();
 	_ball->Update();
 	_blocks->Update();
