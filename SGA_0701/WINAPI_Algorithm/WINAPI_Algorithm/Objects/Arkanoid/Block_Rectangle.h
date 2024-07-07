@@ -22,7 +22,7 @@ public:
 
 private:
 	//BlockType _type = BlockType::BLOCKGREEN;
-
+	shared_ptr<RectCollider> _block;
 	//vector<HBRUSH> _brushes;
 
 };

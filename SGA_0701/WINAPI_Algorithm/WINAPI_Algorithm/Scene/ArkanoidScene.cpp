@@ -57,6 +57,7 @@ void ArkanoidScene::Update()
 	_playerBar->Update();
 	_ball->Update();
 	_blocks->Update();
+	Reset();
 
 }
 
@@ -65,7 +66,6 @@ void ArkanoidScene::Render(HDC hdc)
 	_playerBar->Render(hdc);
 	_ball->Render(hdc);
 	_blocks->Render(hdc);
-	Reset();
 }
 	
 
