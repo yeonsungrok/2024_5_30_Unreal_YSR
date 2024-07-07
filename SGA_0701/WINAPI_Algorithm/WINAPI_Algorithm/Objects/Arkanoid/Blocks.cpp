@@ -83,16 +83,24 @@ void Blocks::IsCollision(shared_ptr<class Ball> ball)
 				if (ball->GetCircleCollider()->_center._x > block->Left())
 				{
 					ballDir._x = abs(ballDir._x);
+					//ballDir._x = +ballDir._x;
+					
 				}
-				else {
+				else 
+				{
 					ballDir._x = -abs(ballDir._x);
+					//ballDir._x = -ballDir._x;
 				}
 
-				if (ball->GetCircleCollider()->_center._y > block->Top()) {
+				if (ball->GetCircleCollider()->_center._y > block->Top()) 
+				{
 					ballDir._y = abs(ballDir._y);
+					//ballDir._y = -ballDir._y;
 				}
-				else {
+				else 
+				{
 					ballDir._y = -abs(ballDir._y);
+					//ballDir._y = +ballDir._y;
 				}
 
 				ball->SetDir(ballDir);

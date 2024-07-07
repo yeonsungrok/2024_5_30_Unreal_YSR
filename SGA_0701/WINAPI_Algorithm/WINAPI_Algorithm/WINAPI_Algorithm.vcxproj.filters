@@ -96,9 +96,6 @@
     <ClInclude Include="Objects\Arkanoid\Player_Rectangle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Arkanoid\Block_Rectangle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Arkanoid\Blocks.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -174,9 +171,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Arkanoid\Player_Rectangle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Arkanoid\Block_Rectangle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Arkanoid\Blocks.cpp">
