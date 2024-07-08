@@ -19,6 +19,9 @@ public:
 
 	void SetPlayerPos(Vector2 pos);
 
+	Vector2 GetStarPos() { return Vector2(1, 1); }
+	Vector2 GetEndPos() { return Vector2(MAXCOUNT_Y - 2, MAXCOUNT_X - 2); }
+
 
 private:
 	vector<vector<shared_ptr<Block>>> _blocks;

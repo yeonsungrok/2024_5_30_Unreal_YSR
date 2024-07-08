@@ -5,7 +5,7 @@
 
 Maze::Maze()
 {
-	Vector2 offSet = Vector2(600, 800);
+	Vector2 offSet = Vector2(450, 150);
 
 	_blocks.reserve(MAXCOUNT_Y);
 

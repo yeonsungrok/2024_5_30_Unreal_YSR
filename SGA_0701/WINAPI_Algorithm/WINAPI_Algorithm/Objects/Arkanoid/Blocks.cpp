@@ -106,8 +106,7 @@ void Blocks::IsCollision(shared_ptr<class Ball> ball)
 				ball->SetDir(ballDir);
 
 				it = blocks_X.erase(it);
-				//block.reset();
-				//return;
+			
 			}
 			else
 			{

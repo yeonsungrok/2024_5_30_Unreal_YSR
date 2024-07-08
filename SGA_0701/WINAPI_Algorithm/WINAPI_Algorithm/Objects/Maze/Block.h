@@ -27,7 +27,7 @@ private:
 	BlockType _type = BlockType::ABLE;
 
 	vector<HBRUSH> _brushes;
-	//int _curBrush = 0;
+	
 	
 };
 

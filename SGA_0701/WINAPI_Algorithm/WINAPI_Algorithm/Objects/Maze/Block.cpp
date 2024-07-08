@@ -5,15 +5,14 @@ Block::Block()
 :RectCollider(Vector2(), Vector2(5,5))
 {
 	_brushes.push_back(CreateSolidBrush(GREEN));
-//	_brushes.push_back(CreateSolidBrush(RGB(0, 0, 0)));
 	_brushes.push_back(CreateSolidBrush(RED));
-	_brushes.push_back(CreateSolidBrush(SKYCOLOR));
+	_brushes.push_back(CreateSolidBrush(BLUE));
 
 	//_pens[0] .. green
 	//_pens[1] .. red
-	_pens.push_back(CreatePen(PS_SOLID, 3, SKYCOLOR));
+	_pens.push_back(CreatePen(PS_SOLID, 3, BLUE));
 
-	SetGreen();
+	//SetGreen();
 }
 
 Block::~Block()

@@ -33,7 +33,7 @@ public:
 
 	virtual void SetGreen() { SetColor(GREEN_COLOR); } // 블록 공유땜시 virtual
 	virtual void SetRed() { SetColor(RED_COLOR); } // 블록 공유땜시 virtual
-	virtual void SetBlack() { SetColor(BLACK_COLOR); }
+	//virtual void SetBlack() { SetColor(BLACK_COLOR); }
 
 	Vector2 _center;
 

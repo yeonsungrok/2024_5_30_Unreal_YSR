@@ -12,6 +12,11 @@ public:
 	void BeginPlay();
 	void RightHand(); // 갈수있는 길을 찾아서 path에 넣는것
 
+	void DFS(Vector2 start);
+	void BFS(Vector2 start);
+	void DIJKSTRA(Vector2 start);
+
+
 	bool Cango(int y, int x);  //이동 판별
 
 	void Update();
