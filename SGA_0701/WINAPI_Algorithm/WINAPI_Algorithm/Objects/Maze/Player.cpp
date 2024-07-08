@@ -4,6 +4,10 @@
 #include "Maze.h"
 #include "Block.h"
 
+//DFS를 위한 아웃 선언 : visited
+vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+
+
 Player::Player(shared_ptr<Maze> maze)
 {
 	_maze = maze;
@@ -122,23 +126,47 @@ void Player::RightHand()
 
 void Player::DFS(Vector2 start)
 {
-	Vector2 FrontPos[4] =
+	Vector2 FrontPos[8] =
 	{
-		Vector2 {0,-1},		// Up
-		Vector2 {-1,0},		// Left
-		Vector2 {0,1},		// Bottom
-		Vector2 {1,0}		// Right
+		Vector2 {0,-1},   // Up
+		Vector2 {-1,0},   // Left
+		Vector2 {0,1},    // Bottom
+		Vector2 {1,0},    // Right
+
+		Vector2 {-1,-1},  // UpLeft
+		Vector2 {-1,1},   // Left Bottom
+		Vector2 {1,1},    // Bottom Right
+		Vector2 {1,-1}    // Right Up
 	};
-
-	vector<vector<bool>> discovered = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
-	vector<vector<Vector2>> parent = vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
-	Vector2 pos = start;
+	
+	
 	Vector2 endPos = _maze->GetEndPos();
+	Vector2 here = start;
 
-		
+	if (_path.size() == 0)
+	{
+		_path.push_back(start);
+	}
 
+	visited[here._y][here._x] = true;
 
+	for (int i = 0; i < 8; i++)
+	{
+		Vector2 there = here + FrontPos[i];
 
+		if (!Cango(there._y, there._x)) continue;
+
+		if (visited[there._y][there._x] == true) continue;
+
+		if (there == endPos)
+		{
+			_path.push_back(there);
+			break;
+		}
+
+		_path.push_back(there);
+		DFS(there);
+	}
 
 }
 
@@ -237,9 +265,9 @@ void Player::Update()
 		_path.clear();
 
 		return ;
-
 	}
-	_time += 0.06f;
+
+	_time += 0.1f;
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
