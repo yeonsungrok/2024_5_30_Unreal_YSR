@@ -11,7 +11,7 @@ using namespace std;
  그래프
  레온하르트 오일러 (한붓그리기 위해서 그래프라는 자료구조를 만듬)
 
- 정점(Node, Vertex)과 간선(edge)으로 이루어진 자료구조
+ 정점(Node, Vertex_Djikstra)과 간선(edge)으로 이루어진 자료구조
 
  방법 ────▶ 1. 인접리스트
 */

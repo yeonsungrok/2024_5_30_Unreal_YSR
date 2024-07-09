@@ -16,10 +16,11 @@ public:
 
 	void CreateMaze();
 	Block::BlockType GetBlockType(int y, int x);
+	void SetBlockType(int y, int x, Block::BlockType type);
 
 	void SetPlayerPos(Vector2 pos);
 
-	Vector2 GetStarPos() { return Vector2(1, 1); }
+	Vector2 GetStartPos() { return Vector2(1, 1); }
 	Vector2 GetEndPos() { return Vector2(MAXCOUNT_Y - 2, MAXCOUNT_X - 2); }
 
 

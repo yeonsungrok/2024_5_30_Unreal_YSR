@@ -13,7 +13,7 @@ using namespace std;
  호출스택으로 구현할수 있는데 재귀함수로 구현할 수 있다.
 
 */
-vector<bool> visited;
+vector<bool> _visited;
 vector<vector<bool>> adjacent;
 void CreateGraph_AdjacentMatrix()
 {
@@ -55,7 +55,7 @@ void CreateGraph_AdjacentMatrix()
 void DFS(int here) // 재귀함수 형태
 {
 	cout << here << "방문" << endl;
-	visited[here] = true;
+	_visited[here] = true;
 
 	// here에서 인접한 장점들이 있는지 확인
 	for (int there = 0; there < adjacent[0].size(); there++)
@@ -65,7 +65,7 @@ void DFS(int here) // 재귀함수 형태
 			continue;
 
 		// there가 이미 방문한 곳인지
-		if (visited[there] == true)
+		if (_visited[there] == true)
 			continue;
 		
 		DFS(there);
@@ -77,7 +77,7 @@ void DFS(int here) // 재귀함수 형태
 int main()
 {
 	CreateGraph_AdjacentMatrix();
-	visited = vector<bool>(adjacent.size(), false);
+	_visited = vector<bool>(adjacent.size(), false);
 
 	DFS(0);
 

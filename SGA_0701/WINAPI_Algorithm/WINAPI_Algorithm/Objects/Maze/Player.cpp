@@ -4,10 +4,6 @@
 #include "Maze.h"
 #include "Block.h"
 
-//DFS를 위한 아웃 선언 : visited
-vector<vector<bool>> visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
-
-
 Player::Player(shared_ptr<Maze> maze)
 {
 	_maze = maze;
@@ -21,21 +17,21 @@ Player::~Player()
 void Player::BeginPlay()
 {
 	_maze->SetPlayerPos(_pos);
-	_pos = _maze->GetStarPos();
-	//BFS(_pos);
-	DFS(_pos);
+	_pos = _maze->GetStartPos();
 
-	//RightHand();
-
+	_visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+	//BFS(_pos);							// 1 BFS
+	//DFS(_pos);							// 2 DFS
+	//Djikstra(_pos);						// 3 Djikstra
+	AStart(_pos, _maze->GetEndPos());		// 4 AStart
 
 }
 
 void Player::RightHand()
 {
-	//실습
+	// 실습
 	// 우수법을 이용해서 미로를 끝점까지 가면 된다.
-	// 찾은길은 _path에다 넣는다.
-	//방향...
+	// 찾은 길은 _path에다 넣는다.
 
 	enum Direction
 	{
@@ -50,35 +46,31 @@ void Player::RightHand()
 	Vector2 pos = _pos;
 	_path.push_back(pos);
 	Vector2 endPos = _maze->GetEndPos();
-	
-	//Vector2 endPos = Vector2(23, 23);
 
 	Direction dir = Direction::BOTTOM;
 
-
-	Vector2 FrontPos[4] =
+	Vector2 frontPos[4] =
 	{
-		Vector2 {0,-1},		// Up
-		Vector2 {-1,0},		// Left
-		Vector2 {0,1},		// Bottom
-		Vector2 {1,0}		// Right
+		Vector2 {0,-1}, // UP
+		Vector2 {-1,0}, // LEFT
+		Vector2 {0,1}, // BOTTOM
+		Vector2 {1,0}, // RIGHT
 	};
 
 	while (true)
 	{
 		if (pos == endPos)
 			break;
-		//.................2...+1...+4...%4 = 3 //enum Direction (0,1,2,3,4)
-		// %연산은 알고리즘에서 순환구조에서 많이 쓰인다.
+		//          (0   - 1  + 4) % 4 = 0
+		// % 알고리즘에서 순환구조에서 많이 쓰인다.
 		int newDir = (dir - 1 + DIR_COUNT) % DIR_COUNT;
-		Vector2 oldDirVector2 = FrontPos[dir];
-		Vector2 newDirVector2 = FrontPos[newDir]; 
+		Vector2 oldDirVector2 = frontPos[dir];
+		Vector2 newDirVector2 = frontPos[newDir];
 
-		//우수법 오른쪽으로가다가..
 		Vector2 newPos = pos + newDirVector2; // 내 오른쪽 방향
 		Vector2 oldPos = pos + oldDirVector2; // 내 앞방향
 
-		// 오른쪽으로 갈수 있으면 방향을 바꾸고 오른쪽으로 진행
+		// 오른쪽으로 갈 수 있으면 방향을 바꾸고 오른쪽으로 진행
 		if (Cango(newPos._y, newPos._x))
 		{
 			dir = static_cast<Direction>(newDir);
@@ -91,26 +83,27 @@ void Player::RightHand()
 			pos += oldDirVector2;
 			_path.push_back(pos);
 		}
-		// 오른쪽, 앞 둘다 막혀있을때 왼쪽으로 회전
+		// 오른쪽, 앞 둘다 막혀있을 때 왼쪽으로 회전
 		else
 		{
 			dir = static_cast<Direction>((dir + 1 + DIR_COUNT) % DIR_COUNT);
 		}
-		
-
 	}
 
-	stack<Vector2> s; // path에 겹쳐서 중복되는 부분을 삭제하려고하는 방식
-	for (int i = 0; i < _path.size() - 1; i++) 
+	stack<Vector2> s;
+
+	for (int i = 0; i < _path.size() - 1; i++)
 	{
 		if (s.empty() == false && s.top() == _path[i + 1])
 			s.pop();
 		else
 			s.push(_path[i]);
 	}
+
 	s.push(_path.back());
 
 	_path.clear();
+
 	while (true)
 	{
 		if (s.empty() == true)
@@ -119,79 +112,73 @@ void Player::RightHand()
 		_path.push_back(s.top());
 		s.pop();
 	}
+
 	std::reverse(_path.begin(), _path.end());
-
-
 }
 
-void Player::DFS(Vector2 start)
+void Player::DFS(Vector2 here)
 {
-	Vector2 FrontPos[8] =
+	// 4방향
+	Vector2 frontPos[8] =
 	{
-		Vector2 {0,-1},   // Up
-		Vector2 {-1,0},   // Left
-		Vector2 {0,1},    // Bottom
-		Vector2 {1,0},    // Right
+		Vector2 {0,-1}, // UP
+		Vector2 {-1,0}, // LEFT
+		Vector2 {0,1}, // BOTTOM
+		Vector2 {1,0}, // RIGHT
 
-		Vector2 {-1,-1},  // UpLeft
-		Vector2 {-1,1},   // Left Bottom
-		Vector2 {1,1},    // Bottom Right
-		Vector2 {1,-1}    // Right Up
+		Vector2 {-1,-1}, // UP LEFT
+		Vector2 {-1,1}, // LEFT BOTTOM
+		Vector2 {1,1}, // BOTTOM RIGHT
+		Vector2 {1,-1}, // RIGHT UP
 	};
-	
-	
-	Vector2 endPos = _maze->GetEndPos();
-	Vector2 here = start;
 
-	if (_path.size() == 0)
+	_visited[here._y][here._x] = true;
+	_path.push_back(here);
+	_maze->SetBlockType(here._y, here._x, Block::BlockType::FOOT_PRINT);
+
+	for (int i = 0; i < 4; i++)
 	{
-		_path.push_back(start);
-	}
-
-	visited[here._y][here._x] = true;
-
-	for (int i = 0; i < 8; i++)
-	{
-		Vector2 there = here + FrontPos[i];
-
+		// 인접해있는지
+		Vector2 there = here + frontPos[i];
+		// 방문되어있는지
+		if (_visited[there._y][there._x]) continue;
+		// 갈 수 있는 곳인지
 		if (!Cango(there._y, there._x)) continue;
-
-		if (visited[there._y][there._x] == true) continue;
-
-		if (there == endPos)
+		// EndPos인지
+		if (there == _maze->GetEndPos())
 		{
 			_path.push_back(there);
-			break;
+			continue;
 		}
 
-		_path.push_back(there);
 		DFS(there);
 	}
-
 }
 
 void Player::BFS(Vector2 start)
 {
-
-	Vector2 FrontPos[8] =
+	// 4방향
+	Vector2 frontPos[8] =
 	{
-		Vector2 {0,-1},		// Up
-		Vector2 {-1,0},		// Left
-		Vector2 {0,1},		// Bottom
-		Vector2 {1,0},		// Right
+		Vector2 {-1,-1}, // UP LEFT
+		Vector2 {-1,1}, // LEFT BOTTOM
+		Vector2 {1,1}, // BOTTOM RIGHT
+		Vector2 {1,-1}, // RIGHT UP
 
-		Vector2 {-1,-1},		// UpLeft
-		Vector2 {-1,1},		// Left Bottom
-		Vector2 {1,1},		// Bottom Right
-		Vector2 {1,-1}		// Right Up
-
+		Vector2 {0,-1}, // UP
+		Vector2 {-1,0}, // LEFT
+		Vector2 {0,1}, // BOTTOM
+		Vector2 {1,0}, // RIGHT
 	};
+	
 
-	vector<vector<bool>> discovered = vector<vector<bool>>(MAXCOUNT_Y,vector<bool>(MAXCOUNT_X, false));
-	vector<vector<Vector2>> parent = vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1,-1)));
+	
+	vector<vector<bool>> discovered = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
+	vector<vector<Vector2>> parent = vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
+
 	Vector2 pos = start;
 	Vector2 endPos = _maze->GetEndPos();
-	
+
 	discovered[start._y][start._x] = true;
 	parent[start._y][start._x] = start;
 
@@ -209,17 +196,19 @@ void Player::BFS(Vector2 start)
 		if (here == endPos)
 			break;
 
-
 		for (int i = 0; i < 8; i++)
 		{
-			Vector2 there = here + FrontPos[i];
-			
-			// there 가 갈 수 있는 블럭인지 확인.
+			Vector2 there = here + frontPos[i];
+
+			// there가 갈 수 있는 블럭인지 확인.
 			if (!Cango(there._y, there._x))
 				continue;
-			// there 가 방문되어있는지 확인.
+			// there가 방문되어있었는지 확인
 			if (discovered[there._y][there._x] == true)
 				continue;
+
+			// 탐색했으면 색을 변경
+			_maze->SetBlockType(there._y, there._x, Block::BlockType::FOOT_PRINT);
 
 			q.push(there);
 			discovered[there._y][there._x] = true;
@@ -227,8 +216,186 @@ void Player::BFS(Vector2 start)
 		}
 	}
 
-
 	Vector2 check = endPos;
+	_path.push_back(check);
+	while (true)
+	{
+		if (check == start) break;
+
+		check = parent[check._y][check._x];
+		_path.push_back(check);
+	}
+
+	std::reverse(_path.begin(), _path.end());
+}
+
+void Player::Djikstra(Vector2 start)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {-1,-1}, // UP LEFT
+		Vector2 {-1,1}, // LEFT BOTTOM
+		Vector2 {1,1}, // BOTTOM RIGHT
+		Vector2 {1,-1}, // RIGHT UP
+
+		Vector2 {0,-1}, // UP
+		Vector2 {-1,0}, // LEFT
+		Vector2 {0,1}, // BOTTOM
+		Vector2 {1,0} // RIGHT
+	};
+
+	vector<vector<Vector2>> parent =
+		vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
+	vector<vector<int>> best =
+		vector<vector<int>>(MAXCOUNT_Y, vector<int>(MAXCOUNT_X, INT_MAX));
+	priority_queue<Vertex_Djikstra, vector<Vertex_Djikstra>, greater<Vertex_Djikstra>> pq;
+
+	Vertex_Djikstra startV;
+	startV.pos = start;
+	startV.g = 0;
+	pq.push(startV);
+
+	best[start._y][start._x] = 0;
+	parent[start._y][start._x] = start;
+
+	while (true)
+	{
+		if (pq.empty())
+			break;
+
+		Vertex_Djikstra hereV = pq.top();
+		pq.pop();
+
+		if (hereV.pos == _maze->GetEndPos())
+			break;
+
+		// 전에 발견한 곳이 더 좋은 경로였을 때
+		if (best[hereV.pos._y][hereV.pos._x] < hereV.g)
+			continue;
+
+		// 다음 경로 탐색
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = hereV.pos + frontPos[i];
+
+			if (!Cango(there._y, there._x))
+				continue;
+
+			int newCost = 0;
+			if (i > 3)
+				newCost = hereV.g + 10;
+			else
+				newCost = hereV.g + 14;
+
+			if (newCost >= best[there._y][there._x])
+				continue;
+
+			Vertex_Djikstra thereV;
+			thereV.pos = there;
+			thereV.g = newCost;
+
+			pq.push(thereV);
+			best[there._y][there._x] = newCost;
+			parent[there._y][there._x] = hereV.pos;
+		}
+	}
+
+	Vector2 check = _maze->GetEndPos();
+	_path.push_back(check);
+	while (true)
+	{
+		if (check == start) break;
+
+		check = parent[check._y][check._x];
+		_path.push_back(check);
+	}
+
+	std::reverse(_path.begin(), _path.end());
+
+
+}
+
+void Player::AStart(Vector2 start, Vector2 end)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {-1,-1},	// UP LEFT
+		Vector2 {-1,1},		// LEFT BOTTOM
+		Vector2 {1,1},		// BOTTOM RIGHT
+		Vector2 {1,-1},		// RIGHT UP
+
+		Vector2 {0,-1},		// UP
+		Vector2 {-1,0},		// LEFT
+		Vector2 {0,1},		// BOTTOM
+		Vector2 {1,0}		// RIGHT
+	};
+
+	vector<vector<Vector2>> parent =
+	vector<vector<Vector2>>(MAXCOUNT_Y, vector<Vector2>(MAXCOUNT_X, Vector2(-1, -1)));
+	vector<vector<int>> best =
+	vector<vector<int>>(MAXCOUNT_Y, vector<int>(MAXCOUNT_X, INT_MAX));
+	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
+
+	Vertex startV;
+	startV.pos = start;
+	startV.g = 0;
+	startV.h = start.ManhattanDistance(_maze->GetEndPos()) * 10.0f;// 44 값
+	startV.f = startV.g + startV.h;
+	pq.push(startV);
+
+	best[start._y][start._x] = startV.f;
+	parent[start._y][start._x] = start;
+
+
+	while (true)
+	{
+		if (pq.empty())
+			break;
+
+		Vertex hereV = pq.top();
+		pq.pop();
+
+		if (hereV.pos == _maze->GetEndPos())
+			break;
+
+		// 전에 발견한 곳이 더 좋은 경로였을 때
+		if (best[hereV.pos._y][hereV.pos._x] < hereV.f)
+			continue;
+
+		// 다음 경로 탐색
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = hereV.pos + frontPos[i];
+
+			if (!Cango(there._y, there._x))
+				continue;
+
+			int newCost = 0;
+			if (i > 3)
+				newCost = hereV.g + 10;
+			else
+				newCost = hereV.g + 14;
+
+			int h = there.ManhattanDistance(_maze->GetEndPos()) * 10.0f;
+			int f = newCost + h;
+
+			if (f >= best[there._y][there._x])
+				continue;
+
+			Vertex thereV;
+			thereV.pos = there;
+			thereV.g = newCost;
+			thereV.h = h;
+			thereV.f = f;
+
+			pq.push(thereV);
+			_maze->SetBlockType(there._y, there._x, Block::BlockType::FOOT_PRINT);
+			best[there._y][there._x] = f;
+			parent[there._y][there._x] = hereV.pos;
+		}
+	}
+
+	Vector2 check = _maze->GetEndPos();
 	_path.push_back(check);
 	while (true)
 	{
@@ -242,14 +409,9 @@ void Player::BFS(Vector2 start)
 
 }
 
-void Player::DIJKSTRA(Vector2 start)
-{
-}
 
 bool Player::Cango(int y, int x)
 {
-
-	// maze에서 알수있음..
 	Block::BlockType blockType = _maze->GetBlockType(y, x);
 	if (blockType == Block::BlockType::ABLE)
 		return true;
@@ -264,7 +426,7 @@ void Player::Update()
 		_pathIndex = 0;
 		_path.clear();
 
-		return ;
+		return;
 	}
 
 	_time += 0.1f;
@@ -275,9 +437,10 @@ void Player::Update()
 
 		if (_pathIndex != 0)
 		{
-			_maze->SetPlayerPos(_pos); // 위치를 maze에 넘겨서 player표시를 해줌
+			// 발자취
+			_maze->SetPlayerPos(_pos);
 		}
+
 		_pathIndex++;
 	}
-
 }
