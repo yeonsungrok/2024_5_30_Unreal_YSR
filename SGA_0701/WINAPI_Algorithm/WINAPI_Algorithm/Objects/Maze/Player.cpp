@@ -21,9 +21,9 @@ void Player::BeginPlay()
 
 	_visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 	//BFS(_pos);							// 1 BFS
-	//DFS(_pos);							// 2 DFS
+	DFS(_pos);							// 2 DFS
 	//Djikstra(_pos);						// 3 Djikstra
-	AStart(_pos, _maze->GetEndPos());		// 4 AStart
+	//AStart(_pos, _maze->GetEndPos());		// 4 AStart
 
 }
 
@@ -293,6 +293,10 @@ void Player::Djikstra(Vector2 start)
 			Vertex_Djikstra thereV;
 			thereV.pos = there;
 			thereV.g = newCost;
+
+			//¹ßÀÚÃë
+			_maze->SetBlockType(there._y, there._x, Block::BlockType::FOOT_PRINT);
+
 
 			pq.push(thereV);
 			best[there._y][there._x] = newCost;

@@ -8,6 +8,16 @@ class Block;
 class Maze
 {
 public:
+	struct Edge
+	{
+		Vector2 u;
+		Vector2 v;
+
+		int cost = 0;
+	};
+
+
+
 	Maze();
 	~Maze();
 
@@ -15,6 +25,8 @@ public:
 	void Render(HDC hdc);
 
 	void CreateMaze();
+	void CreateMaze_Kruskal();
+
 	Block::BlockType GetBlockType(int y, int x);
 	void SetBlockType(int y, int x, Block::BlockType type);
 

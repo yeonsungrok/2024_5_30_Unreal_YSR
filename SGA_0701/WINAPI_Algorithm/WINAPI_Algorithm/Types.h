@@ -15,7 +15,7 @@
 
 #define PANTON			RGB(255,103,32)
 #define SKYCOLOR		RGB(123,150,230)
-#define INDIGO			RGB(75,0,130)
+#define INDIGO			RGB(200,80,200)
 
 
 #define LERP(s,e,t)		s + (e - s) * t
