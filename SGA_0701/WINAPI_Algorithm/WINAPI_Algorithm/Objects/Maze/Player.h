@@ -45,7 +45,7 @@ public:
 
 		float g;
 		float h; // 휴리스틱 함수 => 맨하튼 거리함수
-		float f; // 
+		float f; // g = h
 		Vector2 pos;
 
 	};
@@ -56,14 +56,15 @@ public:
 	~Player();
 
 	void BeginPlay();
-	void RightHand(); // 갈수있는 길을 찾아서 path에 넣는것
 
-	void DFS(Vector2 here);
+	// Fid path 알고리즘
+	void RightHand();			 // 갈수있는 길을 찾아서 path에 넣는것
+	void DFS(Vector2 here);   
 	void BFS(Vector2 start);
 	void Djikstra(Vector2 start);
-	void AStart(Vector2 start, Vector2 end);
+	void AStart(Vector2 start, Vector2 end); // 종점을 알고있다는 가정하에 AStart활용
 
-	bool Cango(int y, int x);  //이동 판별
+	bool Cango(int y, int x);	//이동 판별
 
 	void Update();
 

@@ -16,14 +16,14 @@ Player::~Player()
 
 void Player::BeginPlay()
 {
-	_maze->SetPlayerPos(_pos);
 	_pos = _maze->GetStartPos();
+	_maze->SetPlayerPos(_pos);
 
 	_visited = vector<vector<bool>>(MAXCOUNT_Y, vector<bool>(MAXCOUNT_X, false));
 	//BFS(_pos);							// 1 BFS
-	DFS(_pos);							// 2 DFS
+	//DFS(_pos);							// 2 DFS
 	//Djikstra(_pos);						// 3 Djikstra
-	//AStart(_pos, _maze->GetEndPos());		// 4 AStart
+	AStart(_pos, _maze->GetEndPos());		// 4 AStart
 
 }
 
@@ -430,10 +430,13 @@ void Player::Update()
 		_pathIndex = 0;
 		_path.clear();
 
+		_maze->CreateMaze_Kruskal();
+		BeginPlay();
+
 		return;
 	}
 
-	_time += 0.1f;
+	_time += 0.5f;
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
