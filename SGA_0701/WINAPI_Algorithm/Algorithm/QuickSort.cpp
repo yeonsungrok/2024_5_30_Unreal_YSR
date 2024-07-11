@@ -70,6 +70,7 @@ int main()
 	QuickSort(v, 0, v.size()-1);
 
 	// std::sort()가 quick sort 방식으로 하는개념이다..
+	
 
 	return 0;
 }
