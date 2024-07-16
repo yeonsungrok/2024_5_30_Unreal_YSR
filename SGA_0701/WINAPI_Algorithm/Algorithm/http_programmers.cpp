@@ -1,18 +1,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(int n) {
-    int answer = 0;
-    return answer;
-}
 
-int main()
-{
+    vector<int> answer;
+    //int answer = 0;
+    //int Divide = n;
 
-    solution(5);
+    for (int i = 0; i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            answer.push_back(n);
+        }
+    }
 
-    return 0;
+
+    //return answer;
 }
