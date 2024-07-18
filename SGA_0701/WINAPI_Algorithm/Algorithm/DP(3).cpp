@@ -51,6 +51,14 @@ int main()
 	int result = Enchant(15);
 	cout << result << endl;
 
+	// 서식 지정자
+	// %c : 하나의 문자
+	// %s : string
+	// %d : 부호 있는 10진 정수
+	// %f : float
+	// int temp = 1;
+	// printf("Hello world! %d.... temp : %d ", result, temp);
+
 
 	return 0;
 }

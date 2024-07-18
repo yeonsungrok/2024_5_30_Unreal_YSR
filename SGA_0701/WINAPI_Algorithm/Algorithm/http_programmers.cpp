@@ -1,6 +1,269 @@
-//#include <iostream>
-//#include <string>
-//#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+//int N = 0;
+//int M = 0;
+//vector<int> v;
+//vector<vector<int>> sub;
+//void Input()
+//{
+//    cin >> N;
+//    cin >> M;
+//
+//    v.reserve(N);
+//    sub.reserve(M);
+//
+//    for (int i = 0; i < N; i++)
+//    {
+//        int temp = 0;
+//        cin >> temp;
+//        v.push_back(temp);
+//    }
+//
+//    for (int j = 0; j < M; j++)
+//    {
+//        vector<int> temp;
+//        int a = 0;
+//        int b = 0;
+//        cin >> a;
+//        cin >> b;
+//
+//        temp.push_back(a);
+//        temp.push_back(b);
+//       
+//
+//        sub.push_back(temp);
+//    }
+//
+//}
+//vector<int> sumArr;
+//void CreateSumArr()
+//{
+//    sumArr.reserve(N);
+//    sumArr.push_back(v[0]);
+//
+//    for (int i = 0; i < N - 1; i++)
+//    {
+//        int temp = sumArr[i] + v[i + 1];
+//        sumArr.push_back(temp);
+//    }
+//}
+//
+//int main()
+//{
+//    Input();
+//    CreateSumArr();
+//
+//    for (int i = 0; i < M; i++)
+//    {
+//        int a = sub[i][0];
+//        int b = sub[i][1];
+//        if (a == 1)
+//            cout << sumArr[b - 1] << "\n";
+//        else
+//            cout << sumArr[b - 1] - sumArr[a - 2] << "\n";
+//    }
+//
+//    return 0;
+//}
+
+//// 백준 = 연속합 1912번문제
+//int N = 0;
+//vector<int> input;
+//vector<int> cache;
+//
+//void Input()
+//{
+//   cin >> N;
+//   cache = vector<int>(N, -1);
+//
+//   for (int i = 0; i < N; i++)
+//   {
+//       int temp = 0;
+//       cin >> temp;
+//
+//       input.push_back(temp);
+//   }
+//}
+// 
+//int sequenceAdd(int index)
+//{
+//    //기저사항
+//    if (index == N - 1)
+//        return input[index];
+//
+//    // 메모이제이션
+//    int& ref = cache[index];
+//    if (ref != -1001)
+//        return ref;
+//
+//    //구하기
+//    int result = input[index];
+//    result = max(result, result + sequenceAdd(index + 1));
+//    ref = result;
+//
+//    return ref;
+//}
+//
+//int main()
+//{
+//    Input();
+//
+//    int result = -1001;
+//    for (int i = 0; i < N; i++)
+//    {
+//        result = max(result, sequenceAdd(i));
+//    }
+//    cout << result << endl;
+//    return 0;
+//}
+
+
+
+
+
+
+//n의 피보나치 수를 구할 경우 코드1 코드2 실행 횟수를 출력
+// 피보나치 재귀호출 1, 동적프로그래밍 2 와 비교 횟수를 출력비교.
+
+
+int N;
+vector<int> cache;
+
+int callcount_1 = 0;
+int callcount_2 = 0;
+
+void Input()
+{
+    cin >> N;
+    cache.resize(N + 1, -1);
+}
+
+// 재귀 호출을 이용한 피보나치 수 계산
+int calculate_1(int n)
+{
+    callcount_1++;
+    if (n == 0 || n == 1)
+        return 1;
+
+    return calculate_1(n - 1) + calculate_1(n - 2);
+}
+
+int calculate_2(int n)
+{
+    callcount_2++;
+    if (n == 0 || n == 1)
+        return 1;
+
+    if (cache[n] != -1)
+        return cache[n];
+
+    int result = calculate_2(n - 1) + calculate_2(n - 2);
+    cache[n] = result;
+    return result;
+}
+
+    
+int main()
+{
+   
+    Input();
+   
+    calculate_1(N);
+    calculate_2(N);
+
+   
+    cout << callcount_1 << " " << callcount_2 << "\n";
+
+    return 0;
+}
+
+
+
+
+
+
+
+// 입력은 세 정수 a, b, c로 이루어져 있으며, 한 줄에 하나씩 주어진다. 
+// 입력의 마지막은 -1 -1 -1로 나타내며, 세 정수가 모두 -1인 경우는 입력의 마지막을 제외하면 없다.
+
+// 입력으로 주어진 각각의 a, b, c에 대해서, w(a, b, c)를 출력한다.
+//
+//vector<vector<int>> input;
+//int N;
+//
+//void Input()
+//{
+//	while (true)
+//	{
+//		int a = 0;
+//		int b = 0;
+//		int c = 0;
+//		cin >> a;
+//		cin >> b;
+//		cin >> c;
+//
+//		if (a == -1 && b == -1 && c == -1)
+//			break;
+//
+//		vector<int> temp = { a,b,c };
+//		input.push_back(temp);
+//	}
+//
+//	N = input.size();
+//}
+//
+//int cache[100][100][100];
+//
+//int w(int a, int b, int c)
+//{
+//	if (a <= 0 || b <= 0 || c <= 0)
+//		return 1;
+//	if (a > 20 || b > 20 || c > 20)
+//		return w(20, 20, 20);
+//
+//	int& ref = cache[a][b][c];
+//	if (ref != -1)
+//		return ref;
+//
+//	if (a < b && b < c)
+//		return ref = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
+//	else
+//		return ref = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
+//}
+//
+//
+//
+//int main()
+//{
+//    for (int i = 0; i < 100; i++)
+//    {
+//        for (int j = 0; j < 100; j++)
+//        {
+//            for (int k = 0; k < 100; k++)
+//                cache[i][j][k] = -1;
+//        }
+//    }
+//
+//    Input();
+//
+//    for (auto v : input)
+//    {
+//        printf("w(%d,%d,%d) = %d \n", v[0], v[1], v[2], w(v[0], v[1], v[2]));
+//    }
+//
+//    return 0;
+//}
+
+
+
+
+
+
 //// 완전탐색 피로도..
 //using namespace std;
 //
@@ -290,33 +553,33 @@
 //    return true;
 //}
 
-
-#include <string>
-#include <vector>
-#include <unordered_map>
-
-using namespace std;
-
-int solution(vector<vector<string>> clothes) {
-    unordered_map<string, int> clothes_count;
-
-    for (const auto& cloth : clothes)
-    {
-        string type = cloth[1]; // 의상 종류는 0이아니라 1에 들어가있음 0은 의상의 종류..
-        clothes_count[type]++;
-    }
-
-    int answer = 1;
-
-    // 서로 다른옷 조합갯수 계산..
-    for (const auto& pair : clothes_count)
-    {
-        answer *= (pair.second + 1);
-    }
-
-    return answer - 1;
-}
-
+//
+//#include <string>
+//#include <vector>
+//#include <unordered_map>
+//
+//using namespace std;
+//
+//int solution(vector<vector<string>> clothes) {
+//    unordered_map<string, int> clothes_count;
+//
+//    for (const auto& cloth : clothes)
+//    {
+//        string type = cloth[1]; // 의상 종류는 0이아니라 1에 들어가있음 0은 의상의 종류..
+//        clothes_count[type]++;
+//    }
+//
+//    int answer = 1;
+//
+//    // 서로 다른옷 조합갯수 계산..
+//    for (const auto& pair : clothes_count)
+//    {
+//        answer *= (pair.second + 1);
+//    }
+//
+//    return answer - 1;
+//}
+//
 
 
 
