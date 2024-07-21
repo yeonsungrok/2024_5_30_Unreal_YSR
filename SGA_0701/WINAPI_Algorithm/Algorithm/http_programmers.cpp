@@ -2,8 +2,344 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-
+#include <unordered_map>
 using namespace std;
+
+/*
+isdigit = 문자가 숫자인지 판별하는 함수.
+stoi = string을 int로 바꿀때 사용하는 매서드 (String TO Int)
+
+*/
+
+
+int solution(int i, int j, int k) {
+    int answer = 0;
+    string k_str = to_string(k);  // k를 문자열로 변환
+
+    for (int num = i; num <= j; ++num) 
+    {
+        string num_str = to_string(num);  // 현재 숫자를 문자열로 변환
+        answer += count(num_str.begin(), num_str.end(), k_str[0]);  // k_str[0]이 num_str에서 등장하는 횟수를 세기
+    }
+
+    return answer;
+}
+
+
+//string solution(string s) {
+//    unordered_map<char, int> findText;
+//
+//
+//    for (char ch : s)
+//    {
+//        findText[ch]++;
+//    }
+//
+//    string answer;
+//
+//    for (auto entry : findText)
+//    {
+//        if (entry.second == 1)
+//            answer.push_back(entry.first);
+//    }
+//
+//    sort(answer.begin(), answer.end());
+//
+//
+//    return answer;
+//}
+
+
+
+
+//string solution(string my_string) {
+//    string answer = "";
+//
+//    std::sort(my_string.begin(), my_string.end());
+//    std::unique(my_string.begin(), my_string.end());
+//
+//
+//    return answer;
+//}
+
+
+
+
+
+
+//vector<int> solution(string my_string) {
+//    vector<int> answer;
+//
+//
+//    for (char ch : my_string) 
+//    {
+//        if (isdigit(ch)) 
+//        {
+//            answer.push_back(ch - '0');
+//        }
+//    }
+//    sort(answer.begin(), answer.end());
+//
+//    return answer;
+//}
+//    
+       
+
+
+
+
+
+//string solution(string my_string) {
+//    string answer = "";
+//
+//    for (int i = 0; i < my_string.size(); i++)
+//    {
+//        if ('A' <= my_string[i] && 'Z' >= my_string[i])
+//        {
+//            my_string[i] = my_string[i] + 32;
+//            
+//        }
+//    }
+//
+//    sort(my_string.begin(), my_string.end());
+//   
+//
+//    
+//    return my_string;
+//}
+
+
+
+//vector<int> solution(int n) {
+//    vector<int> answer;
+//
+//    for (int i = 1; i <= n; i++)
+//    {
+//        if (n % i == 0)
+//            answer.push_back(i);
+//
+//    }
+//
+//    return answer;
+//}
+
+
+//vector<int> solution(vector<string> strlist) {
+//    vector<int> answer;
+//
+//   
+//    for (string str : strlist)
+//    {
+//        answer.push_back(str.length());
+//    }
+//
+//
+//
+//    return answer;
+//}
+
+
+
+//int solution(int n) {
+//    int answer = 0;
+//    // n이 제곱수가 맞는지 확인
+//    int a = sqrt(n);
+//    if (a * a == n)
+//    {
+//        answer = 1;
+//    }
+//    else
+//    {
+//        answer = 2;
+//    }
+//
+//    return answer;
+//}
+
+
+
+
+//int solution(vector<int> numbers) {
+//   
+//    sort(numbers.begin(), numbers.end());
+//   
+//    int Max = numbers[numbers.size() - 1] * numbers[numbers.size() - 2];
+//
+//    int answer = Max;
+//
+//    return answer;
+//}
+
+//int solution(vector<int> sides) {
+//    int answer = 0;
+//    
+//    int a = sides[0];
+//    int b = sides[1];
+//    sides[2] = a + b;
+//    if (a + b < sides[2])
+//        return answer + 1;
+//    else
+//        return answer + 2;
+//
+//    //sort(sides.begin(), sides.end());
+//
+//    //// 가장 긴 변의 길이 sides[2]가 다른 두 변의 합보다 작은지 확인
+//    //if (sides[2] < sides[0] + sides[1]) {
+//    //    return 1;  // 삼각형을 만들 수 있음
+//    //}
+//    //else {
+//    //    return 2;  // 삼각형을 만들 수 없음
+//    //}
+//
+//    return answer;
+//}
+
+
+
+//int solution(int n) {
+//    int answer = 0;
+//    // 정수 n이 매개변수로 주어질 때 n의 각 자리 숫자의 합을 return하도록 solution 함수를 완성해주세요
+//    while (n > 0)
+//    {
+//        answer += n % 10;
+//        n /= 10;
+//    }
+//
+//   
+//
+//    return answer;
+//}
+
+
+
+
+//int solution(string str1, string str2) {
+//    int answer = 0;
+//    // str1안에 str2 입력한것이 있으면 1 없으면 2
+//
+//    if (str1.find(str2) != string::npos)
+//        return answer + 1;
+//    else
+//        return answer + 2;
+//
+//
+//    return answer;
+//}
+
+
+
+
+//
+//string solution(string my_string, int num1, int num2) {
+//         swap(my_string[num1], my_string[num2]);
+//   
+//    return my_string;
+//}
+
+
+
+//int solution(vector<string> s1, vector<string> s2) {
+//    int answer = 0;
+//    for (int i = 0; i < s1.size(); i++)
+//    {
+//        for (int j = 0; j < s2.size(); j++)
+//        {
+//            if (s1[i] == s2[j])
+//                answer++;
+//        }
+//
+//    }
+//
+//
+//    return answer;
+//}
+
+
+
+
+//vector<int> solution(int n, vector<int> numlist) {
+//    vector<int> answer;
+//    // n 은 3.. 5... 등 입력값일때...
+//    for (int i = 0; i < numlist.size(); i++)
+//    {
+//        if (numlist[i] % n == 0)
+//            answer.push_back(numlist[i]);
+//    }
+//
+//    return answer;
+//}
+
+
+//string solution(string my_string) {
+//    string answer = "";
+//    // my_string 입력 받은 값을 answer 출력.
+//    // 소문자 -> 대문자, 대문자 -> 소문자로 변환
+//
+//    for (int i = 0; i < my_string.size(); i++)
+//    {
+//        if ('A' <= my_string[i] && 'Z' >= my_string[i])
+//        {
+//            my_string[i] += 32;
+//            answer.push_back(my_string[i]);
+//        }
+//
+//
+//        else if ('a' <= my_string[i] && 'b' >= my_string[i])
+//        {
+//            my_string[i] -= 32;
+//            answer.push_back(my_string[i]);
+//        }
+//    }
+//    return answer;
+//}
+
+//int solution(string my_string) {
+//
+//    int answer = 0;
+//
+//    for (char sum : my_string) {
+//        if (isdigit(sum)) {
+//            answer += sum - '0';  // 한 자리 숫자를 정수로 변환하여 합산
+//        }
+//    }
+//
+//    return answer;
+//}
+
+
+
+
+//vector<int> solution(vector<int> emergency) {
+//    int n = emergency.size();
+//    vector<int> answer(n);
+//
+//    for (int i = 0; i < n; i++)
+//    {
+//        int rank = 1; // 정수 랭킹확인
+//        for (int j = 0; j < n; j++)
+//        {
+//            if (emergency[j] > emergency[i])
+//            {
+//                rank++;
+//            }
+//        }
+//        answer[i] = rank;
+//    }
+//
+//
+//    return answer;
+//}
+
+
+int main()
+{
+    
+
+
+
+    return 0;
+}
+
 
 //int N = 0;
 //int M = 0;
@@ -131,56 +467,56 @@ using namespace std;
 // 피보나치 재귀호출 1, 동적프로그래밍 2 와 비교 횟수를 출력비교.
 
 
-int N;
-vector<int> cache;
-
-int callcount_1 = 0;
-int callcount_2 = 0;
-
-void Input()
-{
-    cin >> N;
-    cache.resize(N + 1, -1);
-}
-
-// 재귀 호출을 이용한 피보나치 수 계산
-int calculate_1(int n)
-{
-    callcount_1++;
-    if (n == 0 || n == 1)
-        return 1;
-
-    return calculate_1(n - 1) + calculate_1(n - 2);
-}
-
-int calculate_2(int n)
-{
-    callcount_2++;
-    if (n == 0 || n == 1)
-        return 1;
-
-    if (cache[n] != -1)
-        return cache[n];
-
-    int result = calculate_2(n - 1) + calculate_2(n - 2);
-    cache[n] = result;
-    return result;
-}
-
-    
-int main()
-{
-   
-    Input();
-   
-    calculate_1(N);
-    calculate_2(N);
-
-   
-    cout << callcount_1 << " " << callcount_2 << "\n";
-
-    return 0;
-}
+//int N;
+//vector<int> cache;
+//
+//int callcount_1 = 0;
+//int callcount_2 = 0;
+//
+//void Input()
+//{
+//    cin >> N;
+//    cache.resize(N + 1, -1);
+//}
+//
+//// 재귀 호출을 이용한 피보나치 수 계산
+//int calculate_1(int n)
+//{
+//    callcount_1++;
+//    if (n == 0 || n == 1)
+//        return 1;
+//
+//    return calculate_1(n - 1) + calculate_1(n - 2);
+//}
+//
+//int calculate_2(int n)
+//{
+//    callcount_2++;
+//    if (n == 0 || n == 1)
+//        return 1;
+//
+//    if (cache[n] != -1)
+//        return cache[n];
+//
+//    int result = calculate_2(n - 1) + calculate_2(n - 2);
+//    cache[n] = result;
+//    return result;
+//}
+//
+//    
+//int main()
+//{
+//   
+//    Input();
+//   
+//    calculate_1(N);
+//    calculate_2(N);
+//
+//   
+//    cout << callcount_1 << " " << callcount_2 << "\n";
+//
+//    return 0;
+//}
 
 
 
