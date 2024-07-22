@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "UE5_YSR",
+			"Path": "..\\Source\\UE5_YSR.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "UE5_YSREditor",
+			"Path": "..\\Source\\UE5_YSREditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

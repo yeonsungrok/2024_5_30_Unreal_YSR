@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\YeonSungRok\\SGA\\2024_5_30_Unreal_YSR\\UE5_YSR\\Source\\UE5_YSR\\UE5_YSR.Build.cs",
+		"D:\\YeonSungRok\\SGA\\2024_5_30_Unreal_YSR\\UE5_YSR\\Source\\UE5_YSR.Target.cs",
+		"D:\\YeonSungRok\\SGA\\2024_5_30_Unreal_YSR\\UE5_YSR\\Source\\UE5_YSREditor.Target.cs"
+	],
+	"EngineVersion": "5.4.3"
+}
