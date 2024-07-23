@@ -253,6 +253,7 @@
     <None Include="..\..\Source\UE5_YSR.Target.cs"/>
     <None Include="..\..\Source\UE5_YSREditor.Target.cs"/>
     <None Include="..\..\.vsconfig"/>
+    <None Include="..\..\MEMO.hwp"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
@@ -261,6 +262,18 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_YSR\MyActor.h"/>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyGameModeBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyGameModeBase.h"/>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyPawn.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyPawn.h"/>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyPlayerController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyPlayerController.h"/>
     <None Include="..\..\Source\UE5_YSR\UE5_YSR.Build.cs"/>
     <ClCompile Include="..\..\Source\UE5_YSR\UE5_YSR.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

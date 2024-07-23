@@ -53,6 +53,10 @@ void AMyActor::Tick(float DeltaTime)
 	{
 		FRotator rot = FRotator(0.0f, 90.0f, 0.0f);
 		AddActorLocalRotation(rot * _rotationSpeed * DeltaTime);
+
+		FVector moveV = FVector(0.0f, _moveSpeed, 0.0f);
+		FVector curLocation = GetActorLocation() + moveV; // 액터의 현재위치값
+		SetActorLocation(curLocation); // 이 내용은 액터의 회전과 관계없이 월드 좌표계 특정방향으로 이동
 	}
 
 	/*FVector tempV = GetActorLocation();
@@ -61,29 +65,15 @@ void AMyActor::Tick(float DeltaTime)
 
 	//1. Actor 2가 공전할때 Actor를 바라보며 공전
 	// Actor는 그대로
-
-
-	FVector moveV = FVector(0.0f, _moveSpeed, 0.0f);
-					//.......AddActorWorldOffset(moveV * DeltaTime);
+					
 	//2. SetActorLocation()
 	// 문제점?
 	// 아니면 SetActorLocation을 통해서 현재 위치값을 더하여 새로운 위치를 설정.
 	
-	// 추가내용..
-	FVector curLocation = GetActorLocation(); // 액터의 현재위치값
-	
-	FVector newLocation = curLocation + (moveV * DeltaTime);
-
-	SetActorLocation(newLocation); // 이 내용은 액터의 회전과 관계없이 월드 좌표계 특정방향으로 이동
-
 	// 기존내용
 	// AddActorLocalOffset(moveV * DeltaTime);
 	// 문제점 : Actor의 Local에 대한 vector값의 영향을 받으므로 WorldOffset을 사용하여 world의 기준을 사용해야함.
 	
-
-
-
-
 	//3. Quaternion (사원수)
 	// 사원수 회전에 대해서 조사해보기
 }

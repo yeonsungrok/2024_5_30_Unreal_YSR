@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\MEMO.hwp" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -34,6 +35,24 @@
       <Filter>Source\UE5_YSR</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_YSR\MyActor.h">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyGameModeBase.cpp">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyGameModeBase.h">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyPawn.cpp">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyPawn.h">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyPlayerController.cpp">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyPlayerController.h">
       <Filter>Source\UE5_YSR</Filter>
     </ClInclude>
     <None Include="..\..\Source\UE5_YSR\UE5_YSR.Build.cs">
