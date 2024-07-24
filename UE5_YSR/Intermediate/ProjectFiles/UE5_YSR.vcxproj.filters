@@ -37,6 +37,18 @@
     <ClInclude Include="..\..\Source\UE5_YSR\MyActor.h">
       <Filter>Source\UE5_YSR</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyAnimInstance.cpp">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyAnimInstance.h">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_YSR\MyCharacter.cpp">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_YSR\MyCharacter.h">
+      <Filter>Source\UE5_YSR</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE5_YSR\MyGameModeBase.cpp">
       <Filter>Source\UE5_YSR</Filter>
     </ClCompile>

@@ -72,6 +72,8 @@ void AMyPawn::Move(const FInputActionValue& value)
 	{
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
+
+		
 	}
 
 }
@@ -82,6 +84,8 @@ void AMyPawn::Look(const FInputActionValue& value)
 	if (Controller != nullptr)
 	{
 		AddControllerYawInput(LookAxisVector.X);
+
+		
 	}
 
 }

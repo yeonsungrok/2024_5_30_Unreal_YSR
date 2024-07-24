@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_ysr\\uht\\myaniminstance.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\intermediate\\build\\win64\\x64\\ue5_ysreditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\ue5_ysr\\definitions.ue5_ysr.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\source\\ue5_ysr\\myaniminstance.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_ysr\\uht\\myaniminstance.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
