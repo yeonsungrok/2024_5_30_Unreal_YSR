@@ -45,7 +45,9 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\components\\capsulecomponent.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\components\\shapecomponent.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\shapecomponent.generated.h",
-            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\capsulecomponent.generated.h"
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\capsulecomponent.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\source\\ue5_ysr\\myaniminstance.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_ysr\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_ysr\\uht\\myaniminstance.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

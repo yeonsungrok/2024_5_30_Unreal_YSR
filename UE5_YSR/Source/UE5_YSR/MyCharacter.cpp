@@ -9,6 +9,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "MyAnimInstance.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -42,12 +43,27 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	// 몽타주가 끝날때 _isAttack 을 false로 만들경우
+	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
+
 }
 
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	// 클라스간의 결합도. //HP : 50, MP : 30
+	//_myDelegate1.ExecuteIfBound();
+	
+	//_myDelegate3.ExecuteIfBound(50, 30);
+	
+	//클래스 객체로 직접 함수호출 : auto myAnimal = GetMesh()->GetAnimInstance();
+	
+	// 단점 = 클래스간의 결합도.. 높아진다..
+	
+
 
 }
 
@@ -59,6 +75,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 
+		// 이것도 키입력의 델리게이트임..바인드되는..
+
 		// Moving
 		EnhancedInputComponent->BindAction(_moveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
 
@@ -68,8 +86,14 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpA);
 
 		// Attack
-		EnhancedInputComponent->BindAction(_AttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::Attack);
 	}
+}
+
+void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
+{
+	UE_LOG(LogTemp, Error, TEXT("Attack End!!!"));
+	_isAttacking = false;
 }
 
 void AMyCharacter::Move(const FInputActionValue& value)
@@ -81,8 +105,8 @@ void AMyCharacter::Move(const FInputActionValue& value)
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
 
-
 	}
+
 }
 
 void AMyCharacter::Look(const FInputActionValue& value)
@@ -112,28 +136,24 @@ void AMyCharacter::Attack(const FInputActionValue& value)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Attack pressed"));
 
-		if (!isAttacking)
-		{
-			StartAttack();
-		
-			//공격추가
-			GetWorld()->GetTimerManager().SetTimer
-			(TimerHandle_Attack, this, &AMyCharacter::StopAttack, 1.0f, false);
-		}
+		//if (!_isAttacking)
+		//{
+		//	StartAttack();
+		//
+		//	//공격추가
+		//	GetWorld()->GetTimerManager().SetTimer
+		//	(TimerHandle_Attack, this, &AMyCharacter::StopAttack, 1.0f, false);
+		//}
 	
+	bool isPressed = value.Get<bool>();
+	if (isPressed && _isAttacking == false)
+	{
+		auto myAnimI = GetMesh()->GetAnimInstance();
+		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
+		_isAttacking = true;
+	}
+
 }
 
-void AMyCharacter::StartAttack()
-{
-	isAttacking = true;
-	UE_LOG(LogTemp, Warning, TEXT("StartAttack: bIsAttacking = true"));
 
-}
-
-void AMyCharacter::StopAttack()
-{
-	isAttacking = false;
-	UE_LOG(LogTemp, Warning, TEXT("StopAttack: bIsAttacking = false"));
-	GetWorld()->GetTimerManager().ClearTimer(TimerHandle_Attack);
-}
 

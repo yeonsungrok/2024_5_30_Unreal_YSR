@@ -12,6 +12,10 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+DECLARE_DELEGATE(DelegateTest1);
+DECLARE_DELEGATE_OneParam(DelegateTestOneParam, int32);
+DECLARE_DELEGATE_TwoParams(DelegateTestTwoParams, int32 hp, int32 mp);
+
 
 UCLASS()
 class UE5_YSR_API AMyCharacter : public ACharacter
@@ -34,7 +38,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	UFUNCTION()
+	void OnAttackEnded(class UAnimMontage* Montage, bool bInterrupted);
 
 protected:
 	void Move(const FInputActionValue& value);
@@ -52,17 +57,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* _jumpAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* _AttackAction;
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* _attackAction;
+	bool _isAttacking = false;
 
 	class USpringArmComponent* _springArm;
 	class UCameraComponent* _camera;
 	
-	bool isAttacking;
-	void StartAttack();
+	
+	/*DelegateTest1 _myDelegate1;
+	DelegateTestOneParam _myDelegate2;
+	DelegateTestTwoParams _myDelegate3;*/
+
+	/*void StartAttack();
 	void StopAttack();
 
 private:
-	FTimerHandle TimerHandle_Attack;
+	FTimerHandle TimerHandle_Attack;*/
 };

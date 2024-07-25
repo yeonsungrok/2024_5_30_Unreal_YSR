@@ -18,6 +18,9 @@ class UE5_YSR_API UMyAnimInstance : public UAnimInstance
 
 public:
 	UMyAnimInstance();
+	void PlayAttackMontage();
+	void DelegateTest();
+	void DelegateTest2(int32 hp, int32 mp);
 
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 private:
@@ -25,7 +28,9 @@ private:
 	float _speed;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	bool _isFalling;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
-	bool _isAttack;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	class UAnimMontage* _myAnimMontage;
+	
 	
 };
