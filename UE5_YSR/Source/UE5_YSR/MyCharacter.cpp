@@ -20,6 +20,8 @@ AMyCharacter::AMyCharacter()
 	// skeletal Mesh
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> sm
 	(TEXT("/Script/Engine.SkeletalMesh'/Game/ParagonShinbi/Characters/Heroes/Shinbi/Meshes/Shinbi.Shinbi'"));
+	
+	
 
 	if (sm.Succeeded())
 	{
@@ -44,9 +46,10 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
-	// 몽타주가 끝날때 _isAttack 을 false로 만들경우
+	
+	// 몽타주가 끝날때 _isAttack 을 false로 만들경우 (델리게이트[애님인스턴스가 갖고있는]) // 구독신청
 	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
-
+	animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 }
 
 // Called every frame
@@ -62,8 +65,6 @@ void AMyCharacter::Tick(float DeltaTime)
 	//클래스 객체로 직접 함수호출 : auto myAnimal = GetMesh()->GetAnimInstance();
 	
 	// 단점 = 클래스간의 결합도.. 높아진다..
-	
-
 
 }
 
@@ -86,7 +87,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpA);
 
 		// Attack
-		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::Attack);
+		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::AttackA);
 	}
 }
 
@@ -96,12 +97,22 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 	_isAttacking = false;
 }
 
+void AMyCharacter::AttackHit()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Attack!!!!!!!!!"));
+}
+
+
 void AMyCharacter::Move(const FInputActionValue& value)
 {
 	FVector2D MovementVector = value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
+
+		_vertical = MovementVector.Y;
+		_horizontal = MovementVector.X;
+
 		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
 		AddMovementInput(GetActorRightVector(), MovementVector.X);
 
@@ -132,18 +143,9 @@ void AMyCharacter::JumpA(const FInputActionValue& value)
 	}
 }
 
-void AMyCharacter::Attack(const FInputActionValue& value)
+void AMyCharacter::AttackA(const FInputActionValue& value)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Attack pressed"));
 
-		//if (!_isAttacking)
-		//{
-		//	StartAttack();
-		//
-		//	//공격추가
-		//	GetWorld()->GetTimerManager().SetTimer
-		//	(TimerHandle_Attack, this, &AMyCharacter::StopAttack, 1.0f, false);
-		//}
 	
 	bool isPressed = value.Get<bool>();
 	if (isPressed && _isAttacking == false)
@@ -151,6 +153,13 @@ void AMyCharacter::Attack(const FInputActionValue& value)
 		auto myAnimI = GetMesh()->GetAnimInstance();
 		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
 		_isAttacking = true;
+
+
+		_curAttackIndex %= 3;
+		_curAttackIndex++;
+
+		Cast<UMyAnimInstance>(myAnimI)->JumpToSection(_curAttackIndex);
+		
 	}
 
 }

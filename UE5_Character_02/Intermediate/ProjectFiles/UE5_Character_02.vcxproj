@@ -253,14 +253,27 @@
     <None Include="..\..\Source\UE5_Character_02.Target.cs"/>
     <None Include="..\..\Source\UE5_Character_02Editor.Target.cs"/>
     <None Include="..\..\.vsconfig"/>
+    <None Include="..\..\기본진행.txt"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
     <None Include="..\..\Config\DefaultGame.ini"/>
     <None Include="..\..\Config\DefaultInput.ini"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MainGameMode.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MainGameMode.h"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyAnimInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyAnimInstance.h"/>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyCharacter.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyCharacter.h"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyPlayerController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyPlayerController.h"/>
     <None Include="..\..\Source\UE5_Character_02\UE5_Character_02.Build.cs"/>
     <ClCompile Include="..\..\Source\UE5_Character_02\UE5_Character_02.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

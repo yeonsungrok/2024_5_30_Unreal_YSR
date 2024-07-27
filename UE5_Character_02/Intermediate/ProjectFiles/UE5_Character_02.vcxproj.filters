@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\기본진행.txt" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -30,10 +31,28 @@
     <Filter Include="Source\UE5_Character_02">
       <UniqueIdentifier>{6E9CFF43-52D8-3306-B33D-8392373ABA35}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MainGameMode.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MainGameMode.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyAnimInstance.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyAnimInstance.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyCharacter.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyCharacter.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyPlayerController.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyPlayerController.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
     <None Include="..\..\Source\UE5_Character_02\UE5_Character_02.Build.cs">

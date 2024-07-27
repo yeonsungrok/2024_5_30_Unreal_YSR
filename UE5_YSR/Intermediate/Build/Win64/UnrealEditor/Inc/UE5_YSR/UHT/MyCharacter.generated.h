@@ -16,6 +16,7 @@ class UAnimMontage;
 #define UE5_YSR_MyCharacter_generated_h
 
 #define FID_UE5_YSR_Source_UE5_YSR_MyCharacter_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execAttackHit); \
 	DECLARE_FUNCTION(execOnAttackEnded);
 
 
