@@ -19,15 +19,15 @@ class UE5_CHARACTER_02_API UMyAnimInstance : public UAnimInstance
 public:
 	UMyAnimInstance();
 
-	void PlayAttackMontage();
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+	void PlayAttackMontage();
 	void JumpToSection(int32 sectionIndex);
 
 	UFUNCTION()
 	void AnimNotify_AttackHit();
 	AttackDelegate _attackDelegate;
 
-	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 
 	 
@@ -49,9 +49,6 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	float _horizontal;
-
-	/*UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
-	FVector _vSpeed;*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Pawn, Meta = (AllowPrivateAccess = true))
 	class UAnimMontage* _myAnimMontage;

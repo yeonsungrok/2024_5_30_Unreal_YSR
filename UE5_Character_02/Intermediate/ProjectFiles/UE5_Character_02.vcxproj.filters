@@ -49,6 +49,24 @@
     <ClInclude Include="..\..\Source\UE5_Character_02\MyCharacter.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterActor.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterActor.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterAnimInstance.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterAnimInstance.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterCharacter.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterCharacter.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyPlayerController.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>

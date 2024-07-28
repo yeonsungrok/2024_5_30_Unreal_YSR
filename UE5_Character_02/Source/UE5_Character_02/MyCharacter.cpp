@@ -37,10 +37,10 @@ AMyCharacter::AMyCharacter()
 	_springArm->TargetArmLength = 550.0f;
 	_springArm->SetRelativeRotation(FRotator(-30.0f, 0.0f, 0.0f));
 
+}
 
 
 	
-}
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
@@ -48,10 +48,8 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
-	// 몽타주가 끝날때 _isAttack 을 false로
 
-	//Yaw 테스트 if문을 추가 내용은 원래 밖에있었음..
-	
+	// 몽타주가 끝날때 _isAttack 을 false로
 	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
 	animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 	
@@ -77,6 +75,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 		// Looking
 		EnhancedInputComponent->BindAction(_lookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+		
 		// JumpA
 		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpA);
 
@@ -132,6 +131,7 @@ void AMyCharacter::JumpA(const FInputActionValue& value)
 		UE_LOG(LogTemp, Warning, TEXT("Jump!!"));
 		
 		ACharacter::Jump();
+		
 	}
 
 }
@@ -151,10 +151,7 @@ void AMyCharacter::AttackA(const FInputActionValue& value)
 
 		Cast<UMyAnimInstance>(myAnimI)->JumpToSection(_curAttackIndex);
 
-
-
 		
 	}
-
 }
 

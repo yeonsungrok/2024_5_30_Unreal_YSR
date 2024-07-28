@@ -1,0 +1,25 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\monstercharacter.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\x64\\ue5_character_02editor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\ue5_character_02\\definitions.ue5_character_02.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\monstercharacter.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\mymonsteractor.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mymonsteractor.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\monstercharacter.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

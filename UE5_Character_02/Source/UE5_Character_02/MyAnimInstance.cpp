@@ -3,9 +3,9 @@
 
 #include "MyAnimInstance.h"
 #include "MyCharacter.h"
-
 #include "GameFramework/PawnMovementComponent.h"
 #include "Animation/AnimMontage.h"
+
 
 UMyAnimInstance::UMyAnimInstance()
 {
@@ -17,11 +17,25 @@ UMyAnimInstance::UMyAnimInstance()
 	{
 		_myAnimMontage = am.Object;
 	}
-
-
 	
 }
 
+void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
+{
+	AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
+	if (myCharacter != nullptr)
+	{
+		_speed = myCharacter->GetVelocity().Size();
+		_isFalling = myCharacter->GetMovementComponent()->IsFalling();
+		_Direction = CalculateDirection(myCharacter->GetVelocity(), myCharacter->GetActorRotation());
+
+		_vertical = _speed + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
+		_horizontal = _Direction + (myCharacter->_horizontal - _Direction) * (DeltaSeconds);
+		//_vertical = _vertical + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
+		
+	}
+
+}
 void UMyAnimInstance::PlayAttackMontage()
 {
 	
@@ -29,8 +43,8 @@ void UMyAnimInstance::PlayAttackMontage()
 	{
 		Montage_Play(_myAnimMontage);
 
-		
 		AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
+		
 	}
 
 }
@@ -46,23 +60,3 @@ void UMyAnimInstance::AnimNotify_AttackHit()
 	_attackDelegate.Broadcast();
 }
 
-void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
-{
-	AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
-	if (myCharacter != nullptr)
-	{
-		_speed = myCharacter->GetVelocity().Size();
-		_isFalling = myCharacter->GetMovementComponent()->IsFalling();
-		_Direction = CalculateDirection(myCharacter->GetVelocity(), myCharacter->GetActorRotation());
-
-		_vertical = _speed + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
-		//_vertical = _vertical + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
-		_horizontal = _Direction + (myCharacter->_horizontal - _Direction) * (DeltaSeconds);
-
-
-
-
-		
-	}
-
-}
