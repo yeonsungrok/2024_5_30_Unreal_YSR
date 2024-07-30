@@ -10,6 +10,10 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "MyAnimInstance.h"
+#include "Engine/DamageEvents.h"
+#include "MyItem.h"
+
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -27,31 +31,47 @@ AMyCharacter::AMyCharacter()
 	}
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.0f), FRotator(0.0f, -90.0f, 0.0f));
+
+
 	_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	
+
+
 	// 상속관계
 	_springArm->SetupAttachment(GetCapsuleComponent());
 	_camera->SetupAttachment(_springArm);
 
 	_springArm->TargetArmLength = 550.0f;
 	_springArm->SetRelativeRotation(FRotator(-30.0f, 0.0f, 0.0f));
-
+	
+	// 사이즈
+	SetActorScale3D(FVector(1.2f, 1.2f, 1.2f));
 }
 
-
-	
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	auto animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	Init();
+	
+	
+}
+
+void AMyCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	_animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
 
 	// 몽타주가 끝날때 _isAttack 을 false로
-	animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
-	animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+	if (_animInstance->IsValidLowLevel())
+	{
+		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackEnded);
+		_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
+		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
+	}
 	
 }
 
@@ -59,7 +79,6 @@ void AMyCharacter::BeginPlay()
 void AMyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 
 }
 
@@ -81,18 +100,126 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 		// 공격
 		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::AttackA);
+		
+		// G키 드랍
+		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItemA);
 	}
+}
 
+float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
+	// 1. hp -= Damage
+
+	_curHp -= Damage;
+	
+	UE_LOG(LogTemp, Log, TEXT("Attack : %s, CurHp : %d"), *DamageCauser->GetName(), _curHp);
+
+	if (_curHp <= 0) 
+	{
+		_curHp = 0;
+	}
+	return _curHp;
 }
 
 void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 {
+
+	//UE_LOG(LogTemp, Error, TEXT("Attack!! END!!"));
 	_isAttacking = false;
+
+
 }
 
 void AMyCharacter::AttackHit()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Attack!!!!!!!!!"));
+	//UE_LOG(LogTemp, Warning, TEXT("Attack!!!!!!!!!"));
+	//TODO : Attack 충돌처리 (조금 복잡함)
+	FHitResult hitResult;
+	FCollisionQueryParams params(NAME_None, false, this); //this 자기자신을 무시하라.. 내가 나한테 데미지들어올수있음..
+
+	float attackRange = 500.0f;
+	float attackRadius = 100.0f;
+
+		bool bResult = GetWorld()->SweepSingleByChannel
+		(
+			hitResult,
+			GetActorLocation(),
+			GetActorLocation() + GetActorForwardVector() * attackRange,
+			FQuat::Identity,
+			ECollisionChannel::ECC_GameTraceChannel2,
+			FCollisionShape::MakeSphere(attackRadius),
+			params
+		);
+
+		FVector vec = GetActorForwardVector() * attackRange;
+		UE_LOG(LogTemp, Log, TEXT("%s"), *vec.ToString());
+		FVector center = GetActorLocation() + vec * 0.5f;
+
+		FColor drawColor = FColor::Green;
+
+		if (bResult && hitResult.GetActor()->IsValidLowLevel())
+		{
+			UE_LOG(LogTemp, Warning, TEXT("HitActor : %s"), *hitResult.GetActor()->GetName());
+			drawColor = FColor::Red;
+
+			// 데미지...
+			// 1. .... 
+			FDamageEvent damageEvent;
+			hitResult.GetActor()->TakeDamage(_attackDamage, damageEvent, GetController(), this);
+		}
+
+		// 어택데미지 로그 출력
+		UE_LOG(LogTemp, Warning, TEXT("AttackDamage : %d"), _attackDamage);
+		//UE_LOG(LogTemp, Warning, TEXT("ME : %s AttackDamage : %d"), *GetName(), _attackDamage);
+
+		DrawDebugSphere(GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f);	
+}
+		
+//void AMyCharacter::Die()
+//{
+//	if (_animInstance && DeathMontage)
+//	{
+//		_animInstance->PlayDeathMontage();
+//		
+//	}
+//
+//}
+
+void AMyCharacter::AddItem(AMyItem* item)
+{
+	if (item)
+	{
+		_items.Add(item);
+		item->Disable();
+		UE_LOG(LogTemp, Log, TEXT("Added item: %s"), *item->GetName());
+	}
+}
+
+void AMyCharacter::DropItem()
+{
+	if (_items.Num() > 0)
+	{
+		// 인벤토리에서 마지막 아이템을 가져와서 제거
+		AMyItem* itemToDrop = _items.Last();
+		_items.RemoveAt(_items.Num() - 1);
+
+		if (itemToDrop)
+		{
+			// 캐릭터 앞에 아이템을 배치
+			FVector dropLocation = GetActorLocation() + GetActorForwardVector() * 200.0f;
+			itemToDrop->SetActorLocation(dropLocation);
+			
+			
+			itemToDrop->Init();
+			
+			UE_LOG(LogTemp, Log, TEXT("Dropped item: %s"), *itemToDrop->GetName());
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No items to drop"));
+	}
 }
 
 void AMyCharacter::Move(const FInputActionValue& value)
@@ -119,39 +246,56 @@ void AMyCharacter::Look(const FInputActionValue& value)
 	}
 }
 
-
-
 void AMyCharacter::JumpA(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
 
 	if (isPressed)
 	{
-		//테스트 로그 출력
-		UE_LOG(LogTemp, Warning, TEXT("Jump!!"));
+		////테스트 로그 출력
+		//UE_LOG(LogTemp, Warning, TEXT("Jump!!"));
 		
 		ACharacter::Jump();
-		
 	}
-
 }
 
 void AMyCharacter::AttackA(const FInputActionValue& value)
 {
 	bool isPressed = value.Get<bool>();
-	if (isPressed && _isAttacking == false)
+	if (isPressed && _isAttacking == false && _animInstance != nullptr)
 	{
-		auto myAnimI = GetMesh()->GetAnimInstance();
-		Cast<UMyAnimInstance>(myAnimI)->PlayAttackMontage();
+		
+		_animInstance->PlayAttackMontage();
 		_isAttacking = true;
 
 
 		_curAttackIndex %= 4;
 		_curAttackIndex++;
 
-		Cast<UMyAnimInstance>(myAnimI)->JumpToSection(_curAttackIndex);
+		_animInstance->JumpToSection(_curAttackIndex);
 
-		
 	}
+}
+
+void AMyCharacter::DropItemA(const FInputActionValue& value)
+{
+	DropItem();
+}
+
+void AMyCharacter::Init()
+{
+	_curHp = _maxHp;
+	SetActorHiddenInGame(false);
+	SetActorEnableCollision(true);
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+
+
+void AMyCharacter::Disable()
+{
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(false);
+	PrimaryActorTick.bCanEverTick = false;
 }
 

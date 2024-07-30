@@ -17,7 +17,13 @@ UMyAnimInstance::UMyAnimInstance()
 	{
 		_myAnimMontage = am.Object;
 	}
-	
+	//static ConstructorHelpers::FObjectFinder<UAnimMontage> dm
+	//(TEXT("/Script/Engine.AnimMontage'/Game/BluePrint/Animations/MyAnimDeathMontage.MyAnimDeathMontage'"));
+	//// Death 몽타주 블루프린트를 넣기위해서..
+	//if (dm.Succeeded())
+	//{
+	//	DeathMontage = dm.Object;
+	//}
 }
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
@@ -29,10 +35,10 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		_isFalling = myCharacter->GetMovementComponent()->IsFalling();
 		_Direction = CalculateDirection(myCharacter->GetVelocity(), myCharacter->GetActorRotation());
 
-		_vertical = _speed + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
+		_vertical = _speed + (myCharacter->_vertical - _speed) * (DeltaSeconds);
 		_horizontal = _Direction + (myCharacter->_horizontal - _Direction) * (DeltaSeconds);
 		//_vertical = _vertical + (myCharacter->_vertical - _vertical) * (DeltaSeconds);
-		
+		_isDead = (myCharacter->GetCurHp() <= 0);
 	}
 
 }
@@ -44,9 +50,7 @@ void UMyAnimInstance::PlayAttackMontage()
 		Montage_Play(_myAnimMontage);
 
 		AMyCharacter* myCharacter = Cast<AMyCharacter>(TryGetPawnOwner());
-		
 	}
-
 }
 
 void UMyAnimInstance::JumpToSection(int32 sectionIndex)
@@ -55,8 +59,22 @@ void UMyAnimInstance::JumpToSection(int32 sectionIndex)
 	Montage_JumpToSection(sectionName);
 }
 
+//void UMyAnimInstance::PlayDeathMontage()
+//{
+//	if (DeathMontage)
+//	{
+//		Montage_Play(DeathMontage);	
+//	}
+//}
+
 void UMyAnimInstance::AnimNotify_AttackHit()
 {
 	_attackDelegate.Broadcast();
 }
+
+void UMyAnimInstance::AnimNotify_Death()
+{
+	_deathDelegate.Broadcast();
+}
+
 

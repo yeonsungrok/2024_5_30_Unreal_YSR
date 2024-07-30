@@ -16,4 +16,15 @@ class UE5_CHARACTER_02_API AMainGameMode : public AGameModeBase
 
 public:
 	AMainGameMode();
+
+	// 스폰액터를 위함
+	virtual void BeginPlay() override;
+
+	UPROPERTY()
+	UClass* _monsterClass;
+
+
+	UPROPERTY()
+	TArray<class AMyCharacter*> _monsters;
+
 };

@@ -16,6 +16,7 @@ class UAnimMontage;
 #define UE5_CHARACTER_02_MyCharacter_generated_h
 
 #define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execDisable); \
 	DECLARE_FUNCTION(execAttackHit); \
 	DECLARE_FUNCTION(execOnAttackEnded);
 
