@@ -23,6 +23,10 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
             "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\mystatcomponent.h",
             "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mystatcomponent.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\myinvencomponent.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\myitem.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\myitem.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\myinvencomponent.generated.h",
             "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mycharacter.generated.h"
         ],
         "ImportedModules": [],

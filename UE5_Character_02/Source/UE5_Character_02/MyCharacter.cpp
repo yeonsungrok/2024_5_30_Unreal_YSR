@@ -15,6 +15,7 @@
 #include "Math/UnrealMathUtility.h" // srand에 사용.
 #include "Kismet/GameplayStatics.h"
 #include "MyStatComponent.h"
+#include "MyInvenComponent.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -52,6 +53,7 @@ AMyCharacter::AMyCharacter()
 
 	// Stat
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
+	_invenCom = CreateDefaultSubobject<UMyInvenComponent>(TEXT("Inventory"));
 }
 
 
@@ -197,9 +199,9 @@ void AMyCharacter::AddAttackDamage(AActor* actor, int amount)
 
 void AMyCharacter::AddItem(AMyItem* item)
 {
-	if (item)
+	if (_invenCom)
 	{
-		_items.Add(item);
+		_invenCom->AddItem(item);
 		//item->Disable(); //잠깐 스탑
 		UE_LOG(LogTemp, Log, TEXT("Added item: %s"), *item->GetName());
 
@@ -208,8 +210,14 @@ void AMyCharacter::AddItem(AMyItem* item)
 
 void AMyCharacter::DropItem()
 {
-	// 새로운 item방법
-	UE_LOG(LogTemp, Log, TEXT("ITem Drop"));
+	
+	if (_invenCom)
+	{
+		_invenCom->DropItem();
+		
+	}
+			
+	/*UE_LOG(LogTemp, Log, TEXT("ITem Drop"));
 	if (_items.Num() == 0)
 		return;
 	auto item = _items.Pop();
@@ -222,7 +230,7 @@ void AMyCharacter::DropItem()
 	playerPos.Z = GetActorLocation().Z;
 
 	FVector itemPos = playerPos + FVector(X, Y, 0.0f);
-	item->SetItemPos(itemPos);
+	item->SetItemPos(itemPos);*/
 
 	//if (_items.Num() > 0) //잠깐 스탑
 	//{

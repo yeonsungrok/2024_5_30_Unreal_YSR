@@ -274,6 +274,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyGameInstance.h"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyInvenComponent.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyInvenComponent.h"/>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyItem.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

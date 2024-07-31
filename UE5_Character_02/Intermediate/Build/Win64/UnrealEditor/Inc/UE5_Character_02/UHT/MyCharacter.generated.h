@@ -15,13 +15,13 @@ class UAnimMontage;
 #endif
 #define UE5_CHARACTER_02_MyCharacter_generated_h
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execDisable); \
 	DECLARE_FUNCTION(execAttackHit); \
 	DECLARE_FUNCTION(execOnAttackEnded);
 
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_INCLASS_NO_PURE_DECLS \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMyCharacter(); \
 	friend struct Z_Construct_UClass_AMyCharacter_Statics; \
@@ -30,7 +30,7 @@ public: \
 	DECLARE_SERIALIZER(AMyCharacter)
 
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_ENHANCED_CONSTRUCTORS \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMyCharacter(AMyCharacter&&); \
@@ -42,13 +42,13 @@ public: \
 	NO_API virtual ~AMyCharacter();
 
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_18_PROLOG
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_GENERATED_BODY \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_19_PROLOG
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_INCLASS_NO_PURE_DECLS \
-	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_21_ENHANCED_CONSTRUCTORS \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_INCLASS_NO_PURE_DECLS \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

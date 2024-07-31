@@ -558,6 +558,9 @@
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\sanitizer\\common_interface_defs.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\actorcomponent.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\net\\core\\public\\net\\core\\pushmodel\\pushmodelmacros.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\engine\\datatable.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\public\\datatableutils.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\datatable.generated.h",
             "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mystatcomponent.generated.h"
         ],
         "ImportedModules": [],

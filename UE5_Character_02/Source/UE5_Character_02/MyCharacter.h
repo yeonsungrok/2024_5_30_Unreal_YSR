@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "MyStatComponent.h"
+#include "MyInvenComponent.h" // 인벤토리 추가
 
 #include "MyCharacter.generated.h"
 
@@ -115,8 +116,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	class UMyStatComponent* _statCom;
 
+	// 인벤
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UMyInvenComponent* _invenCom;
 protected:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
-	TArray<class AMyItem*> _items;
 };
