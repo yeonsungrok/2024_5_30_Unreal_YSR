@@ -88,3 +88,11 @@ void AMyItem::Tick(float DeltaTime)
 
 }
 
+void AMyItem::SetItemPos(FVector pos, FRotator rot)
+{
+	Init();
+	SetActorLocation(pos);
+	SetActorRotation(rot);
+
+}
+

@@ -29,6 +29,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// 새로운 item방법
+	void SetItemPos(FVector pos, FRotator rot = FRotator::ZeroRotator);
+
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* _meshComponent; // 폰, 액터는 기몬 메쉬생성하지않는다. 캐릭터는 매쉬를 ACharacter가 만들어준다. 그래서 서브로 이것을 만들어야한다.
 	

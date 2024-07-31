@@ -18,6 +18,7 @@ ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyCharacter();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyCharacter_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyItem_NoRegister();
+UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyStatComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_UE5_Character_02();
 // End Cross Module References
 
@@ -230,24 +231,26 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__curHp_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__level_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stat" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// State\n" },
+#endif
 		{ "ModuleRelativePath", "MyCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "State" },
+#endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__maxHp_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statCom_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stat" },
-		{ "ModuleRelativePath", "MyCharacter.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackDamage_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Stat" },
+		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyCharacter.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__items_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Stat" },
+		{ "Category", "Input" },
 		{ "ModuleRelativePath", "MyCharacter.h" },
 	};
 #endif // WITH_METADATA
@@ -263,9 +266,8 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__horizontal;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__springArm;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__camera;
-	static const UECodeGen_Private::FIntPropertyParams NewProp__curHp;
-	static const UECodeGen_Private::FIntPropertyParams NewProp__maxHp;
-	static const UECodeGen_Private::FIntPropertyParams NewProp__attackDamage;
+	static const UECodeGen_Private::FIntPropertyParams NewProp__level;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__statCom;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__items_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp__items;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -296,9 +298,8 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMyCharacter_St
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__horizontal = { "_horizontal", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _horizontal), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__horizontal_MetaData), NewProp__horizontal_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__springArm = { "_springArm", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _springArm), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__springArm_MetaData), NewProp__springArm_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__camera = { "_camera", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__camera_MetaData), NewProp__camera_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__curHp = { "_curHp", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _curHp), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__curHp_MetaData), NewProp__curHp_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__maxHp = { "_maxHp", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _maxHp), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__maxHp_MetaData), NewProp__maxHp_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__attackDamage = { "_attackDamage", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _attackDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackDamage_MetaData), NewProp__attackDamage_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__level = { "_level", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _level), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__level_MetaData), NewProp__level_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__statCom = { "_statCom", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _statCom), Z_Construct_UClass_UMyStatComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statCom_MetaData), NewProp__statCom_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__items_Inner = { "_items", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AMyItem_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__items = { "_items", nullptr, (EPropertyFlags)0x0020080000020005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _items), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__items_MetaData), NewProp__items_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharacter_Statics::PropPointers[] = {
@@ -313,9 +314,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharac
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__horizontal,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__springArm,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__camera,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__curHp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__maxHp,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__attackDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__level,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__statCom,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__items_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__items,
 };
@@ -360,10 +360,10 @@ AMyCharacter::~AMyCharacter() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 1785047998U) },
+		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 2448853146U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_179817159(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_1023623043(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

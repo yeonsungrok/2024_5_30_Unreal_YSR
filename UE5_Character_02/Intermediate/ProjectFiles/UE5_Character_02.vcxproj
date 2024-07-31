@@ -270,6 +270,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyCharacter.h"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyGameInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyGameInstance.h"/>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyItem.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -290,6 +294,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyPlayerController.h"/>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyStatComponent.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyStatComponent.h"/>
     <None Include="..\..\Source\UE5_Character_02\UE5_Character_02.Build.cs"/>
     <ClCompile Include="..\..\Source\UE5_Character_02\UE5_Character_02.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

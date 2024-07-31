@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mystatcomponent.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\x64\\ue5_character_02editor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\ue5_character_02\\definitions.ue5_character_02.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\mystatcomponent.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mystatcomponent.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

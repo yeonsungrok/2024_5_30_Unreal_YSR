@@ -659,6 +659,11 @@
             "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
             "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\source\\ue5_character_02\\mystatcomponent.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\classes\\engine\\datatable.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\source\\runtime\\engine\\public\\datatableutils.h",
+            "c:\\program files\\epic games\\ue_5.4\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\datatable.generated.h",
+            "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mystatcomponent.generated.h",
             "d:\\yeonsungrok\\sga\\2024_5_30_unreal_ysr\\ue5_character_02\\intermediate\\build\\win64\\unrealeditor\\inc\\ue5_character_02\\uht\\mycharacter.generated.h"
         ],
         "ImportedModules": [],

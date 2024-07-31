@@ -12,8 +12,9 @@
 #include "MyAnimInstance.h"
 #include "Engine/DamageEvents.h"
 #include "MyItem.h"
-
+#include "Math/UnrealMathUtility.h" // srand에 사용.
 #include "Kismet/GameplayStatics.h"
+#include "MyStatComponent.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -47,6 +48,10 @@ AMyCharacter::AMyCharacter()
 	
 	// 사이즈
 	SetActorScale3D(FVector(1.2f, 1.2f, 1.2f));
+
+
+	// Stat
+	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 }
 
 
@@ -56,8 +61,6 @@ void AMyCharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	Init();
-	
-	
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -72,7 +75,9 @@ void AMyCharacter::PostInitializeComponents()
 		_animInstance->_attackDelegate.AddUObject(this, &AMyCharacter::AttackHit);
 		_animInstance->_deathDelegate.AddUObject(this, &AMyCharacter::Disable);
 	}
-	
+
+	// 레벨 설정
+	_statCom->SetLevelAndInit(_level);
 }
 
 // Called every frame
@@ -111,15 +116,12 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 	Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	// 1. hp -= Damage
 
-	_curHp -= Damage;
-	
-	UE_LOG(LogTemp, Log, TEXT("Attack : %s, CurHp : %d"), *DamageCauser->GetName(), _curHp);
+	float damage = _statCom->AddCurHp(-Damage);
 
-	if (_curHp <= 0) 
-	{
-		_curHp = 0;
-	}
-	return _curHp;
+	//UE_LOG(LogTemp, Log, TEXT("Attack : %s, CurHp : %d"), *DamageCauser->GetName(), _curHp);
+
+	
+	return damage;
 }
 
 void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
@@ -166,11 +168,11 @@ void AMyCharacter::AttackHit()
 			// 데미지...
 			// 1. .... 
 			FDamageEvent damageEvent;
-			hitResult.GetActor()->TakeDamage(_attackDamage, damageEvent, GetController(), this);
+			hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamge(), damageEvent, GetController(), this);
 		}
 
 		// 어택데미지 로그 출력
-		UE_LOG(LogTemp, Warning, TEXT("AttackDamage : %d"), _attackDamage);
+		UE_LOG(LogTemp, Warning, TEXT("AttackDamage : %d"), _statCom->GetAttackDamge());
 		//UE_LOG(LogTemp, Warning, TEXT("ME : %s AttackDamage : %d"), *GetName(), _attackDamage);
 
 		DrawDebugSphere(GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f);	
@@ -186,40 +188,64 @@ void AMyCharacter::AttackHit()
 //
 //}
 
+void AMyCharacter::AddAttackDamage(AActor* actor, int amount)
+{
+	// actor는 나의 공격력을 버프해준 대상
+
+	_statCom->AddAttackDamage(amount);
+}
+
 void AMyCharacter::AddItem(AMyItem* item)
 {
 	if (item)
 	{
 		_items.Add(item);
-		item->Disable();
+		//item->Disable(); //잠깐 스탑
 		UE_LOG(LogTemp, Log, TEXT("Added item: %s"), *item->GetName());
+
 	}
 }
 
 void AMyCharacter::DropItem()
 {
-	if (_items.Num() > 0)
-	{
-		// 인벤토리에서 마지막 아이템을 가져와서 제거
-		AMyItem* itemToDrop = _items.Last();
-		_items.RemoveAt(_items.Num() - 1);
+	// 새로운 item방법
+	UE_LOG(LogTemp, Log, TEXT("ITem Drop"));
+	if (_items.Num() == 0)
+		return;
+	auto item = _items.Pop();
+	
+	float randFloat = FMath::FRandRange(0, PI * 2.0f);
 
-		if (itemToDrop)
-		{
-			// 캐릭터 앞에 아이템을 배치
-			FVector dropLocation = GetActorLocation() + GetActorForwardVector() * 200.0f;
-			itemToDrop->SetActorLocation(dropLocation);
-			
-			
-			itemToDrop->Init();
-			
-			UE_LOG(LogTemp, Log, TEXT("Dropped item: %s"), *itemToDrop->GetName());
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No items to drop"));
-	}
+	float X = cosf(randFloat) * 300.0f;
+	float Y = sinf(randFloat) * 300.0f;
+	FVector playerPos = GetActorLocation();
+	playerPos.Z = GetActorLocation().Z;
+
+	FVector itemPos = playerPos + FVector(X, Y, 0.0f);
+	item->SetItemPos(itemPos);
+
+	//if (_items.Num() > 0) //잠깐 스탑
+	//{
+	//	// 인벤토리에서 마지막 아이템을 가져와서 제거
+	//	AMyItem* itemToDrop = _items.Last();
+	//	_items.RemoveAt(_items.Num() - 1);
+
+	//	if (itemToDrop)
+	//	{
+	//		// 캐릭터 앞에 아이템을 배치
+	//		FVector dropLocation = GetActorLocation() + GetActorForwardVector() * 300.0f;
+	//		itemToDrop->SetActorLocation(dropLocation);
+	//		
+	//		
+	//		itemToDrop->Init();
+	//		
+	//		UE_LOG(LogTemp, Log, TEXT("Dropped item: %s"), *itemToDrop->GetName());
+	//	}
+	//}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("No items to drop"));
+	//}
 }
 
 void AMyCharacter::Move(const FInputActionValue& value)
@@ -284,7 +310,7 @@ void AMyCharacter::DropItemA(const FInputActionValue& value)
 
 void AMyCharacter::Init()
 {
-	_curHp = _maxHp;
+	_statCom->Reset();
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
