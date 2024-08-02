@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayerController() {}
 // Begin Cross Module References
 ENGINE_API UClass* Z_Construct_UClass_APlayerController();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
+UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMainGameMode_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyPlayerController();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyPlayerController_NoRegister();
 UPackage* Z_Construct_UPackage__Script_UE5_Character_02();
@@ -41,8 +42,18 @@ struct Z_Construct_UClass_AMyPlayerController_Statics
 		{ "Category", "Input" },
 		{ "ModuleRelativePath", "MyPlayerController.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_InputMappingContext_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "MyPlayerController.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GameModeInstance_MetaData[] = {
+		{ "ModuleRelativePath", "MyPlayerController.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__inputMappingContext;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_InputMappingContext;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_GameModeInstance;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -51,8 +62,12 @@ struct Z_Construct_UClass_AMyPlayerController_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp__inputMappingContext = { "_inputMappingContext", nullptr, (EPropertyFlags)0x0020080000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, _inputMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__inputMappingContext_MetaData), NewProp__inputMappingContext_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp_InputMappingContext = { "InputMappingContext", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, InputMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InputMappingContext_MetaData), NewProp_InputMappingContext_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayerController_Statics::NewProp_GameModeInstance = { "GameModeInstance", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayerController, GameModeInstance), Z_Construct_UClass_AMainGameMode_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GameModeInstance_MetaData), NewProp_GameModeInstance_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyPlayerController_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp__inputMappingContext,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_InputMappingContext,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayerController_Statics::NewProp_GameModeInstance,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayerController_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyPlayerController_Statics::DependentSingletons[])() = {
@@ -96,10 +111,10 @@ AMyPlayerController::~AMyPlayerController() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyPlayerController_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayerController, AMyPlayerController::StaticClass, TEXT("AMyPlayerController"), &Z_Registration_Info_UClass_AMyPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayerController), 2314003702U) },
+		{ Z_Construct_UClass_AMyPlayerController, AMyPlayerController::StaticClass, TEXT("AMyPlayerController"), &Z_Registration_Info_UClass_AMyPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayerController), 3692587604U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyPlayerController_h_376607630(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyPlayerController_h_3728168346(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyPlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyPlayerController_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

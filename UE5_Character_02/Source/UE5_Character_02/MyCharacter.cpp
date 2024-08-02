@@ -16,6 +16,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "MyStatComponent.h"
 #include "MyInvenComponent.h"
+#include "Components/WidgetComponent.h"
+#include "MyHpBar.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -54,8 +56,23 @@ AMyCharacter::AMyCharacter()
 	// Stat
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 	_invenCom = CreateDefaultSubobject<UMyInvenComponent>(TEXT("Inventory"));
-}
 
+	// hp 바 widget UI
+	_hpbarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HpBar"));
+	_hpbarWidget->SetupAttachment(GetMesh());
+	_hpbarWidget->SetWidgetSpace(EWidgetSpace::Screen); // EWidgetSpace::World가 있고 Screen이 있는데 용도에 따라 다르다.
+	
+	// hp바위치
+	_hpbarWidget->SetRelativeLocation(FVector(0.0f, 0.0f, 238.0f));
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> hpBar(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyHpBar_BP.MyHpBar_BP_C'"));
+	
+	if (hpBar.Succeeded())
+	{
+		_hpbarWidget->SetWidgetClass(hpBar.Class);
+	}
+	
+}
 
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
@@ -80,6 +97,17 @@ void AMyCharacter::PostInitializeComponents()
 
 	// 레벨 설정
 	_statCom->SetLevelAndInit(_level);
+
+	//_statCom->_hpChangedDelegate.Add();
+	
+	_hpbarWidget->InitWidget();
+	auto hpBar = Cast<UMyHpBar>(_hpbarWidget->GetUserWidgetObject());
+
+	if (hpBar)
+	{
+		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
+	}
+
 }
 
 // Called every frame
@@ -109,7 +137,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::AttackA);
 		
 		// G키 드랍
-		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItemA);
+		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItem);
 	}
 }
 
@@ -118,7 +146,7 @@ float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AC
 	Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
 	// 1. hp -= Damage
 
-	float damage = _statCom->AddCurHp(-Damage);
+	float damage = -_statCom->AddCurHp(-Damage);
 
 	//UE_LOG(LogTemp, Log, TEXT("Attack : %s, CurHp : %d"), *DamageCauser->GetName(), _curHp);
 
@@ -210,13 +238,21 @@ void AMyCharacter::AddItem(AMyItem* item)
 
 void AMyCharacter::DropItem()
 {
-	
+	// 데미지감소시도
 	if (_invenCom)
 	{
-		_invenCom->DropItem();
-		
+		if (_invenCom->HasItems()) // 인벤토리에 아이템이 있는지 확인
+		{
+			_invenCom->DropItem();
+			UE_LOG(LogTemp, Warning, TEXT("Attack Damage -50"));
+			_statCom->SubAttackDamage(50); // 공격력 감소
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("NO Have ITEM ~____________~"));
+		}
 	}
-			
+
 	/*UE_LOG(LogTemp, Log, TEXT("ITem Drop"));
 	if (_items.Num() == 0)
 		return;
@@ -311,11 +347,6 @@ void AMyCharacter::AttackA(const FInputActionValue& value)
 	}
 }
 
-void AMyCharacter::DropItemA(const FInputActionValue& value)
-{
-	DropItem();
-}
-
 void AMyCharacter::Init()
 {
 	_statCom->Reset();
@@ -323,7 +354,6 @@ void AMyCharacter::Init()
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
 }
-
 
 
 void AMyCharacter::Disable()

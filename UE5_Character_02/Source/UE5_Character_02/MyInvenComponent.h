@@ -32,10 +32,12 @@ public:
 	void AddItem(class AMyItem* item);
 
 	// 아이템 드랍
-	
 	void DropItem();
-		
 	
+	// 데미지감소시도
+	bool HasItems() const { return _items.Num() > 0; }
+	
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Inventory", meta = (AllowPrivateAccess = "true"))
 	TArray<class AMyItem*> _items;

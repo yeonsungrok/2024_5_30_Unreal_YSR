@@ -22,6 +22,8 @@ struct FMyStatData : public FTableRowBase
 
 };
 
+DECLARE_MULTICAST_DELEGATE_OneParam(HpChange, float)
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UE5_CHARACTER_02_API UMyStatComponent : public UActorComponent
 {
@@ -43,13 +45,22 @@ public:
 	int32 GetCurHp() { return _curHp; }
 	int32 GetAttackDamge() { return _attackDamage; }
 
+	float HpRatio() { return _curHp / (float)_maxHp; }
+
 	void SetLevelAndInit(int level);
 
+	void SetHp(int32 hp);
 	int AddCurHp(float amount);
-	void AddAttackDamage(float amount);
+	void AddAttackDamage(float amount); //어택데미지 추가방식..
+
+
+	// 데미지감소시도
+	void SubAttackDamage(float amount);
+
 
 	bool IsDead() { return _curHp <= 0; }
 
+	HpChange _hpChangedDelegate;
 
 protected:
 

@@ -19,6 +19,10 @@ AMyItem::AMyItem()
 	if (sm.Succeeded())
 	{
 		_meshComponent->SetStaticMesh(sm.Object);
+
+		//사이즈 키우기
+		_meshComponent->SetWorldScale3D(FVector(2.0f, 2.0f, 2.0f));
+		
 	}
 
 	_meshComponent->SetupAttachment(RootComponent);
@@ -30,8 +34,6 @@ AMyItem::AMyItem()
 	_trigger->SetSphereRadius(60.0f);
 
 
-
-	SetActorScale3D(FVector(4.0f, 4.0f, 4.0f));
 }
 
 // Called when the game starts or when spawned
@@ -85,6 +87,8 @@ void AMyItem::Disable()
 void AMyItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	
 
 }
 

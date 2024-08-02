@@ -5,6 +5,10 @@
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
 
+#include "MainGameMode.h"
+
+#include "MyInvenWidget.h"
+
 void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -15,5 +19,28 @@ void AMyPlayerController::BeginPlay()
 		Subsystem->AddMappingContext(_inputMappingContext, 0);
 	}
 
+	
+	// GameMode 인스턴스를 얻어오고 위젯 인스턴스를 가져옴
+	GameModeInstance = Cast<AMainGameMode>(GetWorld()->GetAuthGameMode());
+	if (GameModeInstance)
+	{
+		InvenWidget = GameModeInstance->MyInvenWidgetInstance;
+	}
 
+}
+
+// 아래 위젯에대한 모든것
+void AMyPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+	InputComponent->BindAction("ToggleInventory", IE_Pressed, this, &AMyPlayerController::ToggleInventory);
+}
+
+void AMyPlayerController::ToggleInventory()
+{
+	if (InvenWidget)
+	{
+		bool bIsVisible = InvenWidget->GetVisibility() == ESlateVisibility::Visible;
+		InvenWidget->ToggleVisibility(!bIsVisible);
+	}
 }

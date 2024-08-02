@@ -22,7 +22,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> UE5_CHARACTER_02_API UScriptStruct* StaticStruct<struct FMyStatData>();
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_28_INCLASS_NO_PURE_DECLS \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_30_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMyStatComponent(); \
 	friend struct Z_Construct_UClass_UMyStatComponent_Statics; \
@@ -31,7 +31,7 @@ public: \
 	DECLARE_SERIALIZER(UMyStatComponent)
 
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_28_ENHANCED_CONSTRUCTORS \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_30_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UMyStatComponent(UMyStatComponent&&); \
@@ -43,12 +43,12 @@ public: \
 	NO_API virtual ~UMyStatComponent();
 
 
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_25_PROLOG
-#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_28_GENERATED_BODY \
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_27_PROLOG
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_30_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_28_INCLASS_NO_PURE_DECLS \
-	FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_28_ENHANCED_CONSTRUCTORS \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_30_INCLASS_NO_PURE_DECLS \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyStatComponent_h_30_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

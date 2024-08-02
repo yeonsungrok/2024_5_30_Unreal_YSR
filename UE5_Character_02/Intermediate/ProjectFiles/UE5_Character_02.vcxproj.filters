@@ -55,10 +55,22 @@
     <ClInclude Include="..\..\Source\UE5_Character_02\MyGameInstance.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyHpBar.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyHpBar.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyInvenComponent.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyInvenComponent.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyInvenWidget.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyInvenWidget.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyItem.cpp">

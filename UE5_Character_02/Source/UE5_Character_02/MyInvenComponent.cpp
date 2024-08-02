@@ -40,6 +40,7 @@ void UMyInvenComponent::AddItem(AMyItem* item)
 	{
 		_items.Add(item);
 		UE_LOG(LogTemp, Warning, TEXT("ADD ITEM: %s"), *item->GetName());
+
 	}
 }
 
@@ -47,7 +48,6 @@ void UMyInvenComponent::DropItem()
 {
 	if (_items.Num() == 0) // 아이템 갖고있지않으면 0
 	{
-		UE_LOG(LogTemp, Error, TEXT("I AM NO Have ITEM ~_~"));
 		return;
 	}
 	

@@ -20,4 +20,19 @@ protected:
 
 protected:
 	virtual void BeginPlay() override;
+
+	//À§Á¬ Ãß°¡.
+	virtual void SetupInputComponent() override;
+private:
+	void ToggleInventory();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	class UInputMappingContext* InputMappingContext;
+
+	UPROPERTY()
+	class AMainGameMode* GameModeInstance;
+
+	class UMyInvenWidget* InvenWidget;
+
+
 };

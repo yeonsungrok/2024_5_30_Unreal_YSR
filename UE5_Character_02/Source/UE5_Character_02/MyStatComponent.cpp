@@ -1,7 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "MyGameInstance.h"
 #include "MyStatComponent.h"
+
+#include "MyCharacter.h"
+#include "MyHpBar.h"
+#include "MyGameInstance.h"
 
 // Sets default values for this component's properties
 UMyStatComponent::UMyStatComponent()
@@ -52,11 +55,11 @@ void UMyStatComponent::SetLevelAndInit(int level)
 	}
 }
 
-int UMyStatComponent::AddCurHp(float amount)
+void UMyStatComponent::SetHp(int32 hp)
 {
-	int beforHp = _curHp;
-
-	_curHp += amount;
+	// 이 함수로 curHp의 수정은 무조건 이 함수를 통해서 이루어진다.
+	// 호출 될때마다 hpBar가 바뀌면 되겠다.
+	_curHp = hp;
 
 	if (_curHp < 0)
 		_curHp = 0;
@@ -64,11 +67,41 @@ int UMyStatComponent::AddCurHp(float amount)
 	if (_curHp > _maxHp)
 		_curHp = _maxHp;
 
-	return beforHp - _curHp;
+	float ratio = HpRatio();
+	_hpChangedDelegate.Broadcast(ratio);
+
+}
+
+int UMyStatComponent::AddCurHp(float amount)
+{
+	int beforHp = _curHp;
+	// amount damage가 들어왔을때
+	// 방어력 스탯이나, 데미지 경감 등의 옵션으로 amount가 줄어든 채로 curHp에 더해진다.
+	// ex) amount *= 0.8f;
+
+	int afterHp = beforHp + amount;
+	SetHp(afterHp);
+
+	
+
+	return afterHp - beforHp;
 }
 
 void UMyStatComponent::AddAttackDamage(float amount)
 {
 	_attackDamage += amount;
+}
+
+
+
+// 데미지감소시도
+void UMyStatComponent::SubAttackDamage(float amount)
+{
+	_attackDamage -= amount;
+
+	if (_attackDamage < 0)
+	{
+		_attackDamage = 0;
+	}
 }
 

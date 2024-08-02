@@ -64,7 +64,7 @@ protected: //이동 기본생성
 	void Look(const FInputActionValue& value);
 	void JumpA(const FInputActionValue& value);
 	void AttackA(const FInputActionValue& value);
-	void DropItemA(const FInputActionValue& value);
+
 
 	void Init();
 	UFUNCTION()
@@ -116,9 +116,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	class UMyStatComponent* _statCom;
 
+	// UI
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* _hpbarWidget;
+
+	
 	// 인벤
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UMyInvenComponent* _invenCom;
+
+
+
 protected:
 
 };
