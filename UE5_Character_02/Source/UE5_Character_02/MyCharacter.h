@@ -15,6 +15,7 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+DECLARE_MULTICAST_DELEGATE(Delegate_AttackEnded);
 
 UCLASS()
 class UE5_CHARACTER_02_API AMyCharacter : public ACharacter
@@ -49,15 +50,20 @@ public:
 	//애님 블루프린트 몽타주 노티파이추가하기위함
 	UFUNCTION()
 	void AttackHit();
+	UFUNCTION()
+	void Attack_AI();
+
 
 	// state 관련
 	int GetCurHp() { return _statCom->GetCurHp(); }
 	void AddAttackDamage(AActor* actor, int amount);
 
-	// Item
-	void AddItem(class AMyItem* item);
-	void DropItem();
-	
+	//// Item
+	void AddItemToCharacter(class AMyItem* item);
+	void DropItemFromCharacter();
+
+
+	Delegate_AttackEnded _attackEndedDelegate;
 	
 protected: //이동 기본생성
 	void Move(const FInputActionValue& value);
@@ -65,7 +71,7 @@ protected: //이동 기본생성
 	void JumpA(const FInputActionValue& value);
 	void AttackA(const FInputActionValue& value);
 
-
+	
 	void Init();
 	UFUNCTION()
 	void Disable();
@@ -100,6 +106,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	float _horizontal = 0.0f;
 
+	
+
 
 	//애니메이션
 	class UMyAnimInstance* _animInstance;
@@ -110,23 +118,27 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* _camera;
 
-	// State
+	// State Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	int32 _level = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
 	class UMyStatComponent* _statCom;
 
-	// UI
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
-	class UWidgetComponent* _hpbarWidget;
-
-	
-	// 인벤
+	// Inven Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UMyInvenComponent* _invenCom;
 
+
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	class UWidgetComponent* _hpbarWidget;
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class AMyAIController* _aiController;
 
 
 protected:
 
 };
+

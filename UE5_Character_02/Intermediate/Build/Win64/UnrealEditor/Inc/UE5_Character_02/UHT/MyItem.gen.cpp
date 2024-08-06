@@ -127,8 +127,14 @@ struct Z_Construct_UClass_AMyItem_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UENUM()\n//enum class ItemType\n//{\n//\n//};\n//\n//USTRUCT()\n//struct ItemInfo\n//{\n//\x09int itemId;\n//\x09ItemType type;\n//};\n" },
+#endif
 		{ "IncludePath", "MyItem.h" },
 		{ "ModuleRelativePath", "MyItem.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UENUM()\nenum class ItemType\n{\n\n};\n\nUSTRUCT()\nstruct ItemInfo\n{\n       int itemId;\n       ItemType type;\n};" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__meshComponent_MetaData[] = {
 		{ "Category", "MyItem" },
@@ -146,9 +152,14 @@ struct Z_Construct_UClass_AMyItem_Statics
 		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd, \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xcd\xb4\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xde\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xca\xb4\xc2\xb4\xef\xbf\xbd. \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xcd\xb4\xef\xbf\xbd \xef\xbf\xbd\xc5\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd ACharacter\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xd8\xb4\xef\xbf\xbd. \xef\xbf\xbd\xd7\xb7\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xb0\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xd1\xb4\xef\xbf\xbd." },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__itemId_MetaData[] = {
+		{ "Category", "MyItem" },
+		{ "ModuleRelativePath", "MyItem.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__meshComponent;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__trigger;
+	static const UECodeGen_Private::FIntPropertyParams NewProp__itemId;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -162,9 +173,11 @@ struct Z_Construct_UClass_AMyItem_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyItem_Statics::NewProp__meshComponent = { "_meshComponent", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyItem, _meshComponent), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__meshComponent_MetaData), NewProp__meshComponent_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyItem_Statics::NewProp__trigger = { "_trigger", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyItem, _trigger), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__trigger_MetaData), NewProp__trigger_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyItem_Statics::NewProp__itemId = { "_itemId", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyItem, _itemId), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__itemId_MetaData), NewProp__itemId_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyItem_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyItem_Statics::NewProp__meshComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyItem_Statics::NewProp__trigger,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyItem_Statics::NewProp__itemId,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyItem_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyItem_Statics::DependentSingletons[])() = {
@@ -207,10 +220,10 @@ AMyItem::~AMyItem() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyItem_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyItem, AMyItem::StaticClass, TEXT("AMyItem"), &Z_Registration_Info_UClass_AMyItem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyItem), 4144740104U) },
+		{ Z_Construct_UClass_AMyItem, AMyItem::StaticClass, TEXT("AMyItem"), &Z_Registration_Info_UClass_AMyItem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyItem), 748888075U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyItem_h_1416521852(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyItem_h_2543151549(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyItem_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyItem_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

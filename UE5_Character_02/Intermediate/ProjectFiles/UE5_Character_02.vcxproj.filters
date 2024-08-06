@@ -12,6 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\DefaultTexture.png" />
     <None Include="..\..\기본진행.txt" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
@@ -31,10 +32,40 @@
     <Filter Include="Source\UE5_Character_02">
       <UniqueIdentifier>{6E9CFF43-52D8-3306-B33D-8392373ABA35}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\UE5_Character_02\BT_Deco_CanAttack.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\BT_Deco_CanAttack.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\BT_Service_FindTarget.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\BT_Service_FindTarget.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\BT_Task_Attack.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\BT_Task_Attack.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\BT_Task_FindRandomPos.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\BT_Task_FindRandomPos.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MainGameMode.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MainGameMode.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyAIController.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyAIController.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyAnimInstance.cpp">
@@ -107,6 +138,12 @@
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\UE5_Character_02\MyStatComponent.h">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyUIManager.cpp">
+      <Filter>Source\UE5_Character_02</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyUIManager.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
     <None Include="..\..\Source\UE5_Character_02\UE5_Character_02.Build.cs">

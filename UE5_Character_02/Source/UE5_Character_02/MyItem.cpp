@@ -21,7 +21,7 @@ AMyItem::AMyItem()
 		_meshComponent->SetStaticMesh(sm.Object);
 
 		//사이즈 키우기
-		_meshComponent->SetWorldScale3D(FVector(2.0f, 2.0f, 2.0f));
+		//_meshComponent->SetWorldScale3D(FVector(2.0f, 2.0f, 2.0f));
 		
 	}
 
@@ -63,7 +63,7 @@ void AMyItem::OnMyCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 		UE_LOG(LogTemp, Warning, TEXT("Attack Damage +50"));
 		
 
-		myCharacter->AddItem(this);
+		myCharacter->AddItemToCharacter(this);
 
 		// 아이템 충돌시 아이템 히든
 		Disable();
@@ -87,8 +87,6 @@ void AMyItem::Disable()
 void AMyItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	
 
 }
 

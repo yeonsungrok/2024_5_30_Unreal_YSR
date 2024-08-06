@@ -3,6 +3,8 @@
 
 #include "MyGameInstance.h"
 
+#include "MyUIManager.h"
+
 UMyGameInstance::UMyGameInstance()
 {
 	//생성자에서 언리얼에서 만든 데이터를 갖고와야한다. 예) level
@@ -23,6 +25,11 @@ void UMyGameInstance::Init()
 	auto statData = GetStatDataByLevel(2);
 	UE_LOG(LogTemp, Warning, TEXT("Level : %d, MaxHp : %d, Attack : %d ")
 	, statData->level, statData->maxHp, statData->attack);
+
+	FActorSpawnParameters params;
+	params.Name = TEXT("UIManager"); // 언리얼 에디터에서 보이는 이름
+	_uiManager = GetWorld()->SpawnActor<AMyUIManager>(FVector::ZeroVector, FRotator::ZeroRotator, params);
+
 }
 
 FMyStatData* UMyGameInstance::GetStatDataByLevel(int level)

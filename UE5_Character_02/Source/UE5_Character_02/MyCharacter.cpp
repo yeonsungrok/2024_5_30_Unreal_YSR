@@ -2,6 +2,11 @@
 
 
 #include "MyCharacter.h"
+
+#include "MyGameInstance.h"
+#include "MyUIManager.h"
+#include "MyInvenWidget.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -18,6 +23,12 @@
 #include "MyInvenComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyHpBar.h"
+#include "Blueprint/UserWidget.h"
+#include "MyInvenWidget.h"
+#include "MyPlayerController.h"
+
+#include "Components/Button.h"
+#include "MyAIController.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -53,10 +64,12 @@ AMyCharacter::AMyCharacter()
 	SetActorScale3D(FVector(1.2f, 1.2f, 1.2f));
 
 
-	// Stat
+	// Stat Component
 	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
-	_invenCom = CreateDefaultSubobject<UMyInvenComponent>(TEXT("Inventory"));
 
+	// inven Component
+	_invenCom = CreateDefaultSubobject<UMyInvenComponent>(TEXT("Inventory"));
+	
 	// hp 바 widget UI
 	_hpbarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HpBar"));
 	_hpbarWidget->SetupAttachment(GetMesh());
@@ -64,7 +77,7 @@ AMyCharacter::AMyCharacter()
 	
 	// hp바위치
 	_hpbarWidget->SetRelativeLocation(FVector(0.0f, 0.0f, 238.0f));
-
+	
 	static ConstructorHelpers::FClassFinder<UUserWidget> hpBar(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyHpBar_BP.MyHpBar_BP_C'"));
 	
 	if (hpBar.Succeeded())
@@ -72,6 +85,7 @@ AMyCharacter::AMyCharacter()
 		_hpbarWidget->SetWidgetClass(hpBar.Class);
 	}
 	
+
 }
 
 // Called when the game starts or when spawned
@@ -79,7 +93,10 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	_aiController = Cast<AMyAIController>(GetController());
+	
 	Init();
+
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -102,11 +119,20 @@ void AMyCharacter::PostInitializeComponents()
 	
 	_hpbarWidget->InitWidget();
 	auto hpBar = Cast<UMyHpBar>(_hpbarWidget->GetUserWidgetObject());
-
 	if (hpBar)
 	{
 		_statCom->_hpChangedDelegate.AddUObject(hpBar, &UMyHpBar::SetHpBarValue);
 	}
+	
+	//// TODO : InvenWidget
+	//auto invenUI = UIManager->GetInvenUI();
+
+	//if (invenUI)
+	//{
+	//	_invenCom->_itemAddedEvent.AddUObject(invenUI, &UMyInvenWidget::SetItem);
+	//	invenUI->DropBtn->OnClicked.AddDynamic(_invenCom, &UMyInvenComponent::DropItem);
+	//}
+
 
 }
 
@@ -137,7 +163,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::AttackA);
 		
 		// G키 드랍
-		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItem);
+		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItemFromCharacter);
 	}
 }
 
@@ -159,7 +185,7 @@ void AMyCharacter::OnAttackEnded(UAnimMontage* Montage, bool bInterrupted)
 
 	//UE_LOG(LogTemp, Error, TEXT("Attack!! END!!"));
 	_isAttacking = false;
-
+	_attackEndedDelegate.Broadcast(); // 
 
 }
 
@@ -199,6 +225,16 @@ void AMyCharacter::AttackHit()
 			// 1. .... 
 			FDamageEvent damageEvent;
 			hitResult.GetActor()->TakeDamage(_statCom->GetAttackDamge(), damageEvent, GetController(), this);
+		
+			//
+			//// 플레이시 마우스커서 보일지말지..
+			//if (GetController())
+			//{
+			//	Cast<AMyPlayerController>(GetController())->ShowUI();
+			//}
+
+
+			
 		}
 
 		// 어택데미지 로그 출력
@@ -208,15 +244,6 @@ void AMyCharacter::AttackHit()
 		DrawDebugSphere(GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f);	
 }
 		
-//void AMyCharacter::Die()
-//{
-//	if (_animInstance && DeathMontage)
-//	{
-//		_animInstance->PlayDeathMontage();
-//		
-//	}
-//
-//}
 
 void AMyCharacter::AddAttackDamage(AActor* actor, int amount)
 {
@@ -225,70 +252,36 @@ void AMyCharacter::AddAttackDamage(AActor* actor, int amount)
 	_statCom->AddAttackDamage(amount);
 }
 
-void AMyCharacter::AddItem(AMyItem* item)
+void AMyCharacter::AddItemToCharacter(AMyItem* item)
 {
-	if (_invenCom)
-	{
+	/*if (_invenCom)
+	{*/
 		_invenCom->AddItem(item);
 		//item->Disable(); //잠깐 스탑
 		UE_LOG(LogTemp, Log, TEXT("Added item: %s"), *item->GetName());
 
-	}
+	/*}*/
 }
 
-void AMyCharacter::DropItem()
+void AMyCharacter::DropItemFromCharacter()
 {
-	// 데미지감소시도
-	if (_invenCom)
-	{
-		if (_invenCom->HasItems()) // 인벤토리에 아이템이 있는지 확인
-		{
-			_invenCom->DropItem();
-			UE_LOG(LogTemp, Warning, TEXT("Attack Damage -50"));
-			_statCom->SubAttackDamage(50); // 공격력 감소
-		}
-		else
-		{
-			UE_LOG(LogTemp, Error, TEXT("NO Have ITEM ~____________~"));
-		}
-	}
-
-	/*UE_LOG(LogTemp, Log, TEXT("ITem Drop"));
-	if (_items.Num() == 0)
-		return;
-	auto item = _items.Pop();
+	_invenCom->DropItem();
+	 
 	
-	float randFloat = FMath::FRandRange(0, PI * 2.0f);
-
-	float X = cosf(randFloat) * 300.0f;
-	float Y = sinf(randFloat) * 300.0f;
-	FVector playerPos = GetActorLocation();
-	playerPos.Z = GetActorLocation().Z;
-
-	FVector itemPos = playerPos + FVector(X, Y, 0.0f);
-	item->SetItemPos(itemPos);*/
-
-	//if (_items.Num() > 0) //잠깐 스탑
+	
+	////데미지감소시도
+	//if (_invenCom)
 	//{
-	//	// 인벤토리에서 마지막 아이템을 가져와서 제거
-	//	AMyItem* itemToDrop = _items.Last();
-	//	_items.RemoveAt(_items.Num() - 1);
-
-	//	if (itemToDrop)
+	//	if (_invenCom->HasItems()) // 인벤토리에 아이템이 있는지 확인
 	//	{
-	//		// 캐릭터 앞에 아이템을 배치
-	//		FVector dropLocation = GetActorLocation() + GetActorForwardVector() * 300.0f;
-	//		itemToDrop->SetActorLocation(dropLocation);
-	//		
-	//		
-	//		itemToDrop->Init();
-	//		
-	//		UE_LOG(LogTemp, Log, TEXT("Dropped item: %s"), *itemToDrop->GetName());
+	//		_invenCom->DropItem();
+	//		UE_LOG(LogTemp, Warning, TEXT("Attack Damage -50"));
+	//		_statCom->SubAttackDamage(50); // 공격력 감소
 	//	}
-	//}
-	//else
-	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("No items to drop"));
+	//	else
+	//	{
+	//		UE_LOG(LogTemp, Error, TEXT("NO Have ITEM ~____________~"));
+	//	}
 	//}
 }
 
@@ -343,7 +336,6 @@ void AMyCharacter::AttackA(const FInputActionValue& value)
 		_curAttackIndex++;
 
 		_animInstance->JumpToSection(_curAttackIndex);
-
 	}
 }
 
@@ -353,6 +345,10 @@ void AMyCharacter::Init()
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
 	PrimaryActorTick.bCanEverTick = true;
+
+	if (_aiController && GetController() == nullptr) // 컨트롤러를 다시 입혀햐하기때문에 컨트롤러로 기억할수있도록... 재 빙의를 위해...
+		_aiController->Possess(this);
+	
 }
 
 
@@ -361,5 +357,28 @@ void AMyCharacter::Disable()
 	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 	PrimaryActorTick.bCanEverTick = false;
+	
+	auto controller = GetController();
+	if (controller)
+		GetController()->UnPossess();; // 몬스터 죽으면 빙의 풀기
+	UnPossessed();
+}
+
+void AMyCharacter::Attack_AI()
+{
+	
+	if (_isAttacking == false && _animInstance != nullptr)
+	{
+
+		_animInstance->PlayAttackMontage();
+		_isAttacking = true;
+
+
+		_curAttackIndex %= 4;
+		_curAttackIndex++;
+
+		_animInstance->JumpToSection(_curAttackIndex);
+	}
+
 }
 

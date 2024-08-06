@@ -35,14 +35,13 @@ public:
 
 
 	// Widget : MyInvenWidget을 위한것.
-	//UPROPERTY()
-	UMyInvenWidget* MyInvenWidgetInstance;
-private:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<class UMyInvenWidget> MyInvenWidgetClass;
-		
-	
-	bool bIsInventoryVisible;
+//	UMyInvenWidget* MyInvenWidgetInstance;
+//private:
+//	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI", meta = (AllowPrivateAccess = "true"))
+//	TSubclassOf<class UMyInvenWidget> MyInvenWidgetClass;
+//		
+//	
+//	bool bIsInventoryVisible;
 
 };
 	

@@ -15,6 +15,7 @@ ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
+UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyAIController_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyCharacter();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyCharacter_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyInvenComponent_NoRegister();
@@ -22,6 +23,35 @@ UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyStatComponent_NoRegister();
 UMG_API UClass* Z_Construct_UClass_UWidgetComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_UE5_Character_02();
 // End Cross Module References
+
+// Begin Class AMyCharacter Function Attack_AI
+struct Z_Construct_UFunction_AMyCharacter_Attack_AI_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "MyCharacter.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMyCharacter_Attack_AI_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AMyCharacter, nullptr, "Attack_AI", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyCharacter_Attack_AI_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMyCharacter_Attack_AI_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_AMyCharacter_Attack_AI()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMyCharacter_Attack_AI_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMyCharacter::execAttack_AI)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->Attack_AI();
+	P_NATIVE_END;
+}
+// End Class AMyCharacter Function Attack_AI
 
 // Begin Class AMyCharacter Function AttackHit
 struct Z_Construct_UFunction_AMyCharacter_AttackHit_Statics
@@ -144,6 +174,7 @@ void AMyCharacter::StaticRegisterNativesAMyCharacter()
 {
 	UClass* Class = AMyCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "Attack_AI", &AMyCharacter::execAttack_AI },
 		{ "AttackHit", &AMyCharacter::execAttackHit },
 		{ "Disable", &AMyCharacter::execDisable },
 		{ "OnAttackEnded", &AMyCharacter::execOnAttackEnded },
@@ -236,11 +267,11 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Stat" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "// State\n" },
+		{ "Comment", "// State Components\n" },
 #endif
 		{ "ModuleRelativePath", "MyCharacter.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "State" },
+		{ "ToolTip", "State Components" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statCom_MetaData[] = {
@@ -249,29 +280,28 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyCharacter.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__hpbarWidget_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Stat" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// UI\n" },
-#endif
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "MyCharacter.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UI" },
-#endif
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__invenCom_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Input" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xef\xbf\xbd\xce\xba\xef\xbf\xbd\n" },
+		{ "Comment", "// Inven Components\n" },
 #endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyCharacter.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xef\xbf\xbd\xce\xba\xef\xbf\xbd" },
+		{ "ToolTip", "Inven Components" },
 #endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__hpbarWidget_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Stat" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "MyCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__aiController_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "MyCharacter.h" },
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__moveAction;
@@ -288,11 +318,13 @@ struct Z_Construct_UClass_AMyCharacter_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__camera;
 	static const UECodeGen_Private::FIntPropertyParams NewProp__level;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__statCom;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__hpbarWidget;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__invenCom;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__hpbarWidget;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__aiController;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AMyCharacter_Attack_AI, "Attack_AI" }, // 1165964875
 		{ &Z_Construct_UFunction_AMyCharacter_AttackHit, "AttackHit" }, // 134641110
 		{ &Z_Construct_UFunction_AMyCharacter_Disable, "Disable" }, // 1871944046
 		{ &Z_Construct_UFunction_AMyCharacter_OnAttackEnded, "OnAttackEnded" }, // 2265123938
@@ -320,8 +352,9 @@ const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_S
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__camera = { "_camera", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__camera_MetaData), NewProp__camera_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__level = { "_level", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _level), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__level_MetaData), NewProp__level_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__statCom = { "_statCom", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _statCom), Z_Construct_UClass_UMyStatComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statCom_MetaData), NewProp__statCom_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__hpbarWidget = { "_hpbarWidget", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _hpbarWidget), Z_Construct_UClass_UWidgetComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__hpbarWidget_MetaData), NewProp__hpbarWidget_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__invenCom = { "_invenCom", nullptr, (EPropertyFlags)0x00100000000a000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _invenCom), Z_Construct_UClass_UMyInvenComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__invenCom_MetaData), NewProp__invenCom_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__hpbarWidget = { "_hpbarWidget", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _hpbarWidget), Z_Construct_UClass_UWidgetComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__hpbarWidget_MetaData), NewProp__hpbarWidget_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyCharacter_Statics::NewProp__aiController = { "_aiController", nullptr, (EPropertyFlags)0x0010000000020005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyCharacter, _aiController), Z_Construct_UClass_AMyAIController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__aiController_MetaData), NewProp__aiController_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharacter_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__moveAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__lookAction,
@@ -336,8 +369,9 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyCharac
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__camera,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__level,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__statCom,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__hpbarWidget,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__invenCom,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__hpbarWidget,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyCharacter_Statics::NewProp__aiController,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyCharacter_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyCharacter_Statics::DependentSingletons[])() = {
@@ -380,10 +414,10 @@ AMyCharacter::~AMyCharacter() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 3823570059U) },
+		{ Z_Construct_UClass_AMyCharacter, AMyCharacter::StaticClass, TEXT("AMyCharacter"), &Z_Registration_Info_UClass_AMyCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyCharacter), 1171747239U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_822123565(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_1775936594(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

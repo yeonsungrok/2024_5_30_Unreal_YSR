@@ -14,6 +14,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define UE5_CHARACTER_02_MyInvenWidget_generated_h
 
+#define FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execSetItem);
+
+
 #define FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUMyInvenWidget(); \
@@ -41,6 +45,7 @@ public: \
 #define FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_INCLASS_NO_PURE_DECLS \
 	FID_UE5_Character_02_Source_UE5_Character_02_MyInvenWidget_h_15_ENHANCED_CONSTRUCTORS \
 private: \

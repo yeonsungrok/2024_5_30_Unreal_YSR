@@ -1,0 +1,45 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.UE5_Character_02.cpp.obj": [
+			"BT_Deco_CanAttack.gen.cpp.obj",
+			"BT_Service_FindTarget.gen.cpp.obj",
+			"BT_Task_FindRandomPos.gen.cpp.obj",
+			"MainGameMode.gen.cpp.obj",
+			"MyAIController.gen.cpp.obj",
+			"MyAnimInstance.gen.cpp.obj",
+			"MyCharacter.gen.cpp.obj",
+			"MyGameInstance.gen.cpp.obj",
+			"MyHpBar.gen.cpp.obj",
+			"MyInvenComponent.gen.cpp.obj",
+			"MyInvenWidget.gen.cpp.obj",
+			"MyItem.gen.cpp.obj",
+			"MyMonsterActor.gen.cpp.obj",
+			"MyMonsterAnimInstance.gen.cpp.obj",
+			"MyMonsterCharacter.gen.cpp.obj",
+			"MyPlayerController.gen.cpp.obj",
+			"MyStatComponent.gen.cpp.obj",
+			"MyUIManager.gen.cpp.obj",
+			"UE5_Character_02.init.gen.cpp.obj",
+			"BT_Deco_CanAttack.cpp.obj",
+			"BT_Service_FindTarget.cpp.obj",
+			"BT_Task_FindRandomPos.cpp.obj",
+			"MainGameMode.cpp.obj",
+			"MyAIController.cpp.obj",
+			"MyAnimInstance.cpp.obj",
+			"MyCharacter.cpp.obj",
+			"MyGameInstance.cpp.obj",
+			"MyHpBar.cpp.obj",
+			"MyInvenComponent.cpp.obj",
+			"MyInvenWidget.cpp.obj",
+			"MyItem.cpp.obj",
+			"MyMonsterActor.cpp.obj",
+			"MyMonsterAnimInstance.cpp.obj",
+			"MyMonsterCharacter.cpp.obj",
+			"MyPlayerController.cpp.obj",
+			"MyStatComponent.cpp.obj",
+			"MyUIManager.cpp.obj",
+			"UE5_Character_02.cpp.obj"
+		]
+	}
+}

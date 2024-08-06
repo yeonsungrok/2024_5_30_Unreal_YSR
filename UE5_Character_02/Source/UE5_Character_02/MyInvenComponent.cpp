@@ -23,6 +23,7 @@ void UMyInvenComponent::BeginPlay()
 
 	// ...
 	
+
 }
 
 
@@ -36,12 +37,17 @@ void UMyInvenComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 
 void UMyInvenComponent::AddItem(AMyItem* item)
 {
-	if (item)
+
+	_items.Add(item);
+	_itemAddedEvent.Broadcast(item->_itemId, _items.Num() - 1);
+
+	UE_LOG(LogTemp, Warning, TEXT("ADD ITEM: %s"), *item->GetName());
+	/*if (item)
 	{
 		_items.Add(item);
 		UE_LOG(LogTemp, Warning, TEXT("ADD ITEM: %s"), *item->GetName());
 
-	}
+	}*/
 }
 
 void UMyInvenComponent::DropItem()
@@ -51,18 +57,22 @@ void UMyInvenComponent::DropItem()
 		return;
 	}
 	
+	int itemSize = _items.Num(); //아이템 삭제시 체크하기위해 size
 	auto item = _items.Pop();
+	_itemAddedEvent.Broadcast(-1, itemSize - 1); //아이템 삭제시
 
 	float randFloat = FMath::FRandRange(0, PI * 2.0f);
 
 	float X = cosf(randFloat) * 300.0f;
 	float Y = sinf(randFloat) * 300.0f;
 	FVector playerPos = GetOwner()->GetActorLocation();
-	playerPos.Z = GetOwner()->GetActorLocation().Z;
+	//playerPos.Z = GetOwner()->GetActorLocation().Z;
+	playerPos.Z = 0.0f;
 
-	FVector itemPos = playerPos + FVector(X, Y, 0.0f);
+	FVector itemPos = playerPos + FVector(X, Y, 150.0f);
 	item->SetItemPos(itemPos);
 
 	UE_LOG(LogTemp, Warning, TEXT("DROP ITEM : %s "), *item->GetName());
+
 }
 

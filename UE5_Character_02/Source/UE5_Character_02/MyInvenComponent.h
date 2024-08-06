@@ -8,6 +8,11 @@
 
 #include "MyInvenComponent.generated.h"
 
+class AMyItem;
+
+DECLARE_MULTICAST_DELEGATE_TwoParams(ItemAdded, int itemId, int itemIndex)
+
+//DECLARE_MULTICAST_DELEGATE_TwoParams(ItemDroped, int itemId, int itemIndex)
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UE5_CHARACTER_02_API UMyInvenComponent : public UActorComponent
@@ -28,11 +33,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 	// 아이템 추가
-
 	void AddItem(class AMyItem* item);
-
 	// 아이템 드랍
+	UFUNCTION()
 	void DropItem();
+
+	ItemAdded _itemAddedEvent;
+	
+	//ItemDroped _itemDropedEvent;
 	
 	// 데미지감소시도
 	bool HasItems() const { return _items.Num() > 0; }

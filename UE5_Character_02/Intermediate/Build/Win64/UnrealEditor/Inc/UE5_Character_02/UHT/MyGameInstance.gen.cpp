@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeMyGameInstance() {}
 // Begin Cross Module References
 ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UGameInstance();
+UE5_CHARACTER_02_API UClass* Z_Construct_UClass_AMyUIManager_NoRegister();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyGameInstance();
 UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyGameInstance_NoRegister();
 UPackage* Z_Construct_UPackage__Script_UE5_Character_02();
@@ -30,17 +31,18 @@ struct Z_Construct_UClass_UMyGameInstance_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
-#endif
 		{ "IncludePath", "MyGameInstance.h" },
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statTable_MetaData[] = {
 		{ "ModuleRelativePath", "MyGameInstance.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__uiManager_MetaData[] = {
+		{ "ModuleRelativePath", "MyGameInstance.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__statTable;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__uiManager;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -49,8 +51,10 @@ struct Z_Construct_UClass_UMyGameInstance_Statics
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__statTable = { "_statTable", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _statTable), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statTable_MetaData), NewProp__statTable_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UMyGameInstance_Statics::NewProp__uiManager = { "_uiManager", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UMyGameInstance, _uiManager), Z_Construct_UClass_AMyUIManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__uiManager_MetaData), NewProp__uiManager_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UMyGameInstance_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__statTable,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UMyGameInstance_Statics::NewProp__uiManager,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UMyGameInstance_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_UMyGameInstance_Statics::DependentSingletons[])() = {
@@ -93,10 +97,10 @@ UMyGameInstance::~UMyGameInstance() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyGameInstance_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UMyGameInstance, UMyGameInstance::StaticClass, TEXT("UMyGameInstance"), &Z_Registration_Info_UClass_UMyGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyGameInstance), 3392888691U) },
+		{ Z_Construct_UClass_UMyGameInstance, UMyGameInstance::StaticClass, TEXT("UMyGameInstance"), &Z_Registration_Info_UClass_UMyGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyGameInstance), 809591655U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyGameInstance_h_3012725627(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyGameInstance_h_3306475956(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyGameInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyGameInstance_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

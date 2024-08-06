@@ -17,9 +17,49 @@ UE5_CHARACTER_02_API UClass* Z_Construct_UClass_UMyInvenComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_UE5_Character_02();
 // End Cross Module References
 
+// Begin Class UMyInvenComponent Function DropItem
+struct Z_Construct_UFunction_UMyInvenComponent_DropItem_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\n" },
+#endif
+		{ "ModuleRelativePath", "MyInvenComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UMyInvenComponent_DropItem_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UMyInvenComponent, nullptr, "DropItem", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UMyInvenComponent_DropItem_Statics::Function_MetaDataParams), Z_Construct_UFunction_UMyInvenComponent_DropItem_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_UMyInvenComponent_DropItem()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UMyInvenComponent_DropItem_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UMyInvenComponent::execDropItem)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->DropItem();
+	P_NATIVE_END;
+}
+// End Class UMyInvenComponent Function DropItem
+
 // Begin Class UMyInvenComponent
 void UMyInvenComponent::StaticRegisterNativesUMyInvenComponent()
 {
+	UClass* Class = UMyInvenComponent::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "DropItem", &UMyInvenComponent::execDropItem },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UMyInvenComponent);
 UClass* Z_Construct_UClass_UMyInvenComponent_NoRegister()
@@ -32,8 +72,14 @@ struct Z_Construct_UClass_UMyInvenComponent_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintSpawnableComponent", "" },
 		{ "ClassGroupNames", "Custom" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//DECLARE_MULTICAST_DELEGATE_TwoParams(ItemDroped, int itemId, int itemIndex)\n" },
+#endif
 		{ "IncludePath", "MyInvenComponent.h" },
 		{ "ModuleRelativePath", "MyInvenComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "DECLARE_MULTICAST_DELEGATE_TwoParams(ItemDroped, int itemId, int itemIndex)" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__items_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -45,6 +91,10 @@ struct Z_Construct_UClass_UMyInvenComponent_Statics
 	static const UECodeGen_Private::FArrayPropertyParams NewProp__items;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_UMyInvenComponent_DropItem, "DropItem" }, // 2697543117
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UMyInvenComponent>::IsAbstract,
 	};
@@ -67,11 +117,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UMyInvenComponent_Stati
 	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_UMyInvenComponent_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_UMyInvenComponent_Statics::PropPointers),
 	0,
 	0x00B000A4u,
@@ -97,10 +147,10 @@ UMyInvenComponent::~UMyInvenComponent() {}
 struct Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyInvenComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UMyInvenComponent, UMyInvenComponent::StaticClass, TEXT("UMyInvenComponent"), &Z_Registration_Info_UClass_UMyInvenComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyInvenComponent), 2690824279U) },
+		{ Z_Construct_UClass_UMyInvenComponent, UMyInvenComponent::StaticClass, TEXT("UMyInvenComponent"), &Z_Registration_Info_UClass_UMyInvenComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMyInvenComponent), 1976232746U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyInvenComponent_h_2369044882(TEXT("/Script/UE5_Character_02"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyInvenComponent_h_1392547100(TEXT("/Script/UE5_Character_02"),
 	Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyInvenComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_Character_02_Source_UE5_Character_02_MyInvenComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
