@@ -110,22 +110,16 @@
     <ClInclude Include="..\..\Source\UE5_Character_02\MyItem.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterActor.cpp">
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsters.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterActor.h">
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsters.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterAnimInstance.cpp">
+    <ClCompile Include="..\..\Source\UE5_Character_02\MyPlayer.cpp">
       <Filter>Source\UE5_Character_02</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterAnimInstance.h">
-      <Filter>Source\UE5_Character_02</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\UE5_Character_02\MyMonsterCharacter.cpp">
-      <Filter>Source\UE5_Character_02</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\UE5_Character_02\MyMonsterCharacter.h">
+    <ClInclude Include="..\..\Source\UE5_Character_02\MyPlayer.h">
       <Filter>Source\UE5_Character_02</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\UE5_Character_02\MyPlayerController.cpp">

@@ -7,12 +7,6 @@
 #include "MyUIManager.h"
 #include "MyInvenWidget.h"
 
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
-#include "InputActionValue.h"
-
-#include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "MyAnimInstance.h"
 #include "Engine/DamageEvents.h"
@@ -26,9 +20,10 @@
 #include "Blueprint/UserWidget.h"
 #include "MyInvenWidget.h"
 #include "MyPlayerController.h"
-
 #include "Components/Button.h"
+
 #include "MyAIController.h"
+
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -47,25 +42,8 @@ AMyCharacter::AMyCharacter()
 
 	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.0f), FRotator(0.0f, -90.0f, 0.0f));
 
-
-	_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	
-
-
-	// 상속관계
-	_springArm->SetupAttachment(GetCapsuleComponent());
-	_camera->SetupAttachment(_springArm);
-
-	_springArm->TargetArmLength = 550.0f;
-	_springArm->SetRelativeRotation(FRotator(-30.0f, 0.0f, 0.0f));
-	
-	// 사이즈
-	SetActorScale3D(FVector(1.2f, 1.2f, 1.2f));
-
-
-	// Stat Component
-	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
+	//추가해봄
+	RootComponent = GetCapsuleComponent();
 
 	// inven Component
 	_invenCom = CreateDefaultSubobject<UMyInvenComponent>(TEXT("Inventory"));
@@ -77,6 +55,8 @@ AMyCharacter::AMyCharacter()
 	
 	// hp바위치
 	_hpbarWidget->SetRelativeLocation(FVector(0.0f, 0.0f, 238.0f));
+	// Stat Component
+	_statCom = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
 	
 	static ConstructorHelpers::FClassFinder<UUserWidget> hpBar(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/BluePrint/UI/MyHpBar_BP.MyHpBar_BP_C'"));
 	
@@ -93,10 +73,7 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	_aiController = Cast<AMyAIController>(GetController());
-	
 	Init();
-
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -113,7 +90,9 @@ void AMyCharacter::PostInitializeComponents()
 	}
 
 	// 레벨 설정
-	_statCom->SetLevelAndInit(_level);
+	_statCom->SetLevelAndInit(1);
+	_statCom->_deathDelegate.AddLambda([this]()->void {this->GetController()->UnPossess(); });
+
 
 	//_statCom->_hpChangedDelegate.Add();
 	
@@ -136,36 +115,6 @@ void AMyCharacter::PostInitializeComponents()
 
 }
 
-// Called every frame
-void AMyCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
-// Called to bind functionality to input
-void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		// Moving
-		EnhancedInputComponent->BindAction(_moveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
-
-		// Looking
-		EnhancedInputComponent->BindAction(_lookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
-		
-		// JumpA
-		EnhancedInputComponent->BindAction(_jumpAction, ETriggerEvent::Started, this, &AMyCharacter::JumpA);
-
-		// 공격
-		EnhancedInputComponent->BindAction(_attackAction, ETriggerEvent::Started, this, &AMyCharacter::AttackA);
-		
-		// G키 드랍
-		EnhancedInputComponent->BindAction(_dropAction, ETriggerEvent::Started, this, &AMyCharacter::DropItemFromCharacter);
-	}
-}
 
 float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
@@ -198,6 +147,7 @@ void AMyCharacter::AttackHit()
 
 	float attackRange = 500.0f;
 	float attackRadius = 100.0f;
+	FQuat quat = FQuat::Identity;
 
 		bool bResult = GetWorld()->SweepSingleByChannel
 		(
@@ -206,7 +156,9 @@ void AMyCharacter::AttackHit()
 			GetActorLocation() + GetActorForwardVector() * attackRange,
 			FQuat::Identity,
 			ECollisionChannel::ECC_GameTraceChannel2,
-			FCollisionShape::MakeSphere(attackRadius),
+			//FCollisionShape::MakeSphere(attackRadius),
+			FCollisionShape::MakeCapsule(attackRadius, attackRange),
+
 			params
 		);
 
@@ -241,7 +193,8 @@ void AMyCharacter::AttackHit()
 		UE_LOG(LogTemp, Warning, TEXT("AttackDamage : %d"), _statCom->GetAttackDamge());
 		//UE_LOG(LogTemp, Warning, TEXT("ME : %s AttackDamage : %d"), *GetName(), _attackDamage);
 
-		DrawDebugSphere(GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f);	
+		//DrawDebugSphere(GetWorld(), center, attackRadius, 12, drawColor, false, 2.0f);	
+		DrawDebugCapsule(GetWorld(), center, attackRange, attackRadius, quat, drawColor, false, 2.0f);
 }
 		
 
@@ -285,59 +238,6 @@ void AMyCharacter::DropItemFromCharacter()
 	//}
 }
 
-void AMyCharacter::Move(const FInputActionValue& value)
-{
-	FVector2D MovementVector = value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		_vertical = MovementVector.Y;
-		_horizontal = MovementVector.X;
-
-		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-		AddMovementInput(GetActorRightVector(), MovementVector.X);
-
-	}
-}
-
-void AMyCharacter::Look(const FInputActionValue& value)
-{
-	FVector2D LookAxisVector = value.Get<FVector2D>();
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(LookAxisVector.X);
-	}
-}
-
-void AMyCharacter::JumpA(const FInputActionValue& value)
-{
-	bool isPressed = value.Get<bool>();
-
-	if (isPressed)
-	{
-		////테스트 로그 출력
-		//UE_LOG(LogTemp, Warning, TEXT("Jump!!"));
-		
-		ACharacter::Jump();
-	}
-}
-
-void AMyCharacter::AttackA(const FInputActionValue& value)
-{
-	bool isPressed = value.Get<bool>();
-	if (isPressed && _isAttacking == false && _animInstance != nullptr)
-	{
-		
-		_animInstance->PlayAttackMontage();
-		_isAttacking = true;
-
-
-		_curAttackIndex %= 4;
-		_curAttackIndex++;
-
-		_animInstance->JumpToSection(_curAttackIndex);
-	}
-}
 
 void AMyCharacter::Init()
 {
@@ -347,8 +247,11 @@ void AMyCharacter::Init()
 	PrimaryActorTick.bCanEverTick = true;
 
 	if (_aiController && GetController() == nullptr) // 컨트롤러를 다시 입혀햐하기때문에 컨트롤러로 기억할수있도록... 재 빙의를 위해...
-		_aiController->Possess(this);
-	
+	{
+		auto ai_Controller = Cast<AMyAIController>(_aiController);
+		if(ai_Controller)
+			ai_Controller->Possess(this);
+	}
 }
 
 
@@ -362,23 +265,5 @@ void AMyCharacter::Disable()
 	if (controller)
 		GetController()->UnPossess();; // 몬스터 죽으면 빙의 풀기
 	UnPossessed();
-}
-
-void AMyCharacter::Attack_AI()
-{
-	
-	if (_isAttacking == false && _animInstance != nullptr)
-	{
-
-		_animInstance->PlayAttackMontage();
-		_isAttacking = true;
-
-
-		_curAttackIndex %= 4;
-		_curAttackIndex++;
-
-		_animInstance->JumpToSection(_curAttackIndex);
-	}
-
 }
 

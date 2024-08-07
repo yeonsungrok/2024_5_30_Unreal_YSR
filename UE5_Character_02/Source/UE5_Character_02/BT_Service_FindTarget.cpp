@@ -10,6 +10,7 @@
 #include "MyCharacter.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/OverlapResult.h"
+#include "MyPlayer.h"
 
 UBT_Service_FindTarget::UBT_Service_FindTarget()
 {
@@ -49,7 +50,7 @@ void UBT_Service_FindTarget::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 	{
 		for (auto& result : overLapResult)
 		{
-			auto myCharacter = Cast<AMyCharacter>(result.GetActor());
+			auto myCharacter = Cast<AMyPlayer>(result.GetActor());
 			if (myCharacter != nullptr && myCharacter->GetController()->IsPlayerController()) 
 			{
 				OwnerComp.GetBlackboardComponent()->SetValueAsObject(FName(TEXT("Target")), myCharacter); // Å¸°Ù myCharacter
